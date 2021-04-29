@@ -1,11 +1,23 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
   overflow: hidden;
+  &[data-scrollbar="true"] {
+    height: 100%;
+    .scroll-content {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  &:not([data-scrollbar="true"]) {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 }
+
 .main {
   flex: 1 1 100%;
+  min-height: 3000px;
 }
 .section {
   margin: 0 0 100px 0;

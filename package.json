@@ -7,25 +7,25 @@
 		"not dead"
 	],
 	"devDependencies": {
-		"gulp": "^4.0.2",
-		"gulp-pug": "^4.0.1",
-		"gulp-typograf": "^4.0.3",
-		"gulp-sass": "^4.0.2",
-		"gulp-autoprefixer": "^7.0.1",
-		"gulp-clean-css": "^4.2.0",
-		"gulp-sourcemaps": "^2.6.5",
-		"gulp-uglify": "^3.0.2",
-		"gulp-rename": "^2.0.0",
-		"gulp-favicons": "^2.3.1",
-		"gulp-newer": "^1.4.0",
-		"gulp-watch": "^5.0.1",
-		"gulp-clean": "^0.4.0",
-		"browser-sync": "^2.26.7",
-		"vinyl-ftp": "^0.6.1",
 		"@babel/core": "^7.5.5",
 		"@babel/preset-env": "^7.5.5",
 		"babel-loader": "^8.0.6",
-		"webpack": "^4.44.2",
+		"browser-sync": "^2.26.7",
+		"gulp": "^4.0.2",
+		"gulp-autoprefixer": "^7.0.1",
+		"gulp-clean": "^0.4.0",
+		"gulp-clean-css": "^4.2.0",
+		"gulp-newer": "^1.4.0",
+		"gulp-pug": "^4.0.1",
+		"gulp-real-favicon": "^0.3.2",
+		"gulp-rename": "^2.0.0",
+		"gulp-sass": "^4.0.2",
+		"gulp-sourcemaps": "^3.0.0",
+		"gulp-typograf": "^4.0.3",
+		"gulp-uglify": "^3.0.2",
+		"gulp-watch": "^5.0.1",
+		"vinyl-ftp": "^0.6.1",
+		"webpack": "^5.36.1",
 		"webpack-stream": "^6.1.0"
 	},
 	"dependencies": {
@@ -34,6 +34,8 @@
 		"inputmask": "^5.0.5",
 		"lazysizes": "^5.2.2",
 		"normalize.css": "^8.0.1",
-		"scroll-lock": "^2.1.4"
+		"scroll-lock": "^2.1.4",
+		"smooth-scrollbar": "^8.6.1",
+		"validate.js": "^0.13.1"
 	}
 }

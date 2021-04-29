@@ -1,2 +1,8 @@
+:root {
+  --color-text: #8E9B9B;
+  --color-title: #3D4545;
+  --color-main-background: #fff;
+  --color-scrollbar: #CECECE;
+  --color-scrollbar-hover: #4FA6A6; }
 
 /*# sourceMappingURL=maps/theme.css.map */
