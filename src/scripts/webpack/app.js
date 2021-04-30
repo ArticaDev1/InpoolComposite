@@ -1,4 +1,4 @@
-const Dev = false;
+const Dev = true;
 
 import 'lazysizes';
 //gsap
@@ -34,15 +34,35 @@ function mobile() {
   }
 }
 
-window.onload = function(){
+window.onload = function() {
+  Resources.init();
+  Preloader.init();
+  //
   TouchHoverEvents.init();
   Mask.init();
   Scroll.init();
-  Preloader.init();
+
+  const activeFunctions = new ActiveFunctions();
+  activeFunctions.create();
+  activeFunctions.add(SectionVideoAnimation, '.section-video-animation');
+  activeFunctions.init();
 }
 
+//effects
+gsap.registerEffect({
+  name: "slidingText",
+  effect: ($text) => {
+    let anim = gsap.timeline({paused: true, defaults:{duration:1, ease:'none'}})
+      .fromTo($text, {autoAlpha:0}, {autoAlpha:1, duration:0.2, stagger:{amount:0.1}})
+      .fromTo($text, {y:50}, {y:-50}, `-=0.3`)
+      .to($text, {autoAlpha:0, duration:0.2, stagger:{amount:0.1}}, `-=0.3`)
+    return anim;
+  },
+  extendTimeline: true
+});
+
 const Resources = {
-  load: function() {
+  init: function() {
     this.framesCount = 0;
     this.framesLoaded = 0;
     this.sources = {
@@ -52,16 +72,30 @@ const Resources = {
         frames: []
       }
     }
-    for(let source in this.sources) {
-      for(let i = 0; i < this.sources[source].framesCount; i++) {
-        this.sources[source].frames[i] = new Image();
-        this.sources[source].frames[i].onload = ()=> {
-          this.framesLoaded++;
+
+    this.load = () => {
+      for(let source in this.sources) {
+        for(let i = 0; i < this.sources[source].framesCount; i++) {
+          this.sources[source].frames[i] = new Image();
+          this.sources[source].frames[i].onload = ()=> {
+            this.framesLoaded++;
+          }
+          this.sources[source].frames[i].src = `${this.sources[source].src+(1+i)}.jpg`;
         }
-        this.sources[source].frames[i].src = `${this.sources[source].src+(1+i)}.jpg`;
+        this.framesCount+=this.sources[source].framesCount;
       }
-      this.framesCount+=this.sources[source].framesCount;
     }
+
+    this.check = () => {
+      if(window.innerWidth >= brakepoints.lg && !this.initialized) {
+        this.load();
+        this.initialized = true;
+        console.log('load')
+      }
+    }
+
+    this.check();
+    window.addEventListener('resize', this.check);
   }
 };
 
@@ -137,6 +171,31 @@ const TouchHoverEvents = {
   }
 }
 
+class ActiveFunctions {
+  create() {
+    this.functions = [];
+  }
+  add(clss, blocks) {
+    let $blocks = document.querySelectorAll(blocks);
+    if($blocks.length) {
+      $blocks.forEach($block => {
+        this.functions.push(new clss($block));
+      });
+    }
+  }
+  init() {
+    this.functions.forEach(func => {
+      func.init();
+    })
+  }
+  destroy() {
+    this.functions.forEach(func => {
+      func.destroy();
+    })
+    this.functions = [];
+  }
+}
+
 const Scroll = {
   init: function() {
     this.y = 0;
@@ -147,6 +206,7 @@ const Scroll = {
     }
   },
   custom: function() {
+    $body.classList.add('hidden');
     this.scrollbar = Scrollbar.init($wrapper, {
       damping: 0.2
     })
@@ -248,10 +308,26 @@ const Preloader = {
     this.$element = document.querySelector('.preloader');
     this.$item = document.querySelector('.preloader__item');
     
+    this.finish = () => {
+      if(!Dev) {
+        gsap.timeline({onComplete:()=>{
+          this.$element.remove();
+        }})
+          .to(this.$element, {autoAlpha:0, duration:0.5})
+          .to($wrapper, {autoAlpha:1})
+      } else {
+        this.$element.remove();
+        gsap.set($wrapper, {autoAlpha:1})
+      }
+
+      if(mobile()) {
+        $body.style.cssText = 'position:initial;height:initial;width:initial;overflow:auto;';
+      }
+    }
+
     if(!Dev) {
       //desktop
-      if(!mobile()) {
-        Resources.load();
+      if(window.innerWidth >= brakepoints.lg) {
         this.check = () => {
           this.time = 50;
           this.timer = setInterval(() => {
@@ -284,19 +360,92 @@ const Preloader = {
           this.finish();
         }})
       }
+    } 
+    
+    else {
+      this.finish();
     }
+  }
+}
 
-    this.finish = () => {
-      gsap.timeline({onComplete:()=>{
-        this.$element.remove();
-      }})
-        .to(this.$element, {autoAlpha:0, duration:0.5})
-        .to($wrapper, {autoAlpha:1})
-        
+class SectionVideoAnimation {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
 
-      if(mobile()) {
-        $body.style.cssText = 'position:initial;height:initial;width:initial;overflow:auto;';
+  init() {
+    this.check = ()=> {
+      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+        this.initDesktop();
+        this.flag = true;
+      } 
+      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
+        if(this.initialized) {
+          this.destroyDesktop();
+        }
+        this.flag = false;
       }
     }
+    this.check();
+    window.addEventListener('resize', this.check);
+    this.initialized = true;
+  }
+
+  initDesktop() {
+    let pinType = Scroll.scrollbar?'transform':'fixed';
+    this.$scene = this.$parent.querySelector('.section-video-animation__scene');
+    this.$canvas = this.$parent.querySelector('.section-video-animation__scene canvas');
+    this.$text = this.$parent.querySelectorAll('.section-video-animation__title, .section-video-animation__text');
+    this.context = this.$canvas.getContext("2d");
+    this.$canvas.width=1280;
+    this.$canvas.height=720;
+    this.framesCount = Resources.sources[0].framesCount;
+    this.frames = Resources.sources[0].frames;
+    this.activeFrame = this.frames[0];
+    this.sceneRender = ()=> {
+      this.context.drawImage(this.activeFrame, 0, 0);
+      this.animationFrame = requestAnimationFrame(this.sceneRender);
+    }
+    this.sceneRender();
+
+    this.resizeEvent = () => {
+      let h = this.$parent.getBoundingClientRect().height,
+          w = this.$parent.getBoundingClientRect().width,
+          res = this.$canvas.height/this.$canvas.width;
+
+      if (h / w < res) {
+        this.$canvas.style.width = `${w}px`;
+        this.$canvas.style.height = `${w*res}px`;
+      } else {
+        this.$canvas.style.width = `${h/res}px`;
+        this.$canvas.style.height = `${h}px`;
+      }
+    }
+    this.resizeEvent();
+    window.addEventListener('resize', this.resizeEvent);
+
+    this.animation_text = gsap.effects.slidingText(this.$text);
+    this.animation_fade_scene = gsap.timeline({paused:true})
+      .fromTo(this.$scene, {autoAlpha:0}, {autoAlpha:1, duration:0.3})
+      .to(this.$scene, {autoAlpha:0, duration:0.3}, `+=0.4`)
+
+
+    this.trigger = ScrollTrigger.create({
+      trigger: this.$parent,
+      start: "top top",
+      end: "top+=1500 top",
+      pin: true,
+      pinType: pinType,
+      onUpdate: self => {
+        let index = Math.round(self.progress*(this.framesCount-1));
+        this.activeFrame = this.frames[index];
+        this.animation_text.progress(self.progress);
+        this.animation_fade_scene.progress(self.progress);
+      }
+    });
+  }
+
+  destroyDesktop() {
+    
   }
 }

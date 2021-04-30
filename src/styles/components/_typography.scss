@@ -1,15 +1,13 @@
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
-  margin: 1.875rem 0 1rem 0;
-  line-height: 1.35;
-  &:first-child {
-    margin-top: 0;
-  }
+  margin-top: 0;
   &:last-child {
     margin-bottom: 0;
   }
 }
 h1, .h1 {
-  font-size: 1.875rem;
+  font-size: 4.875rem;
+  line-height: 1;
+  margin-bottom: 60px;
 }
 h2, .h2 {
   font-size: 1.5rem;
@@ -25,6 +23,11 @@ h5, .h5 {
 }
 h6, .h6 {
   font-size: 1rem;
+}
+@include media-breakpoint-down(xxl) {
+  h1, .h1 {
+    font-size: 3.875rem;
+  }
 }
 
 p {

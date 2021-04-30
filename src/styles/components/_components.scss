@@ -48,8 +48,6 @@
     width: inherit;
     padding: inherit;
     background-color: transparent;
-    opacity: 0;
-    transition: opacity $trs1;
     &:after {
       content: '';
       display: block;
@@ -64,11 +62,6 @@
       &::after {
         background-color: var(--color-scrollbar-hover);
       }
-    }
-  }
-  &[data-hover], &[data-hover], &.show {
-    .scrollbar-thumb {
-      opacity: 1;
     }
   }
 }
