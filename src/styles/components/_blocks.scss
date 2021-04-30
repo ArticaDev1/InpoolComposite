@@ -54,7 +54,7 @@
 }
 
 .section-technologies {
-  margin-top: -300px;
+  margin-top: -200px;
   &__container {
     &>.row {
       justify-content: space-between;
@@ -68,6 +68,15 @@
   }
   &_3 {
     margin-top: 500px;
+  }
+  &_4 {
+    margin-top: -80px;
+  }
+  &_5 {
+    margin-top: 170px;
+  }
+  &_6 {
+    margin-top: -80px;
   }
   &__image {
     position: relative;
@@ -99,6 +108,21 @@
         padding-top: 136%;
       }
     }
+    &_4 {
+      &::before {
+        padding-top: 90%;
+      }
+    }
+    &_5 {
+      &::before {
+        padding-top: 106%;
+      }
+    }
+    &_6 {
+      &::before {
+        padding-top: 75%;
+      }
+    }
   }
   &__text {
     margin-bottom: 30px;
@@ -110,6 +134,15 @@
     }
     &_3 {
       margin-top: 400px;
+    }
+    &_4 {
+      margin-top: -50px;
+    }
+    &_5 {
+      margin-top: 150px;
+    }
+    &_6 {
+      margin-top: -50px;
     }
   }
 }
