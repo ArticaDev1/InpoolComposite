@@ -497,17 +497,23 @@ class SectionTechnologies {
       });
     })
 
-    /* this.animation_fade = gsap.timeline({paused:true}) 
+    this.animation_fade = gsap.timeline({paused:true}) 
       .fromTo(this.$parent, {autoAlpha:0}, {autoAlpha:1, ease:'power2.in'})
 
     this.trigger_fade = ScrollTrigger.create({
       trigger: this.$parent,
-      start: "top bottom-=200",
-      end: "top bottom-=500",
+      start: ()=>{
+        let h = window.innerHeight/3;
+        return `top bottom-=${h}`;
+      },
+      end: ()=>{
+        let h = window.innerHeight/3;
+        return `top bottom-=${h+300}`;
+      },
       onUpdate: self => {
         this.animation_fade.progress(self.progress);
       }
-    }); */
+    });
     
   }
 
