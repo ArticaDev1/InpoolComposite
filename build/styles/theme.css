@@ -2,8 +2,10 @@
   --color-text: #8E9B9B;
   --color-title: #3D4545;
   --color-text-light: #fff;
+  --color-accent: #4FA6A6;
   --color-main-background: #fff;
   --color-scrollbar: #CECECE;
-  --color-scrollbar-hover: #4FA6A6; }
+  --color-scrollbar-hover: #4FA6A6;
+  --color-background-unloaded: #F5F5F5; }
 
 /*# sourceMappingURL=maps/theme.css.map */

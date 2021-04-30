@@ -1,6 +1,7 @@
 const Dev = true;
 
 import 'lazysizes';
+lazySizes.cfg.preloadAfterLoad = true;
 //gsap
 import {gsap} from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -45,6 +46,7 @@ window.onload = function() {
   const activeFunctions = new ActiveFunctions();
   activeFunctions.create();
   activeFunctions.add(SectionVideoAnimation, '.section-video-animation');
+  activeFunctions.add(SectionTechnologies, '.section-technologies');
   activeFunctions.init();
 }
 
@@ -52,7 +54,7 @@ window.onload = function() {
 gsap.registerEffect({
   name: "slidingText",
   effect: ($text) => {
-    let anim = gsap.timeline({paused: true, defaults:{duration:1, ease:'none'}})
+    let anim = gsap.timeline({paused: true, defaults:{ease:'none'}})
       .fromTo($text, {autoAlpha:0}, {autoAlpha:1, duration:0.25, stagger:{amount:0.05}})
       .fromTo($text, {y:40}, {y:-40}, `-=0.3`)
       .to($text, {autoAlpha:0, duration:0.25, stagger:{amount:0.05}}, `-=0.3`)
@@ -448,4 +450,70 @@ class SectionVideoAnimation {
   destroyDesktop() {
     
   }
+}
+
+class SectionTechnologies {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
+
+  init() {
+    this.check = ()=> {
+      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+        this.initDesktop();
+        this.flag = true;
+      } 
+      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
+        if(this.initialized) {
+          this.destroyDesktop();
+        }
+        this.flag = false;
+      }
+    }
+    this.check();
+    window.addEventListener('resize', this.check);
+    this.initialized = true;
+  }
+
+  initDesktop() {
+    this.$blocks = this.$parent.querySelectorAll('.technologies-block');
+
+    this.animations_parallax = []
+    this.triggers_parallax = [];
+
+    this.animations_fade = []
+    this.triggers_fade = [];
+
+    this.$blocks.forEach(($block, index) => {
+      //parallax
+      let $image = $block.querySelector('img');
+      this.animations_parallax[index] = gsap.timeline({paused:true}) 
+        .to($image, {yPercent:30, ease:'none'})
+      //fade
+      this.animations_fade[index] = gsap.timeline({paused:true}) 
+        .fromTo($block, {autoAlpha:0}, {autoAlpha:1, ease:'none'})
+
+      this.triggers_parallax[index] = ScrollTrigger.create({
+        trigger: $image,
+        start: "top bottom-=200",
+        end: "bottom top",
+        onUpdate: self => {
+          this.animations_parallax[index].progress(self.progress);
+        }
+      });
+
+      this.triggers_fade[index] = ScrollTrigger.create({
+        trigger: $image,
+        start: "top bottom-=200",
+        end: "center center",
+        onUpdate: self => {
+          this.animations_fade[index].progress(self.progress);
+        }
+      });
+
+      
+    })
+  }
+
+
 }

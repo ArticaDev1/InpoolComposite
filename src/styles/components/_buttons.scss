@@ -37,3 +37,37 @@
     }
   }
 }
+
+.btn-link {
+  color: var(--color-accent);
+  display: inline-flex;
+  position: relative;
+  &::after,
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: calc(100% + 2px);
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    pointer-events: none;
+  }
+  &::after {
+    transition: transform .25s $out .35s;
+  }
+  &::before {
+    transform: translateX(-50%) scaleX(0);
+    transition: transform .35s $in;
+  }
+  &[data-touch], &[data-hover] {
+    &::after {
+      transition: transform .25s $in;
+      transform: translateX(50%) scaleX(0);
+    }
+    &::before {
+      transition: transform .35s $out .25s;
+      transform: translateX(0) scaleX(1);
+    }
+  }
+}

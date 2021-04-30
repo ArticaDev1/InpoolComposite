@@ -14,10 +14,43 @@ block content
   section.section.section-technologies
     .container.section-technologies__container 
       .row
-        .technologies-block.col-xl-3
-          .technologies-block__image
-            .image.image_cover
-              img(data-src="", alt="").lazyload
+        mixin block1(image, title, text, link, classes, classes2)
+          //block
+          .technologies-block.col-xl-3(class=classes2)
+            .technologies-block__image(class=classes)
+              .image.image_cover
+                img(data-src=image, alt="image").lazyload
+            .technologies-block__text
+              h6.technologies-block__title=title
+              p=text
+            a(href=link).btn-link Подробнее 
+        
+        +block1(
+          './img/technologies/1.jpg',
+          'Технология SlipStop®',
+          'Slipstop в отличие от общепринятых антискользящих материалов, покрывает все горизонтальные поверхности.',
+          'javascript:void(0);',
+          'technologies-block__image_1',
+          'technologies-block_1'
+        )
+        +block1(
+          './img/technologies/2.jpg',
+          'Жалюзи для бассейна',
+          'Закончив строительство бассейна на собственной территории, возникает закономерный вопрос: чем его накрыть?',
+          'javascript:void(0);',
+          'technologies-block__image_2',
+          'technologies-block_2'
+        )
+        +block1(
+          './img/technologies/3.jpg',
+          'Удаленное управление',
+          'Интеллектуальный инструмент удаленного доступа и диспетчеризации позволяет сервисным службам дистанционно наблюдать за системой водоподготовки.',
+          'javascript:void(0);',
+          'technologies-block__image_3',
+          'technologies-block_3'
+        )
+        .col-xl-12
+        
 
 
   section.section(style='height:100vh;')

@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   color: var(--color-text-light);
-  background: rgba(0, 0, 0, 0.1);
+  //background: rgba(0, 0, 0, 0.1);
   &__scene {
     position: absolute;
     width: 100%;
@@ -43,11 +43,73 @@
     margin-bottom: 0;
     margin-top: -0.5em;
     flex: 0 0 auto;
+    color: inherit;
   }
   &__text {
     align-self: stretch;
     flex: 1 1 auto;
     display: flex;
     align-items: center;
+  }
+}
+
+.section-technologies {
+  margin-top: -200px;
+  &__container {
+    &>.row {
+      justify-content: space-between;
+    }
+  }
+}
+
+.technologies-block {
+  &_2 {
+    margin-top: 250px;
+  }
+  &_3 {
+    margin-top: 500px;
+  }
+  &__image {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+    &::before {
+      content: '';
+      display: block;
+    }
+    .image {
+      position: absolute;
+      width: 100%;
+      height: 130%;
+      bottom: 0;
+      left: 0;
+    }
+    &_1 {
+      &::before {
+        padding-top: 120%;
+      }
+    }
+    &_2 {
+      &::before {
+        padding-top: 130%;
+      }
+    }
+    &_3 {
+      &::before {
+        padding-top: 136%;
+      }
+    }
+  }
+  &__text {
+    margin-bottom: 30px;
+  }
+
+  @include media-breakpoint-down(xxl) {
+    &_2 {
+      margin-top: 200px;
+    }
+    &_3 {
+      margin-top: 400px;
+    }
   }
 }
