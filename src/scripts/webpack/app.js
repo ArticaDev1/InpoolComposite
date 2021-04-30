@@ -497,7 +497,7 @@ class SectionTechnologies {
       });
     })
 
-    this.animation_fade = gsap.timeline({paused:true}) 
+    /* this.animation_fade = gsap.timeline({paused:true}) 
       .fromTo(this.$parent, {autoAlpha:0}, {autoAlpha:1, ease:'power2.in'})
 
     this.trigger_fade = ScrollTrigger.create({
@@ -507,7 +507,7 @@ class SectionTechnologies {
       onUpdate: self => {
         this.animation_fade.progress(self.progress);
       }
-    });
+    }); */
     
   }
 
