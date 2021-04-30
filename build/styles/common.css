@@ -3439,7 +3439,8 @@ p {
 .section-video-animation {
   min-height: 100vh;
   display: flex;
-  color: var(--color-text-light); }
+  color: var(--color-text-light);
+  background: rgba(0, 0, 0, 0.1); }
   .section-video-animation__scene {
     position: absolute;
     width: 100%;

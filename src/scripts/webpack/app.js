@@ -1,4 +1,4 @@
-const Dev = false;
+const Dev = true;
 
 import 'lazysizes';
 //gsap
@@ -68,7 +68,7 @@ const Resources = {
     this.sources = {
       0: {
         src: './img/drone_video/',
-        framesCount: 100,
+        framesCount: 40,
         frames: []
       }
     }
