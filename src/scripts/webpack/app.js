@@ -427,7 +427,7 @@ class SectionVideoAnimation {
     window.addEventListener('resize', this.resizeEvent);
 
     this.animation_text = gsap.effects.slidingText(this.$text);
-    this.animation_fade_scene = gsap.timeline({paused:true})
+    this.animation_fade_scene = gsap.timeline({paused:true, defaults:{ease:'none'}})
       .fromTo(this.$scene, {autoAlpha:0}, {autoAlpha:1, duration:0.3})
       .to(this.$scene, {autoAlpha:0, duration:0.3}, `+=0.4`)
 
