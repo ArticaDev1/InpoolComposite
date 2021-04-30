@@ -53,9 +53,9 @@ gsap.registerEffect({
   name: "slidingText",
   effect: ($text) => {
     let anim = gsap.timeline({paused: true, defaults:{duration:1, ease:'none'}})
-      .fromTo($text, {autoAlpha:0}, {autoAlpha:1, duration:0.2, stagger:{amount:0.1}})
-      .fromTo($text, {y:50}, {y:-50}, `-=0.3`)
-      .to($text, {autoAlpha:0, duration:0.2, stagger:{amount:0.1}}, `-=0.3`)
+      .fromTo($text, {autoAlpha:0}, {autoAlpha:1, duration:0.25, stagger:{amount:0.05}})
+      .fromTo($text, {y:40}, {y:-40}, `-=0.3`)
+      .to($text, {autoAlpha:0, duration:0.25, stagger:{amount:0.05}}, `-=0.3`)
     return anim;
   },
   extendTimeline: true
@@ -68,7 +68,7 @@ const Resources = {
     this.sources = {
       0: {
         src: './img/drone_video/',
-        framesCount: 38,
+        framesCount: 100,
         frames: []
       }
     }
@@ -80,7 +80,8 @@ const Resources = {
           this.sources[source].frames[i].onload = ()=> {
             this.framesLoaded++;
           }
-          this.sources[source].frames[i].src = `${this.sources[source].src+(1+i)}.jpg`;
+          let name = (i + 1).toString().padStart(3, '0');
+          this.sources[source].frames[i].src = `${this.sources[source].src+name}.jpg`;
         }
         this.framesCount+=this.sources[source].framesCount;
       }
@@ -90,7 +91,6 @@ const Resources = {
       if(window.innerWidth >= brakepoints.lg && !this.initialized) {
         this.load();
         this.initialized = true;
-        console.log('load')
       }
     }
 
