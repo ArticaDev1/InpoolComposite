@@ -1,4 +1,4 @@
-const Dev = false;
+const Dev = true;
 
 import 'lazysizes';
 lazySizes.cfg.preloadAfterLoad = true;
@@ -480,41 +480,35 @@ class SectionTechnologies {
 
     this.animations_parallax = []
     this.triggers_parallax = [];
-
-    this.animations_fade = []
-    this.triggers_fade = [];
-
     this.$blocks.forEach(($block, index) => {
       //parallax
       let $image_container = $block.querySelector('.technologies-block__image'),
           $image = $image_container.querySelector('img');
       this.animations_parallax[index] = gsap.timeline({paused:true}) 
-        .to($image, {yPercent:30, ease:'none'})
-      //fade
-      this.animations_fade[index] = gsap.timeline({paused:true}) 
-        .fromTo($block, {autoAlpha:0}, {autoAlpha:1, ease:'power2.in'})
+        .to($image, {yPercent:40, ease:'none'})
 
       this.triggers_parallax[index] = ScrollTrigger.create({
         trigger: $image_container,
-        start: "top bottom-=200",
+        start: "top bottom",
         end: "bottom top",
         onUpdate: self => {
           this.animations_parallax[index].progress(self.progress);
         }
       });
-
-      this.triggers_fade[index] = ScrollTrigger.create({
-        trigger: $image_container,
-        start: "top bottom-=200",
-        end: "center center",
-        onUpdate: self => {
-          this.animations_fade[index].progress(self.progress);
-          console.log('up')
-        }
-      });
-
-      
     })
+
+    this.animation_fade = gsap.timeline({paused:true}) 
+      .fromTo(this.$parent, {autoAlpha:0}, {autoAlpha:1, ease:'power2.in'})
+
+    this.trigger_fade = ScrollTrigger.create({
+      trigger: this.$parent,
+      start: "top bottom-=200",
+      end: "top bottom-=500",
+      onUpdate: self => {
+        this.animation_fade.progress(self.progress);
+      }
+    });
+    
   }
 
 
