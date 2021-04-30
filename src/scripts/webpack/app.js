@@ -1,4 +1,4 @@
-const Dev = true;
+const Dev = false;
 
 import 'lazysizes';
 //gsap
