@@ -1,11 +1,24 @@
 :root {
   --color-text: #8E9B9B;
   --color-title: #3D4545;
+  --color-sub-title: #8E9B9B;
   --color-text-light: #fff;
   --color-accent: #4FA6A6;
+  --color-text-muted: #C7C7C7;
+  --color-text-accent: #3D4545;
   --color-main-background: #fff;
   --color-scrollbar: #CECECE;
   --color-scrollbar-hover: #4FA6A6;
-  --color-background-unloaded: #F5F5F5; }
+  --color-background-unloaded: #F5F5F5;
+  --color-bg-section-dark: #F5F5F5;
+  --color-input-bg-1: #F5F5F5;
+  --color-input-bg-hover: #E9F7F9;
+  --color-input-bg-error: #FAE6E7;
+  --color-input-error: #8E9B9B;
+  --color-input-error-message: #E3848A;
+  --color-button-1: #FFFFFF;
+  --color-button-bg-1: #4FA6A6;
+  --color-button-2: #4FA6A6;
+  --color-button-bg-2: #E9F7F9; }
 
 /*# sourceMappingURL=maps/theme.css.map */

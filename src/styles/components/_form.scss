@@ -1,0 +1,88 @@
+.input {
+  display: block;
+  position: relative;
+  border-radius: 10px;
+  background-color: var(--color-input-bg-1);
+  transition: background-color $trs2;
+  font-size: 1.25rem;
+  line-height: 26px;
+  &__title {
+    display: block;
+    position: absolute;
+    pointer-events: none;
+    left: 27px;
+    top: 21px;
+    transition: opacity $trs1, color $trs1;
+    color: var(--color-text-muted);
+  }
+  &__element {
+    &:not(textarea) {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    position: relative;
+    padding: 21px 27px;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    font-size: inherit;
+    height: 68px;
+    color: var(--color-accent);
+    transition: color $trs1;
+  }
+  &__message {
+    font-size: 0.875rem;
+    line-height: 1.3;
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    padding: 3px 27px 0 27px;
+    color: var(--color-input-error-message);
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
+  }
+  &[data-touch], &[data-hover], &.focused {
+    background-color: var(--color-input-bg-hover);
+  }
+  &.filled {
+    .input__title {
+      opacity: 0;
+    }
+  }
+  &.error {
+    background-color: var(--color-input-bg-error);
+    .input__title, .input__element {
+      color: var(--color-input-error);
+    }
+  }
+  &.loading {
+    pointer-events: none;
+    .input__element {
+      color: var(--color-text-muted);
+    }
+  }
+  @include media-breakpoint-down(xxl) {
+    
+  }
+}
+
+
+.form {
+  &__item {
+    margin-bottom: 35px;
+  }
+  &__submit {
+    margin-top: 50px;
+    text-align: center;
+  }
+  &__message {
+    font-size: 1rem;
+    margin: 15px 0 0 0;
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+}

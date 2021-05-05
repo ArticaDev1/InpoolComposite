@@ -1,6 +1,6 @@
 extends layout/layout
 block content
-  section.section(style='height:100vh;')
+  section.section(style='height:100px;')
 
 
   section.section.section-video-animation
@@ -80,4 +80,64 @@ block content
         .col-xl-3
 
 
-  section.section(style='height:100vh;')
+  section.section.animated-section.contact-form
+    .animated-head 
+      h5.animated-head__sub-title Контакты
+      h2.h1.animated-head__title Давайте знакомиться.
+    .container.animated-section__content.contact-form__content
+      h4.contact-form__title Оставьте свои контакты и мы вам перезвоним
+      form(autocomplete="off").form.contact-form__form.row
+        .col-xl-6 
+          .form__item
+            label.input
+              span.input__title Ваше имя  
+                mark *
+              input(type="text" name="name" data-validate='name' data-required).input__element
+          .form__item
+            label.input
+              span.input__title Номер телефона 
+                mark *
+              input(type="text" name="phone" data-validate='phone' data-required).input__element
+          .form__item
+            label.input
+              span.input__title Комментарий
+              textarea(name="message" data-validate='message').input__element
+            
+          .form__submit
+            button.button.button_style-1.button_loader 
+              span Отправить
+              svg(viewBox='0 0 120 30' fill='currentColor')
+                circle(cx='15' cy='15' r='15')
+                  animate(attributeName='r' from='15' to='15' begin='0s' dur='0.8s' values='15;9;15' calcMode='linear' repeatCount='indefinite')
+                  animate(attributeName='fill-opacity' from='1' to='1' begin='0s' dur='0.8s' values='1;.5;1' calcMode='linear' repeatCount='indefinite')
+                circle(cx='60' cy='15' r='9' fill-opacity='0.3')
+                  animate(attributeName='r' from='9' to='9' begin='0s' dur='0.8s' values='9;15;9' calcMode='linear' repeatCount='indefinite')
+                  animate(attributeName='fill-opacity' from='0.5' to='0.5' begin='0s' dur='0.8s' values='.5;1;.5' calcMode='linear' repeatCount='indefinite')
+                circle(cx='105' cy='15' r='15')
+                  animate(attributeName='r' from='15' to='15' begin='0s' dur='0.8s' values='15;9;15' calcMode='linear' repeatCount='indefinite')
+                  animate(attributeName='fill-opacity' from='1' to='1' begin='0s' dur='0.8s' values='1;.5;1' calcMode='linear' repeatCount='indefinite')
+            p.form__message Нажимая кнопку “Отправить” вы соглашаетесь<br> с условиями 
+              a(href="javascript:void(0);") Политики конфиденциальности
+
+  section.section.contacts-block 
+    .contacts-block__top
+      .container 
+        .row 
+          .col-xl-6.contacts-block__contacts
+            .contacts-block__item
+              a(href="mailto:mail@centr-bassein.ru").link.h3.contacts-block__link mail@centr-bassein.ru
+            .contacts-block__item
+              a(href="tel:+79269659259").h3.contacts-block__phone +7 926 965-9259
+          .offset-xl-1.col-xl-5.contacts-block__text
+            p Россия, Московская область, Красногорский район, Ильинское сельское поселение, Новорижское шоссе, 27-й км (10 км от МКАД), Садовый центр Балтия Гарден,  Центр Бассейнов
+    .contacts-block__map
+      svg.contacts-block__map-loader(viewBox='0 0 120 30' fill='currentColor')
+        circle(cx='15' cy='15' r='15')
+          animate(attributeName='r' from='15' to='15' begin='0s' dur='0.8s' values='15;9;15' calcMode='linear' repeatCount='indefinite')
+          animate(attributeName='fill-opacity' from='1' to='1' begin='0s' dur='0.8s' values='1;.5;1' calcMode='linear' repeatCount='indefinite')
+        circle(cx='60' cy='15' r='9' fill-opacity='0.3')
+          animate(attributeName='r' from='9' to='9' begin='0s' dur='0.8s' values='9;15;9' calcMode='linear' repeatCount='indefinite')
+          animate(attributeName='fill-opacity' from='0.5' to='0.5' begin='0s' dur='0.8s' values='.5;1;.5' calcMode='linear' repeatCount='indefinite')
+        circle(cx='105' cy='15' r='15')
+          animate(attributeName='r' from='15' to='15' begin='0s' dur='0.8s' values='15;9;15' calcMode='linear' repeatCount='indefinite')
+          animate(attributeName='fill-opacity' from='1' to='1' begin='0s' dur='0.8s' values='1;.5;1' calcMode='linear' repeatCount='indefinite')

@@ -29,6 +29,7 @@
 		"webpack-stream": "^6.1.0"
 	},
 	"dependencies": {
+		"autosize": "^4.0.2",
 		"bootstrap": "^5.0.0-alpha1",
 		"gsap": "^3.5.1",
 		"inputmask": "^5.0.5",

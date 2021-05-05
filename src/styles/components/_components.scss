@@ -65,3 +65,18 @@
     }
   }
 }
+
+.dev-label {
+  a {
+    font-size: 0;
+    display: inline-block;
+    transform: translateY(7%);
+    transition: color $trs1;
+    &[data-touch], &[data-hover] {
+      color: var(--color-text-accent);
+    }
+  }
+  svg {
+    width: 90px;
+  }
+}

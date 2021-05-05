@@ -10,9 +10,9 @@ body {
   text-rendering: geometricPrecision;
   line-height: 1.3;
   color: var(--color-text);
-  @include media-breakpoint-down(xxl) {
+  /* @include media-breakpoint-down(xxl) {
     font-size: 1.125rem;
-  }
+  } */
   &.hidden {
     overflow: hidden !important;
   }

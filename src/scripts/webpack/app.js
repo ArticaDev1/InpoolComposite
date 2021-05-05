@@ -1,4 +1,4 @@
-const Dev = true;
+const Dev = false;
 
 import 'lazysizes';
 lazySizes.cfg.preloadAfterLoad = true;
@@ -14,6 +14,7 @@ import Scrollbar from 'smooth-scrollbar';
 const validate = require("validate.js");
 import scrollLock from 'scroll-lock';
 import Inputmask from "inputmask";
+import autosize from 'autosize';
 
 const brakepoints = {
   sm: 576,
@@ -36,8 +37,17 @@ function mobile() {
 }
 
 window.onload = function() {
+  //preload
   Resources.init();
   Preloader.init();
+  //form
+  Validation.init();
+  inputs();
+  Inputmask({
+    mask: "+7 999 999-9999",
+    showMaskOnHover: false,
+    clearIncomplete: false
+  }).mask("[data-validate='phone']");
   //
   TouchHoverEvents.init();
   Mask.init();
@@ -47,6 +57,9 @@ window.onload = function() {
   activeFunctions.create();
   activeFunctions.add(SectionVideoAnimation, '.section-video-animation');
   activeFunctions.add(SectionTechnologies, '.section-technologies');
+  activeFunctions.add(AnimatedSection, '.animated-section');
+  activeFunctions.add(Map, '.contacts-block__map');
+  
   activeFunctions.init();
 }
 
@@ -54,14 +67,44 @@ window.onload = function() {
 gsap.registerEffect({
   name: "slidingText",
   effect: ($text) => {
-    let anim = gsap.timeline({paused: true, defaults:{ease:'none'}})
-      .fromTo($text, {autoAlpha:0}, {autoAlpha:1, duration:0.25, stagger:{amount:0.05}})
-      .fromTo($text, {y:40}, {y:-40}, `-=0.3`)
-      .to($text, {autoAlpha:0, duration:0.25, stagger:{amount:0.05}}, `-=0.3`)
+    let anim = gsap.timeline({paused: true})
+      .fromTo($text, {autoAlpha:0}, {autoAlpha:1, duration:0.3, ease:'power2.in'})
+      .fromTo($text, {y:50}, {y:-50, ease:'none'}, `-=0.3`)
+      .to($text, {autoAlpha:0, duration:0.3, ease:'power2.out'}, `-=0.3`)
     return anim;
   },
   extendTimeline: true
 });
+
+function inputs() {
+  autosize(document.querySelectorAll('textarea.input__element'));
+  
+  let events = (event)=> {
+    let $input = event.target!==document?event.target.closest('.input__element'):null;
+    if($input) {
+      if(event.type=='focus') {
+        $input.parentNode.classList.add('focused', 'filled');
+      } else {
+        $input.parentNode.classList.remove('focused');
+        let value = $input.value;
+        if (validate.single(value, {presence: {allowEmpty: false}}) !== undefined) {
+          $input.value = '';
+          $input.parentNode.classList.remove('filled');
+          //textarea
+          if($input.tagName=='TEXTAREA') {
+            if(window.innerWidth>=brakepoints.xxl) {
+              $input.style.height = '68px';
+            } else {
+              $input.style.height = '68px';
+            }
+          }
+        }
+      }
+    }
+  }
+  document.addEventListener('focus',  (event)=>{events(event)}, true);
+  document.addEventListener('blur',   (event)=>{events(event)}, true);
+}
 
 const Resources = {
   init: function() {
@@ -102,7 +145,7 @@ const Resources = {
 };
 
 const TouchHoverEvents = {
-  targets: 'a, button, label, tr, [data-touch-hover], .scrollbar-track, .scrollbar-thumb',
+  targets: 'a, button, label, tr, [data-touch-hover], .scrollbar-track, .scrollbar-thumb, .input',
   touched: false,
   touchEndDelay: 100, //ms
   init: function() {
@@ -173,6 +216,187 @@ const TouchHoverEvents = {
   }
 }
 
+const Validation = {
+  init: function () {
+    this.namspaces = {
+      name: 'name',
+      phone: 'phone',
+      email: 'email',
+      message: 'message'
+    }
+    this.constraints = {
+      name: {
+        presence: {
+          allowEmpty: false,
+          message: '^Введите ваше имя'
+        },
+        format: {
+          pattern: /[A-zА-яЁё ]+/,
+          message: '^Введите корректное имя'
+        },
+        length: {
+          minimum: 2,
+          tooShort: "^Имя слишком короткое (минимум %{count} символа)",
+          maximum: 20,
+          tooLong: "^Имя слишком длинное (максимум %{count} символов)"
+        }
+      },
+      phone: {
+        presence: {
+          allowEmpty: false,
+          message: '^Введите ваш номер телефона'
+        },
+        format: {
+          pattern: /^\+7 \d{3}\ \d{3}\-\d{4}$/,
+          message: '^Введите корректный номер телефона'
+        }
+      },
+      email: {
+        presence: {
+          allowEmpty: false,
+          message: '^Введите ваш email'
+        },
+        email: {
+          message: '^Неправильный формат email-адреса'
+        }
+      },
+      message: {
+        presence: {
+          allowEmpty: false,
+          message: '^Введите ваше сообщение'
+        },
+        length: {
+          minimum: 2,
+          tooShort: "^Сообщение слишком короткое (минимум %{count} символа)",
+          maximum: 100,
+          tooLong: "^Сообщение слишком длинное (максимум %{count} символов)"
+        }
+      }
+    };
+
+    gsap.registerEffect({
+      name: "fadeMessages",
+      effect: ($message) => {
+        return gsap.timeline({paused:true})
+          .fromTo($message, {autoAlpha: 0}, {autoAlpha:1, duration:0.3, ease:'power2.inOut'})
+      }
+    });
+
+    document.addEventListener('submit', (event) => {
+      let $form = event.target,
+        $inputs = $form.querySelectorAll('input, textarea'),
+        l = $inputs.length,
+        i = 0;
+      while (i < l) {
+        if ($inputs[i].getAttribute('data-validate')) {
+          event.preventDefault();
+          let flag = 0;
+          $inputs.forEach(($input) => {
+            if (!this.validInput($input)) flag++;
+          })
+          if (!flag) this.submitEvent($form);
+          break;
+        } else i++
+      }
+    })
+
+    document.addEventListener('input', (event) => {
+      let $input = event.target,
+        $parent = $input.parentNode;
+      if ($parent.classList.contains('error')) {
+        this.validInput($input);
+      }
+    })
+
+  },
+  validInput: function ($input) {
+    let $parent = $input.parentNode,
+      type = $input.getAttribute('data-validate'),
+      required = $input.getAttribute('data-required') !== null,
+      value = $input.value,
+      empty = validate.single(value, {
+        presence: {
+          allowEmpty: false
+        }
+      }) !== undefined,
+      resault;
+
+    for (let key in this.namspaces) {
+      if (type == key && (required || !empty)) {
+        resault = validate.single(value, this.constraints[key]);
+        break;
+      }
+    }
+    //если есть ошибки
+    if (resault) {
+      if (!$parent.classList.contains('error')) {
+        $parent.classList.add('error');
+        $parent.insertAdjacentHTML('beforeend', `<span class="input__message">${resault[0]}</span>`);
+        let $message = $parent.querySelector('.input__message');
+        gsap.effects.fadeMessages($message).play();
+      } else {
+        $parent.querySelector('.input__message').textContent = `${resault[0]}`;
+      }
+      return false;
+    }
+    //если нет ошибок
+    else {
+      if ($parent.classList.contains('error')) {
+        $parent.classList.remove('error');
+        let $message = $parent.querySelector('.input__message');
+        gsap.effects.fadeMessages($message).reverse(1).eventCallback('onReverseComplete', () => {
+          $message.remove();
+        });
+      }
+      return true;
+    }
+  },
+  reset: function ($form) {
+    let $inputs = $form.querySelectorAll('input, textarea');
+    $inputs.forEach(($input) => {
+      let $parent = $input.parentNode;
+      $input.value = '';
+      //textarea
+      if($input.tagName=='TEXTAREA') {
+        if(window.innerWidth>=brakepoints.xxl) {
+          $input.style.height = '68px';
+        } else {
+          $input.style.height = '68px';
+        }
+      }
+      $parent.classList.remove('focused', 'filled');
+      
+      if ($parent.classList.contains('error')) {
+        $parent.classList.remove('error');
+        let $message = $parent.querySelector('.input__message');
+        gsap.effects.fadeMessages($message).reverse(1).eventCallback('onReverseComplete', ()=>{
+          $message.remove();
+        });
+      }
+    })
+  },
+  submitEvent: function ($form) {
+    let $submit = $form.querySelector('button'),
+        $inputs = $form.querySelectorAll('input, textarea');
+    $inputs.forEach(($input) => {
+      $input.parentNode.classList.add('loading');
+    })
+    $submit.classList.add('loading');
+    //test
+    setTimeout(() => {
+      $inputs.forEach(($input) => {
+        $input.parentNode.classList.remove('loading');
+      })
+      $submit.classList.remove('loading');
+      this.reset($form);
+      /* Modal.open(document.querySelector('#modal-succes'));
+      setTimeout(()=>{
+        Modal.close();
+      }, 3000) */
+    }, 2000)
+  }
+}
+
 class ActiveFunctions {
   create() {
     this.functions = [];
@@ -210,7 +434,7 @@ const Scroll = {
   custom: function() {
     $body.classList.add('hidden');
     this.scrollbar = Scrollbar.init($wrapper, {
-      damping: 0.2
+      damping: 0.1
     })
     this.scrollbar.addListener(()=>{
       if(Dev) localStorage.setItem('scroll', this.scrollbar.offset.y);
@@ -518,4 +742,119 @@ class SectionTechnologies {
   }
 
 
+}
+
+class AnimatedSection {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
+
+  init() {
+    this.check = ()=> {
+      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+        this.initDesktop();
+        this.flag = true;
+      } 
+      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
+        if(this.initialized) {
+          this.destroyDesktop();
+        }
+        this.flag = false;
+      }
+    }
+    this.check();
+    window.addEventListener('resize', this.check);
+    this.initialized = true;
+  }
+
+  initDesktop() {
+    let pinType = Scroll.scrollbar?'transform':'fixed';
+
+    this.$head = this.$parent.querySelector('.animated-head');
+    this.$head_text = this.$head.querySelectorAll('.animated-head__title, .animated-head__sub-title');
+    this.$content = this.$parent.querySelector('.animated-section__content');
+
+    this.animation_head = gsap.effects.slidingText(this.$head_text);
+
+    this.animation_head_trigger = ScrollTrigger.create({
+      trigger: this.$head,
+      start: "top top",
+      end: "top+=1500 top",
+      pin: true,
+      pinType: pinType,
+      onUpdate: self => {
+        this.animation_head.progress(self.progress);
+        console.log(self.progress)
+      }
+    });
+
+    this.animation_content = gsap.timeline({paused:true})
+      .fromTo(this.$content, {autoAlpha:0}, {autoAlpha:1, ease:'power2.in'})
+
+    this.animation_content_trigger = ScrollTrigger.create({
+      trigger: this.$content,
+      start: "top bottom",
+      end: "top+=300 bottom",
+      onUpdate: self => {
+        this.animation_content.progress(self.progress);
+      }
+    });
+  }
+
+}
+
+class Map {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
+
+  init() {
+    this.apiKey = '4db33d7a-110f-4ffa-8835-327389c45d9d';
+
+    let loadMap = ()=> {
+      if(typeof ymaps === 'undefined') {
+        let callback = ()=> {
+          ymaps.ready(createMap);
+        }
+        let script = document.createElement("script");
+        script.type = 'text/javascript';
+        script.onload = callback;
+        script.src = `https://api-maps.yandex.ru/2.1/?apikey=${this.apiKey}&lang=ru_RU`;
+        $body.appendChild(script);
+      } else {
+        createMap();
+      }
+    }
+    
+    let createMap = ()=> {
+      this.map = new ymaps.Map(this.$parent, {
+        center: [55.777949, 37.227639],
+        controls: ['zoomControl'],
+        zoom: 14
+      });
+      this.map.behaviors.disable(['scrollZoom']);
+      this.placemarks = [];
+      this.$map = this.map.container._element;
+      this.$map.classList.add('contacts-block__map-element');
+      gsap.fromTo(this.$map, {autoAlpha:0}, {autoAlpha:1})
+
+      let placemark = new ymaps.Placemark(this.map.getCenter(), {
+        balloonContent: 'Россия, Московская область, Красногорский район, Ильинское сельское поселение, Новорижское шоссе, 27-й км (10 км от МКАД), Садовый центр Балтия Гарден,  Центр Бассейнов'
+      }, {
+        iconLayout: 'default#image',
+        iconImageHref: './img/icons/map-point.svg',
+        iconImageSize: [38, 53],
+        iconImageOffset: [-19, -53],
+        hideIconOnBalloonOpen: false
+      });
+      this.map.geoObjects.add(placemark);
+    }
+
+
+    loadMap();
+  }
+
+  destroy() {
+    for(let child in this) delete this[child];
+  }
 }
