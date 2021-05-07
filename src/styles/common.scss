@@ -8,14 +8,14 @@
 /*========== Basic ==========*/
 @import "./components/basic";
 
+/*========== Typography ==========*/
+@import "./components/typography";
+
 /*========== Layout ==========*/
 @import "./components/layout";
 
 /*========== Components ==========*/
 @import "./components/components";
-
-/*========== Typography ==========*/
-@import "./components/typography";
 
 /*========== Helpers ==========*/
 @import 'components/helpers';
@@ -25,6 +25,9 @@
 
 /*========== Form ==========*/
 @import "./components/form";
+
+/*========== Modals ==========*/
+@import "./components/modals";
 
 /*========== Blocks ==========*/
 @import 'components/blocks';

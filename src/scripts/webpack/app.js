@@ -1,4 +1,4 @@
-const Dev = false;
+const Dev = true;
 
 import 'lazysizes';
 lazySizes.cfg.preloadAfterLoad = true;
@@ -12,7 +12,7 @@ gsap.defaults({
 });
 import Scrollbar from 'smooth-scrollbar';
 const validate = require("validate.js");
-import scrollLock from 'scroll-lock';
+import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 import Inputmask from "inputmask";
 import autosize from 'autosize';
 
@@ -52,14 +52,15 @@ window.onload = function() {
   TouchHoverEvents.init();
   Mask.init();
   Scroll.init();
+  Modal.init();
 
   const activeFunctions = new ActiveFunctions();
   activeFunctions.create();
+  activeFunctions.add(Model, '.section-model');
   activeFunctions.add(SectionVideoAnimation, '.section-video-animation');
   activeFunctions.add(SectionTechnologies, '.section-technologies');
   activeFunctions.add(AnimatedSection, '.animated-section');
   activeFunctions.add(Map, '.contacts-block__map');
-  
   activeFunctions.init();
 }
 
@@ -94,8 +95,8 @@ function inputs() {
           if($input.tagName=='TEXTAREA') {
             if(window.innerWidth>=brakepoints.xxl) {
               $input.style.height = '68px';
-            } else {
-              $input.style.height = '68px';
+            } else if(window.innerWidth>=brakepoints.xl) {
+              $input.style.height = '62px';
             }
           }
         }
@@ -113,7 +114,14 @@ const Resources = {
     this.sources = {
       0: {
         src: './img/drone_video/',
+        type: 'jpg',
         framesCount: 40,
+        frames: []
+      },
+      1: {
+        src: './img/model/1/',
+        type: 'png',
+        framesCount: 51,
         frames: []
       }
     }
@@ -125,8 +133,9 @@ const Resources = {
           this.sources[source].frames[i].onload = ()=> {
             this.framesLoaded++;
           }
-          let name = (i + 1).toString().padStart(3, '0');
-          this.sources[source].frames[i].src = `${this.sources[source].src+name}.jpg`;
+          let name = (i + 1).toString().padStart(3, '0'),
+              type = this.sources[source].type;
+          this.sources[source].frames[i].src = `${this.sources[source].src+name}.${type}`;
         }
         this.framesCount+=this.sources[source].framesCount;
       }
@@ -360,8 +369,8 @@ const Validation = {
       if($input.tagName=='TEXTAREA') {
         if(window.innerWidth>=brakepoints.xxl) {
           $input.style.height = '68px';
-        } else {
-          $input.style.height = '68px';
+        } else if(window.innerWidth>=brakepoints.xl) {
+          $input.style.height = '62px';
         }
       }
       $parent.classList.remove('focused', 'filled');
@@ -389,10 +398,10 @@ const Validation = {
       })
       $submit.classList.remove('loading');
       this.reset($form);
-      /* Modal.open(document.querySelector('#modal-succes'));
+      Modal.open(document.querySelector('#modal-succes'));
       setTimeout(()=>{
         Modal.close();
-      }, 3000) */
+      }, 2000)
     }, 2000)
   }
 }
@@ -856,5 +865,147 @@ class Map {
 
   destroy() {
     for(let child in this) delete this[child];
+  }
+}
+
+const Modal = {
+  init: function () {
+    this.$modals = document.querySelectorAll('.modal');
+
+    gsap.registerEffect({
+      name: "modal",
+      effect: ($modal, $content) => {
+        let anim = gsap.timeline({paused: true}).fromTo($modal, {autoAlpha: 0}, {autoAlpha:1, duration:0.5, ease: 'power2.inOut'})
+          .fromTo($content, {y: 20}, {y:0, duration:1, ease:'power2.out'}, `-=0.5`)
+        return anim;
+      },
+      extendTimeline: true
+    });
+
+    document.addEventListener('click', (event) => {
+      let $open = event.target.closest('[data-modal="open"]'),
+        $close = event.target.closest('[data-modal="close"]'),
+        $wrap = event.target.closest('.modal'),
+        $block = event.target.closest('.modal-block');
+
+      //open
+      if ($open) {
+        event.preventDefault();
+        let $modal = document.querySelector(`${$open.getAttribute('href')}`);
+        this.open($modal);
+      }
+      //close 
+      else if ($close || (!$block && $wrap)) {
+        this.close();
+      }
+
+    })
+
+    //add scroll
+    if(!mobile()) {
+      this.$modals.forEach(($modal)=>{
+        Scrollbar.init($modal, {
+          damping: 1
+        })
+      })
+    }
+  },
+  open: function ($modal) {
+    let play = () => {
+      this.$active = $modal;
+      disablePageScroll();
+      let $content = $modal.querySelector('.modal-block');
+      this.animation = gsap.effects.modal($modal, $content);
+      this.animation.play();
+    }
+    if ($modal) {
+      if (this.$active) this.close(play);
+      else play();
+    }
+  },
+  close: function (callback) {
+    if(this.$active) {
+      this.animation.timeScale(2).reverse().eventCallback('onReverseComplete', () => {
+        delete this.animation;
+        enablePageScroll();
+        if (callback) callback();
+      })
+      //reset form
+      let $form = this.$active.querySelector('form');
+      if ($form) Validation.reset($form);
+  
+      delete this.$active;
+    }
+  }
+}
+
+class Model {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
+
+  init() {
+    this.check = ()=> {
+      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+        this.initDesktop();
+        this.flag = true;
+      } 
+      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
+        if(this.initialized) {
+          this.destroyDesktop();
+        }
+        this.flag = false;
+      }
+    }
+    this.check();
+    window.addEventListener('resize', this.check);
+    this.initialized = true;
+  }
+
+  initDesktop() {
+    let pinType = Scroll.scrollbar?'transform':'fixed';
+    this.$scene = this.$parent.querySelector('.section-model__scene');
+    this.$canvas = this.$parent.querySelector('canvas');
+    this.context = this.$canvas.getContext("2d");
+    this.$canvas.width=1920;
+    this.$canvas.height=1080;
+    this.framesCount = Resources.sources[1].framesCount;
+    this.frames = Resources.sources[1].frames;
+    this.activeFrame = this.frames[0];
+
+    this.sceneRender = ()=> {
+      this.context.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
+      this.context.drawImage(this.activeFrame, 0, 0);
+      this.animationFrame = requestAnimationFrame(this.sceneRender);
+    }
+    this.sceneRender();
+
+    this.resizeEvent = () => {
+      let h = this.$parent.getBoundingClientRect().height,
+          w = this.$parent.getBoundingClientRect().width,
+          res = this.$canvas.height/this.$canvas.width;
+
+      if (h / w < res) {
+        this.$canvas.style.width = `${w}px`;
+        this.$canvas.style.height = `${w*res}px`;
+      } else {
+        this.$canvas.style.width = `${h/res}px`;
+        this.$canvas.style.height = `${h}px`;
+      }
+    }
+    this.resizeEvent();
+    window.addEventListener('resize', this.resizeEvent);
+
+    this.trigger = ScrollTrigger.create({
+      trigger: this.$parent,
+      start: "top top",
+      end: "top+=3000 top",
+      pin: true,
+      pinType: pinType,
+      onUpdate: self => {
+        let index = Math.round(self.progress*(this.framesCount-1));
+        this.activeFrame = this.frames[index];
+      }
+    });
   }
 }

@@ -81,7 +81,6 @@
   &__image {
     position: relative;
     overflow: hidden;
-    margin-bottom: 30px;
     &::before {
       content: '';
       display: block;
@@ -123,9 +122,6 @@
         padding-top: 75%;
       }
     }
-  }
-  &__text {
-    margin-bottom: 30px;
   }
 
   @include media-breakpoint-down(xxl) {
@@ -179,12 +175,11 @@
 
 .contacts-block {
   &__top {
-    padding: 250px 0;
     background-color: var(--color-bg-section-dark);
   }
   &__item {
-    &:not(:last-child) {
-      margin-bottom: 30px;
+    &:last-child {
+      margin-bottom: 0;
     }
   }
   &__phone {
@@ -216,6 +211,28 @@
       width: 100%;
       height: 100%;
       z-index: 2;
+    }
+  }
+  @include media-breakpoint-down(xxl) {
+    &__map {
+      height: 450px;
+    }
+  }
+}
+
+.section-model {
+  &__scene {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    canvas {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 50%;
+      left: 50%;    
+      transform: translate(-50%, -50%);
     }
   }
 }

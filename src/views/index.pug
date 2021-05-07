@@ -1,6 +1,9 @@
 extends layout/layout
 block content
-  section.section(style='height:100px;')
+  section.section.section-model
+    .section-model__scene
+      canvas
+
 
 
   section.section.section-video-animation
@@ -17,10 +20,10 @@ block content
         mixin block1(image, title, text, link, classes, classes2)
           //block
           .technologies-block.col-xl-3(class=classes2)
-            .technologies-block__image(class=classes)
+            .technologies-block__image.mb-1(class=classes)
               .image.image_cover
                 img(data-src=image, alt="image").lazyload
-            .technologies-block__text
+            .technologies-block__text.mb-1
               h6.technologies-block__title=title
               p=text
             a(href=link).btn-link Подробнее 
@@ -80,7 +83,7 @@ block content
         .col-xl-3
 
 
-  section.section.animated-section.contact-form
+  section.section.animated-section.contact-form.mb-1
     .animated-head 
       h5.animated-head__sub-title Контакты
       h2.h1.animated-head__title Давайте знакомиться.
@@ -120,13 +123,13 @@ block content
               a(href="javascript:void(0);") Политики конфиденциальности
 
   section.section.contacts-block 
-    .contacts-block__top
+    .contacts-block__top.pt-1.pb-1
       .container 
         .row 
           .col-xl-6.contacts-block__contacts
-            .contacts-block__item
+            .contacts-block__item.mb-1
               a(href="mailto:mail@centr-bassein.ru").link.h3.contacts-block__link mail@centr-bassein.ru
-            .contacts-block__item
+            .contacts-block__item.mb-1
               a(href="tel:+79269659259").h3.contacts-block__phone +7 926 965-9259
           .offset-xl-1.col-xl-5.contacts-block__text
             p Россия, Московская область, Красногорский район, Ильинское сельское поселение, Новорижское шоссе, 27-й км (10 км от МКАД), Садовый центр Балтия Гарден,  Центр Бассейнов

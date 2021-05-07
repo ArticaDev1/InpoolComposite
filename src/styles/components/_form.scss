@@ -29,6 +29,7 @@
     height: 68px;
     color: var(--color-accent);
     transition: color $trs1;
+    line-height: inherit;
   }
   &__message {
     font-size: 0.875rem;
@@ -66,7 +67,15 @@
     }
   }
   @include media-breakpoint-down(xxl) {
-    
+   font-size: 1.125rem;
+   line-height: 24px;
+   &__element {
+      padding: 19px 27px;
+      height: 62px;
+   }
+   &__title {
+     top: 19px;
+   }
   }
 }
 
