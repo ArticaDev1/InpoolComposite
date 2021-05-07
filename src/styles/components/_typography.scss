@@ -20,6 +20,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   &:last-child {
     margin-bottom: 0;
   }
+  mark {
+    color: var(--color-accent);
+  }
 }
 h1, .h1 {
   font-size: 4.875rem;
@@ -71,10 +74,12 @@ p {
   &:last-child {
     margin-bottom: 0;
   }
+  mark {
+    color: var(--color-text-accent);
+  }
 }
 
 mark {
-  color: var(--color-accent);
   background-color: inherit;
 }
 

@@ -1,4 +1,4 @@
-const Dev = true;
+const Dev = false;
 
 import 'lazysizes';
 lazySizes.cfg.preloadAfterLoad = true;
@@ -37,9 +37,7 @@ function mobile() {
 }
 
 window.onload = function() {
-  //preload
   Resources.init();
-  Preloader.init();
   //form
   Validation.init();
   inputs();
@@ -62,6 +60,9 @@ window.onload = function() {
   activeFunctions.add(AnimatedSection, '.animated-section');
   activeFunctions.add(Map, '.contacts-block__map');
   activeFunctions.init();
+
+  //preload
+  Preloader.init();
 }
 
 //effects
@@ -544,15 +545,16 @@ const Preloader = {
     this.$item = document.querySelector('.preloader__item');
     
     this.finish = () => {
+      window.dispatchEvent(new Event("start"));
       if(!Dev) {
         gsap.timeline({onComplete:()=>{
           this.$element.remove();
         }})
           .to(this.$element, {autoAlpha:0, duration:0.5})
-          .to($wrapper, {autoAlpha:1})
+          .to($wrapper, {autoAlpha:1}, '-=0.5')
       } else {
         this.$element.remove();
-        gsap.set($wrapper, {autoAlpha:1})
+        gsap.set($wrapper, {autoAlpha:1});
       }
 
       if(mobile()) {
@@ -595,9 +597,7 @@ const Preloader = {
           this.finish();
         }})
       }
-    } 
-    
-    else {
+    } else {
       this.finish();
     }
   }
@@ -995,16 +995,30 @@ class Model {
     this.resizeEvent();
     window.addEventListener('resize', this.resizeEvent);
 
-    //animtaions
-    let $items1 = this.$parent.querySelectorAll('.section-model-screen__item-1');
+    //start animation
+    let animation_start = gsap.timeline({paused:true})
+      .fromTo(this.$canvas, {scale:0.7}, {scale:1, duration:1, ease:'power2.out'})
+    window.addEventListener('start', () => {
+      animation_start.play();
+    })
+
+    //1
+    let $screen1 = this.$parent.querySelector('.section-model-screen_1'),
+        $items1 = this.$parent.querySelectorAll('.section-model-screen__item-1');
     this.animation1 = gsap.timeline({paused:true})
       .to($items1, {y:-50, ease:'none'})
       .to($items1, {autoAlpha:0, duration:0.3, ease:'power2.out', stagger:{amount:0.2}}, `-=0.5`)
+      .set($screen1, {autoAlpha:0})
     
-    //
+    //2
     let $screen2 = this.$parent.querySelector('.section-model-screen_2'),
         $screen2_content = $screen2.querySelector('.animated-head__container');
     this.animation2 = gsap.effects.slidingText($screen2, $screen2_content);
+
+    //3
+    let $screen3 = this.$parent.querySelector('.section-model-screen_3'),
+        $screen3_content = $screen3.querySelector('.section-model-screen__text-3');
+    this.animation3 = gsap.effects.slidingText($screen3, $screen3_content);
 
 
     this.trigger = ScrollTrigger.create({
@@ -1019,11 +1033,13 @@ class Model {
         
         let y = self.end*self.progress;
 
-        let time1 = Math.max(0, Math.min( y/750, 1)),
-            time2 = Math.max(0, Math.min((y-1000)/1500, 1));
+        let time1 = Math.max(0, Math.min( y/750, 1)), //750
+            time2 = Math.max(0, Math.min((y-1000)/1500, 1)), //2500
+            time3 = Math.max(0, Math.min((y-2500)/1500, 1)); //4000
 
         this.animation1.progress(time1);
         this.animation2.progress(time2);
+        this.animation3.progress(time3);
       }
     });
   }

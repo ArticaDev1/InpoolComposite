@@ -152,11 +152,13 @@
 
 .animated-head {
   text-align: center;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  &__container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   &__sub-title {
     color: var(--color-sub-title);
   }
@@ -249,10 +251,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  &_1 {
-    .container {
-      height: 100%;
-    }
+  .container {
+    height: 100%;
   }
   &_2 {
     background: rgba(255, 255, 255, 0.7);
@@ -267,5 +267,9 @@
     bottom: calc((100% - 500px)/4);
     font-size: 1rem;
     color: var(--color-text-accent);
+  }
+  &__text-3 {
+    position: absolute;
+    bottom: 20%;
   }
 }

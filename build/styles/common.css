@@ -1946,6 +1946,8 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   color: var(--color-title); }
   h1:last-child, .h1:last-child, h2:last-child, .h2:last-child, h3:last-child, .h3:last-child, h4:last-child, .h4:last-child, h5:last-child, .h5:last-child, h6:last-child, .h6:last-child {
     margin-bottom: 0; }
+  h1 mark, .h1 mark, h2 mark, .h2 mark, h3 mark, .h3 mark, h4 mark, .h4 mark, h5 mark, .h5 mark, h6 mark, .h6 mark {
+    color: var(--color-accent); }
 
 h1, .h1 {
   font-size: 4.875rem;
@@ -1991,9 +1993,10 @@ p {
   margin: 0 0 1rem 0; }
   p:last-child {
     margin-bottom: 0; }
+  p mark {
+    color: var(--color-text-accent); }
 
 mark {
-  color: var(--color-accent);
   background-color: inherit; }
 
 a:not([class]), .link {
@@ -2503,12 +2506,13 @@ a:not([class]), .link {
     margin-top: -33vh; }
 
 .animated-head {
-  text-align: center;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; }
+  text-align: center; }
+  .animated-head__container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; }
   .animated-head__sub-title {
     color: var(--color-sub-title); }
 
@@ -2584,7 +2588,7 @@ a:not([class]), .link {
   position: absolute;
   top: 0;
   left: 0; }
-  .section-model-screen_1 .container {
+  .section-model-screen .container {
     height: 100%; }
   .section-model-screen_2 {
     background: rgba(255, 255, 255, 0.7); }
@@ -2597,6 +2601,9 @@ a:not([class]), .link {
     bottom: calc((100% - 500px)/4);
     font-size: 1rem;
     color: var(--color-text-accent); }
+  .section-model-screen__text-3 {
+    position: absolute;
+    bottom: 20%; }
 
 /*========== Header ==========*/
 .header {
