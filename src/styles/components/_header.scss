@@ -21,4 +21,7 @@
   .logo, .button {
     pointer-events: all;
   }
+  @include media-breakpoint-down(xxl) {
+    padding: 24px;
+  }
 }
