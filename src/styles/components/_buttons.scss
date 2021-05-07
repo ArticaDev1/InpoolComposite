@@ -20,6 +20,14 @@
     background-color: var(--color-button-bg-2);
     }
   }
+  &_style-2 {
+    color: var(--color-button-2);
+    background-color: var(--color-button-bg-2);
+    &[data-touch], &[data-hover] {
+      color: var(--color-button-1);
+    background-color: var(--color-button-bg-1);
+    }
+  }
 
   &_loader {
     span, svg {

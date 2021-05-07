@@ -221,10 +221,16 @@
 }
 
 .section-model {
+  height: 100vh;
   &__scene {
-    position: relative;
-    height: 100vh;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 50%;
     overflow: hidden;
+    max-width: 1460px;
+    transform: translateX(-50%);
     canvas {
       display: block;
       position: absolute;
@@ -234,5 +240,32 @@
       left: 50%;    
       transform: translate(-50%, -50%);
     }
+  }
+}
+
+.section-model-screen {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  &_1 {
+    .container {
+      height: 100%;
+    }
+  }
+  &_2 {
+    background: rgba(255, 255, 255, 0.7);
+  }
+  &__title-1 {
+    position: absolute;
+    top: 40px;
+  }
+  &__text-1 {
+    position: absolute;
+    width: 100%;
+    bottom: calc((100% - 500px)/4);
+    font-size: 1rem;
+    color: var(--color-text-accent);
   }
 }

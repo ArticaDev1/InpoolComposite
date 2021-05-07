@@ -67,11 +67,11 @@ window.onload = function() {
 //effects
 gsap.registerEffect({
   name: "slidingText",
-  effect: ($text) => {
+  effect: ($outer, $inner) => {
     let anim = gsap.timeline({paused: true})
-      .fromTo($text, {autoAlpha:0}, {autoAlpha:1, duration:0.3, ease:'power2.in'})
-      .fromTo($text, {y:50}, {y:-50, ease:'none'}, `-=0.3`)
-      .to($text, {autoAlpha:0, duration:0.3, ease:'power2.out'}, `-=0.3`)
+      .fromTo($outer, {autoAlpha:0}, {autoAlpha:1, duration:0.3, ease:'power2.in'})
+      .fromTo($inner, {y:50}, {y:-50, ease:'none'}, `-=0.3`)
+      .to($outer, {autoAlpha:0, duration:0.3, ease:'power2.out'}, `-=0.3`)
     return anim;
   },
   extendTimeline: true
@@ -630,7 +630,7 @@ class SectionVideoAnimation {
     let pinType = Scroll.scrollbar?'transform':'fixed';
     this.$scene = this.$parent.querySelector('.section-video-animation__scene');
     this.$canvas = this.$parent.querySelector('.section-video-animation__scene canvas');
-    this.$text = this.$parent.querySelectorAll('.section-video-animation__title, .section-video-animation__text');
+    this.$text = this.$parent.querySelector('.section-video-animation__container');
     this.context = this.$canvas.getContext("2d");
     this.$canvas.width=1280;
     this.$canvas.height=720;
@@ -659,7 +659,7 @@ class SectionVideoAnimation {
     this.resizeEvent();
     window.addEventListener('resize', this.resizeEvent);
 
-    this.animation_text = gsap.effects.slidingText(this.$text);
+    this.animation_text = gsap.effects.slidingText(this.$text, this.$text);
     this.animation_fade_scene = gsap.timeline({paused:true})
       .fromTo(this.$scene, {autoAlpha:0}, {autoAlpha:1, duration:0.3})
       .to(this.$scene, {autoAlpha:0, duration:0.3, ease:'power2.in'}, `+=0.4`)
@@ -780,10 +780,10 @@ class AnimatedSection {
     let pinType = Scroll.scrollbar?'transform':'fixed';
 
     this.$head = this.$parent.querySelector('.animated-head');
-    this.$head_text = this.$head.querySelectorAll('.animated-head__title, .animated-head__sub-title');
+    this.$head_inner = this.$head.querySelectorAll('.animated-head__container');
     this.$content = this.$parent.querySelector('.animated-section__content');
 
-    this.animation_head = gsap.effects.slidingText(this.$head_text);
+    this.animation_head = gsap.effects.slidingText(this.$head, this.$head_inner);
 
     this.animation_head_trigger = ScrollTrigger.create({
       trigger: this.$head,
@@ -793,7 +793,6 @@ class AnimatedSection {
       pinType: pinType,
       onUpdate: self => {
         this.animation_head.progress(self.progress);
-        console.log(self.progress)
       }
     });
 
@@ -981,11 +980,11 @@ class Model {
     this.sceneRender();
 
     this.resizeEvent = () => {
-      let h = this.$parent.getBoundingClientRect().height,
-          w = this.$parent.getBoundingClientRect().width,
+      let h = this.$scene.getBoundingClientRect().height,
+          w = this.$scene.getBoundingClientRect().width,
           res = this.$canvas.height/this.$canvas.width;
 
-      if (h / w < res) {
+      if (h / w > res) {
         this.$canvas.style.width = `${w}px`;
         this.$canvas.style.height = `${w*res}px`;
       } else {
@@ -996,15 +995,35 @@ class Model {
     this.resizeEvent();
     window.addEventListener('resize', this.resizeEvent);
 
+    //animtaions
+    let $items1 = this.$parent.querySelectorAll('.section-model-screen__item-1');
+    this.animation1 = gsap.timeline({paused:true})
+      .to($items1, {y:-50, ease:'none'})
+      .to($items1, {autoAlpha:0, duration:0.3, ease:'power2.out', stagger:{amount:0.2}}, `-=0.5`)
+    
+    //
+    let $screen2 = this.$parent.querySelector('.section-model-screen_2'),
+        $screen2_content = $screen2.querySelector('.animated-head__container');
+    this.animation2 = gsap.effects.slidingText($screen2, $screen2_content);
+
+
     this.trigger = ScrollTrigger.create({
       trigger: this.$parent,
       start: "top top",
-      end: "top+=3000 top",
+      end: "top+=5000 top",
       pin: true,
       pinType: pinType,
       onUpdate: self => {
         let index = Math.round(self.progress*(this.framesCount-1));
         this.activeFrame = this.frames[index];
+        
+        let y = self.end*self.progress;
+
+        let time1 = Math.max(0, Math.min( y/750, 1)),
+            time2 = Math.max(0, Math.min((y-1000)/1500, 1));
+
+        this.animation1.progress(time1);
+        this.animation2.progress(time2);
       }
     });
   }
