@@ -3,11 +3,9 @@
 }
 
 .section-video-animation {
-  min-height: 100vh;
-  display: flex;
+  height: 100vh;
+  margin-bottom: 2000px;
   z-index: 2;
-  color: var(--color-text-light);
-  margin-bottom: 1500px;
   &__scene {
     position: absolute;
     width: 100%;
@@ -35,26 +33,13 @@
     }
   }
   &__container {
+    height: 100%;
     display: flex;
-    align-items: flex-end;
-    .row {
-      height: 50%;
-      width: calc(100% + 24px);
-      flex-direction: column;
-    }
+    align-items: center;
+    text-align: center;
   }
   &__title {
     text-align: center;
-    margin-bottom: 0;
-    margin-top: -0.5em;
-    flex: 0 0 auto;
-    color: inherit;
-  }
-  &__text {
-    align-self: stretch;
-    flex: 1 1 auto;
-    display: flex;
-    align-items: center;
   }
 }
 

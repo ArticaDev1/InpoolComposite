@@ -2483,11 +2483,9 @@ ul {
   height: 100vh; }
 
 .section-video-animation {
-  min-height: 100vh;
-  display: flex;
-  z-index: 2;
-  color: var(--color-text-light);
-  margin-bottom: 1500px; }
+  height: 100vh;
+  margin-bottom: 2000px;
+  z-index: 2; }
   .section-video-animation__scene {
     position: absolute;
     width: 100%;
@@ -2512,23 +2510,12 @@ ul {
       z-index: 2;
       background: rgba(0, 0, 0, 0.3); }
   .section-video-animation__container {
+    height: 100%;
     display: flex;
-    align-items: flex-end; }
-    .section-video-animation__container .row {
-      height: 50%;
-      width: calc(100% + 24px);
-      flex-direction: column; }
+    align-items: center;
+    text-align: center; }
   .section-video-animation__title {
-    text-align: center;
-    margin-bottom: 0;
-    margin-top: -0.5em;
-    flex: 0 0 auto;
-    color: inherit; }
-  .section-video-animation__text {
-    align-self: stretch;
-    flex: 1 1 auto;
-    display: flex;
-    align-items: center; }
+    text-align: center; }
 
 .section-technologies {
   margin-top: -33vh; }

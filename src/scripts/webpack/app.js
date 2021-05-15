@@ -1,4 +1,4 @@
-const Dev = false;
+const Dev = true;
 
 import 'lazysizes';
 //gsap
@@ -99,12 +99,23 @@ window.onload = function() {
 
 //effects
 gsap.registerEffect({
-  name: "slidingText",
+  name: "slidingText", //1500px
   effect: ($outer, $inner) => {
     let anim = gsap.timeline({paused: true})
-      .fromTo($outer, {autoAlpha:0}, {autoAlpha:1, duration:0.3, ease:'power2.in'})
-      .fromTo($inner, {y:50}, {y:-50, ease:'none'}, `-=0.3`)
-      .to($outer, {autoAlpha:0, duration:0.3, ease:'power2.out'}, `-=0.3`)
+      .fromTo($outer, {autoAlpha:0}, {autoAlpha:1, duration:0.33, ease:'power2.in'})
+      .fromTo($inner, {y:50}, {y:-50, ease:'none'}, `-=0.33`)
+      .to($outer, {autoAlpha:0, duration:0.3, ease:'power2.out'}, `-=0.33`)
+    return anim;
+  },
+  extendTimeline: true
+});
+gsap.registerEffect({
+  name: "slidingTextSlow", //2500px
+  effect: ($outer, $inner) => {
+    let anim = gsap.timeline({paused: true})
+      .fromTo($outer, {autoAlpha:0}, {autoAlpha:1, duration:0.2, ease:'power2.in'})
+      .fromTo($inner, {y:50}, {y:-50, ease:'none'}, `-=0.2`)
+      .to($outer, {autoAlpha:0, duration:0.2, ease:'power2.out'}, `-=0.2`)
     return anim;
   },
   extendTimeline: true
@@ -707,25 +718,39 @@ class SectionVideoAnimation {
     this.resizeEvent();
     window.addEventListener('resize', this.resizeEvent);
 
-    this.animation_text = gsap.effects.slidingText(this.$text, this.$text);
+    
+    let $color_title = getComputedStyle(document.documentElement).getPropertyValue('--color-text-accent'),
+        $color_text = getComputedStyle(document.documentElement).getPropertyValue('--color-text'),
+        $color_active = getComputedStyle(document.documentElement).getPropertyValue('--color-text-light'),
+        $title = this.$parent.querySelector('.section-video-animation__title'),
+        $text = this.$parent.querySelector('.section-video-animation__text');
+    this.animation_text = gsap.effects.slidingTextSlow(this.$text, this.$text);
     this.animation_fade_scene = gsap.timeline({paused:true})
-      .fromTo(this.$scene, {autoAlpha:0}, {autoAlpha:1, duration:0.3})
-      .to(this.$scene, {autoAlpha:0, duration:0.3, ease:'power2.in'}, `+=0.4`)
+      .fromTo(this.$scene, {autoAlpha:0}, {autoAlpha:1, duration:0.5})
+      .fromTo($title, {css:{color:$color_title}}, {css:{color:$color_active}, duration:0.5}, '-=0.5')
+      .fromTo($text, {css:{color:$color_text}}, {css:{color:$color_active}, duration:0.5}, '-=0.5')
+      .to($title, {css:{color:$color_title}, duration:0.5})
+      .to($text, {css:{color:$color_text}, duration:0.5}, '-=0.5')
+      .to(this.$scene, {autoAlpha:0, duration:0.5}, `-=0.5`)
 
 
     this.trigger = ScrollTrigger.create({
       trigger: this.$parent,
       start: "top top",
-      end: "+=1500",
+      end: "+=2000",
       pinSpacing: false,
       pin: true,
       pinType: pinType,
       pinSpacing: false,
       onUpdate: self => {
-        let index = Math.round(self.progress*(this.framesCount-1));
+        let y = 2000*self.progress;
+        let progress2 = Math.max(0, Math.min((y-500)/1000, 1));
+
+        let index = Math.round(progress2*(this.framesCount-1));
         this.activeFrame = this.frames[index];
+        this.animation_fade_scene.progress(progress2);
+
         this.animation_text.progress(self.progress);
-        this.animation_fade_scene.progress(self.progress);
       }
     });
   }
@@ -786,14 +811,8 @@ class SectionTechnologies {
 
     this.trigger_fade = ScrollTrigger.create({
       trigger: this.$content,
-      start: ()=>{
-        let h = window.innerHeight/3;
-        return `top bottom-=${h}`;
-      },
-      end: ()=>{
-        let h = window.innerHeight/3;
-        return `top bottom-=${h+300}`;
-      },
+      start: 'top bottom',
+      end: '+=300',
       onUpdate: self => {
         this.animation_fade.progress(self.progress);
       }
