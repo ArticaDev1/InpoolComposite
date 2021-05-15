@@ -737,14 +737,14 @@ class SectionVideoAnimation {
     this.trigger = ScrollTrigger.create({
       trigger: this.$parent,
       start: "top top",
-      end: "+=2000",
+      end: "+=2500",
       pinSpacing: false,
       pin: true,
       pinType: pinType,
       pinSpacing: false,
       onUpdate: self => {
-        let y = 2000*self.progress;
-        let progress2 = Math.max(0, Math.min((y-500)/1000, 1));
+        let y = 2500*self.progress;
+        let progress2 = Math.max(0, Math.min((y-500)/1500, 1));
 
         let index = Math.round(progress2*(this.framesCount-1));
         this.activeFrame = this.frames[index];

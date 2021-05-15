@@ -3,9 +3,10 @@
 }
 
 .section-video-animation {
-  height: 100vh;
-  margin-bottom: 2000px;
+  min-height: 100vh;
+  display: flex;
   z-index: 2;
+  margin-bottom: 2500px;
   &__scene {
     position: absolute;
     width: 100%;
@@ -33,13 +34,26 @@
     }
   }
   &__container {
-    height: 100%;
     display: flex;
-    align-items: center;
-    text-align: center;
+    align-items: flex-end;
+    .row {
+      height: 50%;
+      width: calc(100% + 24px);
+      flex-direction: column;
+    }
   }
   &__title {
     text-align: center;
+    margin-bottom: 0;
+    margin-top: -0.5em !important;
+    flex: 0 0 auto;
+    color: inherit;
+  }
+  &__text {
+    align-self: stretch;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
   }
 }
 
