@@ -161,6 +161,8 @@
 
 .animated-head {
   text-align: center;
+  position: relative;
+  z-index: 2;
   &__container {
     height: 100vh;
     display: flex;
@@ -179,11 +181,11 @@
 .contact-form {
   .background-figure {
     &_1 {
-      top: -500px;
+      bottom: -800px;
       left: -1200px;
     }
     &_2 {
-      top: -1000px;
+      bottom: -200px;
       right: -1400px;
     }
   }

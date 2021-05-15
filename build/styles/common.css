@@ -2595,7 +2595,9 @@ ul {
     margin-top: -33vh; }
 
 .animated-head {
-  text-align: center; }
+  text-align: center;
+  position: relative;
+  z-index: 2; }
   .animated-head__container {
     height: 100vh;
     display: flex;
@@ -2608,11 +2610,11 @@ ul {
     margin: 0; }
 
 .contact-form .background-figure_1 {
-  top: -500px;
+  bottom: -800px;
   left: -1200px; }
 
 .contact-form .background-figure_2 {
-  top: -1000px;
+  bottom: -200px;
   right: -1400px; }
 
 .contact-form__title {
