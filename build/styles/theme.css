@@ -1,13 +1,13 @@
 :root {
   --color-text: #8E9B9B;
-  --color-title: #3D4545;
+  --color-text-accent: #3D4545;
   --color-sub-title: #8E9B9B;
   --color-text-light: #fff;
   --color-accent: #4FA6A6;
   --color-text-muted: #C7C7C7;
-  --color-text-accent: #3D4545;
   --color-main-background: #fff;
   --color-scrollbar: #CECECE;
+  --color-scrollbar-modal: #F5F5F5;
   --color-scrollbar-hover: #4FA6A6;
   --color-background-unloaded: #F5F5F5;
   --color-bg-section-dark: #F5F5F5;

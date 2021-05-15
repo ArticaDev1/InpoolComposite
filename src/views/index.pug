@@ -1,8 +1,9 @@
 extends layout/layout
 block content
-  section.section.section-model
+  //section.section.section-model
     .section-model__scene
-      canvas
+      .section-model__scene-inner
+        canvas
 
     //1
     .section-model-screen.section-model-screen_1
@@ -47,65 +48,55 @@ block content
         mixin block1(image, title, text, link, classes, classes2)
           //block
           .technologies-block.col-xl-3(class=classes2)
-            .technologies-block__image.mb-1(class=classes)
+            .technologies-block__image.mb-3(class=classes)
               .image.image_cover
                 img(data-src=image, alt="image").lazyload
-            .technologies-block__text.mb-1
+            .technologies-block__text.mb-3
               h6.technologies-block__title=title
               p=text
-            a(href=link).btn-link Подробнее 
+            a(href=link data-modal='open').btn-link Подробнее 
         
         +block1(
           './img/technologies/1.jpg',
-          'Технология SlipStop®',
-          'Slipstop в отличие от общепринятых антискользящих материалов, покрывает все горизонтальные поверхности.',
-          'javascript:void(0);',
+          'Compass Pools Bi-Luminite',
+          'Специалисты из Compass Pools создали новую цветовую палитру, сконцентрировав свое внимание не на технической поверхности бассейна, а на цвете воды.',
+          '#CompassPoolsBiLuminite',
           'technologies-block__image_1',
           'technologies-block_1'
         )
         +block1(
           './img/technologies/2.jpg',
-          'Жалюзи для бассейна',
-          'Закончив строительство бассейна на собственной территории, возникает закономерный вопрос: чем его накрыть?',
-          'javascript:void(0);',
+          'Vantage',
+          'Интеллектуальный инструмент удаленного доступа и диспетчеризации позволяет сервисным службам дистанционно наблюдать за системой водоподготовки.',
+          '#Vantage',
           'technologies-block__image_2',
           'technologies-block_2'
         )
+        .col-xl-3
         +block1(
           './img/technologies/3.jpg',
-          'Удаленное управление',
-          'Интеллектуальный инструмент удаленного доступа и диспетчеризации позволяет сервисным службам дистанционно наблюдать за системой водоподготовки.',
-          'javascript:void(0);',
+          'Технология SlipStop®',
+          'Slipstop в отличие от общепринятых антискользящих материалов, покрывает все горизонтальные поверхности.',
+          '#Slipstop',
           'technologies-block__image_3',
           'technologies-block_3'
         )
         .col-xl-12
         +block1(
-          './img/technologies/5.jpg',
-          'Сервис',
-          'Slipstop в отличие от общепринятых антискользящих материалов, покрывает все горизонтальные поверхности.',
-          'javascript:void(0);',
-          'technologies-block__image_5',
-          'technologies-block_5'
-        )
-        +block1(
           './img/technologies/4.jpg',
-          'Зимнее использование',
-          'Закончив строительство бассейна на собственной территории, возникает закономерный вопрос: чем его накрыть?',
-          'javascript:void(0);',
+          'Квалифицированный сервис',
+          'Slipstop в отличие от общепринятых антискользящих материалов, покрывает все горизонтальные поверхности.',
+          '#servis',
           'technologies-block__image_4',
           'technologies-block_4'
         )
-        .col-xl-3
-        .col-xl-12
-        .col-xl-3
         +block1(
-          './img/technologies/6.jpg',
-          'Vantage',
-          'Интеллектуальный инструмент удаленного доступа и диспетчеризации позволяет сервисным службам дистанционно наблюдать за системой водоподготовки.',
-          'javascript:void(0);',
-          'technologies-block__image_6',
-          'technologies-block_6'
+          './img/technologies/5.jpg',
+          'Жалюзи для бассейна',
+          'Закончив строительство бассейна на собственной территории, возникает закономерный вопрос: чем его накрыть?',
+          '#jalousie',
+          'technologies-block__image_5',
+          'technologies-block_5'
         )
         .col-xl-3
 
@@ -115,40 +106,43 @@ block content
       .container.animated-head__container
         h5.animated-head__sub-title Контакты
         h2.h1.animated-head__title Давайте знакомиться.
-    .container.animated-section__content.contact-form__content
-      h4.contact-form__title Оставьте свои контакты и мы вам перезвоним
-      form(autocomplete="off").form.contact-form__form.row
-        .col-xl-6 
-          .form__item
-            label.input
-              span.input__title Ваше имя  
-                mark *
-              input(type="text" name="name" data-validate='name' data-required).input__element
-          .form__item
-            label.input
-              span.input__title Номер телефона 
-                mark *
-              input(type="text" name="phone" data-validate='phone' data-required).input__element
-          .form__item
-            label.input
-              span.input__title Комментарий
-              textarea(name="message" data-validate='message').input__element
-            
-          .form__submit
-            button.button.button_style-1.button_loader 
-              span Отправить
-              svg(viewBox='0 0 120 30' fill='currentColor')
-                circle(cx='15' cy='15' r='15')
-                  animate(attributeName='r' from='15' to='15' begin='0s' dur='0.8s' values='15;9;15' calcMode='linear' repeatCount='indefinite')
-                  animate(attributeName='fill-opacity' from='1' to='1' begin='0s' dur='0.8s' values='1;.5;1' calcMode='linear' repeatCount='indefinite')
-                circle(cx='60' cy='15' r='9' fill-opacity='0.3')
-                  animate(attributeName='r' from='9' to='9' begin='0s' dur='0.8s' values='9;15;9' calcMode='linear' repeatCount='indefinite')
-                  animate(attributeName='fill-opacity' from='0.5' to='0.5' begin='0s' dur='0.8s' values='.5;1;.5' calcMode='linear' repeatCount='indefinite')
-                circle(cx='105' cy='15' r='15')
-                  animate(attributeName='r' from='15' to='15' begin='0s' dur='0.8s' values='15;9;15' calcMode='linear' repeatCount='indefinite')
-                  animate(attributeName='fill-opacity' from='1' to='1' begin='0s' dur='0.8s' values='1;.5;1' calcMode='linear' repeatCount='indefinite')
-            p.form__message Нажимая кнопку “Отправить” вы соглашаетесь<br> с условиями 
-              a(href="javascript:void(0);") Политики конфиденциальности
+    .animated-section__content.contact-form__content
+      .background-figure.background-figure_1
+      .background-figure.background-figure_2
+      .container
+        h4.contact-form__title Оставьте свои контакты и мы вам перезвоним
+        form(autocomplete="off").form.contact-form__form.row
+          .col-xl-6 
+            .form__item
+              label.input
+                span.input__title Ваше имя  
+                  mark *
+                input(type="text" name="name" data-validate='name' data-required).input__element
+            .form__item
+              label.input
+                span.input__title Номер телефона 
+                  mark *
+                input(type="text" name="phone" data-validate='phone' data-required).input__element
+            .form__item
+              label.input
+                span.input__title Комментарий
+                textarea(name="message" data-validate='message').input__element
+              
+            .form__submit
+              button.button.button_style-1.button_loader 
+                span Отправить
+                svg(viewBox='0 0 120 30' fill='currentColor')
+                  circle(cx='15' cy='15' r='15')
+                    animate(attributeName='r' from='15' to='15' begin='0s' dur='0.8s' values='15;9;15' calcMode='linear' repeatCount='indefinite')
+                    animate(attributeName='fill-opacity' from='1' to='1' begin='0s' dur='0.8s' values='1;.5;1' calcMode='linear' repeatCount='indefinite')
+                  circle(cx='60' cy='15' r='9' fill-opacity='0.3')
+                    animate(attributeName='r' from='9' to='9' begin='0s' dur='0.8s' values='9;15;9' calcMode='linear' repeatCount='indefinite')
+                    animate(attributeName='fill-opacity' from='0.5' to='0.5' begin='0s' dur='0.8s' values='.5;1;.5' calcMode='linear' repeatCount='indefinite')
+                  circle(cx='105' cy='15' r='15')
+                    animate(attributeName='r' from='15' to='15' begin='0s' dur='0.8s' values='15;9;15' calcMode='linear' repeatCount='indefinite')
+                    animate(attributeName='fill-opacity' from='1' to='1' begin='0s' dur='0.8s' values='1;.5;1' calcMode='linear' repeatCount='indefinite')
+              p.form__message Нажимая кнопку “Отправить” вы соглашаетесь<br> с условиями 
+                a(href="javascript:void(0);") Политики конфиденциальности
 
   section.section.contacts-block 
     .contacts-block__top.pt-1.pb-1

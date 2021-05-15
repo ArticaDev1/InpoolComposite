@@ -1,7 +1,6 @@
-const Dev = false;
+const Dev = true;
 
 import 'lazysizes';
-lazySizes.cfg.preloadAfterLoad = true;
 //gsap
 import {gsap} from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -41,14 +40,8 @@ window.onload = function() {
   //form
   Validation.init();
   inputs();
-  Inputmask({
-    mask: "+7 999 999-9999",
-    showMaskOnHover: false,
-    clearIncomplete: false
-  }).mask("[data-validate='phone']");
   //
   TouchHoverEvents.init();
-  Mask.init();
   Scroll.init();
   Modal.init();
 
@@ -122,7 +115,7 @@ const Resources = {
       1: {
         src: './img/model/1/',
         type: 'png',
-        framesCount: 51,
+        framesCount: 108,
         frames: []
       }
     }
@@ -283,6 +276,12 @@ const Validation = {
         }
       }
     };
+
+    Inputmask({
+      mask: "+7 999 999-9999",
+      showMaskOnHover: false,
+      clearIncomplete: false
+    }).mask('[data-phone]');
 
     gsap.registerEffect({
       name: "fadeMessages",
@@ -526,16 +525,6 @@ const Scroll = {
     else {
       window.removeEventListener('scroll', func);
     }
-  }
-}
-
-const Mask = {
-  init: function() {
-    Inputmask({
-      mask: "+7 999 999-9999",
-      showMaskOnHover: false,
-      clearIncomplete: false
-    }).mask('[data-phone]');
   }
 }
 
@@ -869,8 +858,6 @@ class Map {
 
 const Modal = {
   init: function () {
-    this.$modals = document.querySelectorAll('.modal');
-
     gsap.registerEffect({
       name: "modal",
       effect: ($modal, $content) => {
@@ -897,43 +884,37 @@ const Modal = {
       else if ($close || (!$block && $wrap)) {
         this.close();
       }
-
     })
-
-    //add scroll
-    if(!mobile()) {
-      this.$modals.forEach(($modal)=>{
-        Scrollbar.init($modal, {
-          damping: 1
-        })
-      })
-    }
   },
   open: function ($modal) {
-    let play = () => {
-      this.$active = $modal;
+    let open = ()=> {
       disablePageScroll();
-      let $content = $modal.querySelector('.modal-block');
+      $modal.style.display = 'block';
+      //scrollbar create
+      if(!Scrollbar.get($modal) && !mobile()) {
+        let scrollbar = Scrollbar.init($modal, {damping:1});
+        scrollbar.track.yAxis.element.querySelector('.scrollbar-thumb').classList.add('scrollbar-thumb_modal');
+      }
+      //animation
+      let $content = $modal.querySelector('.modal-block')
       this.animation = gsap.effects.modal($modal, $content);
       this.animation.play();
+      this.$active = $modal;
     }
-    if ($modal) {
-      if (this.$active) this.close(play);
-      else play();
+    if($modal) {
+      if(this.$active) this.close(open);
+      else open();
     }
   },
   close: function (callback) {
     if(this.$active) {
-      this.animation.timeScale(2).reverse().eventCallback('onReverseComplete', () => {
+      this.animation.timeScale(2).reverse().eventCallback('onReverseComplete', ()=> {
         delete this.animation;
         enablePageScroll();
-        if (callback) callback();
+        this.$active.style.display = 'none';
+        delete this.$active;
+        if(callback) callback();
       })
-      //reset form
-      let $form = this.$active.querySelector('form');
-      if ($form) Validation.reset($form);
-  
-      delete this.$active;
     }
   }
 }
@@ -968,8 +949,8 @@ class Model {
     this.context = this.$canvas.getContext("2d");
     this.$canvas.width=1920;
     this.$canvas.height=1080;
-    this.framesCount = Resources.sources[1].framesCount;
     this.frames = Resources.sources[1].frames;
+    this.framesCount = 108;
     this.activeFrame = this.frames[0];
 
     this.sceneRender = ()=> {
@@ -997,7 +978,7 @@ class Model {
 
     //start animation
     let animation_start = gsap.timeline({paused:true})
-      .fromTo(this.$canvas, {scale:0.7}, {scale:1, duration:1, ease:'power2.out'})
+      .fromTo(this.$canvas, {scale:0.5}, {scale:1, duration:1, ease:'power2.out'})
     window.addEventListener('start', () => {
       animation_start.play();
     })
@@ -1020,27 +1001,45 @@ class Model {
         $screen3_content = $screen3.querySelector('.section-model-screen__text-3');
     this.animation3 = gsap.effects.slidingText($screen3, $screen3_content);
 
+    //4
+    this.animation4 = gsap.timeline({paused:true})
+      .to(this.$scene, {autoAlpha:0, ease:'power2.in'})
+
+    //5
+    this.animation5 = gsap.timeline({paused:true})
+      .to(this.$scene, {autoAlpha:0, ease:'power2.out'})
+
 
     this.trigger = ScrollTrigger.create({
       trigger: this.$parent,
       start: "top top",
-      end: "top+=5000 top",
+      end: "top+=10800 top",
       pin: true,
       pinType: pinType,
       onUpdate: self => {
+        let y = self.end*self.progress;
         let index = Math.round(self.progress*(this.framesCount-1));
         this.activeFrame = this.frames[index];
-        
-        let y = self.end*self.progress;
 
-        let time1 = Math.max(0, Math.min( y/750, 1)), //750
-            time2 = Math.max(0, Math.min((y-1000)/1500, 1)), //2500
-            time3 = Math.max(0, Math.min((y-2500)/1500, 1)); //4000
+        let time1 = Math.max(0, Math.min(y/750, 1)), //750
+            time2 = Math.max(0, Math.min((y-1100)/1500, 1)), //2500
+            time3 = Math.max(0, Math.min((y-2600)/1500, 1)), //4000
+            time4 = Math.max(0, Math.min((y-4100)/1000, 1)), //5100
+            time5 = Math.max(0, Math.min((y-5100)/1000, 1)); //6100
+
+        if(y<5100) {
+          gsap.set(this.$canvas, {scale:1})
+        } else {
+          gsap.set(this.$scene, {scale:0.73})
+        }
 
         this.animation1.progress(time1);
         this.animation2.progress(time2);
         this.animation3.progress(time3);
+        /* this.animation4.progress(time4);
+        this.animation5.progress(time5); */
       }
     });
+
   }
 }

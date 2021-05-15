@@ -5,6 +5,7 @@
   width: 100%;
   top: 0;
   left: 0;
+  display: none;
   /* opacity: 1 !important;
   visibility: visible !important; */
   background: var(--color-modal-back-background);
@@ -73,6 +74,8 @@
     border-radius: 10px;
     width: 100%;
     background-color: var(--color-modal-background);
+    padding-right: 24px;
+    padding-left: 24px;
   }
 }
 

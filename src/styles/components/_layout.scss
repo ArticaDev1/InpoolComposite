@@ -17,6 +17,7 @@
 
 .main {
   flex: 1 1 100%;
+  overflow: hidden;
 }
 .section {
   position: relative;
@@ -26,6 +27,9 @@
   z-index: 2;
 }
 
+.row {
+  position: relative;
+}
 
 @include media-breakpoint-down(md) {
   .container {
