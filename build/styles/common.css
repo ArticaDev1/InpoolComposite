@@ -2181,6 +2181,7 @@ ul {
   width: 1800px;
   height: 1800px;
   position: absolute;
+  will-change: transform;
   background: radial-gradient(50% 50% at 50% 50%, rgba(1, 153, 182, 0.114) 0%, rgba(0, 209, 255, 0) 100%); }
 
 /*========== Helpers ==========*/
@@ -2484,7 +2485,9 @@ ul {
 .section-video-animation {
   min-height: 100vh;
   display: flex;
-  color: var(--color-text-light); }
+  z-index: 2;
+  color: var(--color-text-light);
+  margin-bottom: 1500px; }
   .section-video-animation__scene {
     position: absolute;
     width: 100%;
@@ -2588,16 +2591,17 @@ ul {
   .technologies-block_5 {
     margin-top: 200px; } }
 
-.animated-section {
+.section-animated {
   margin-top: -33vh; }
-  .animated-section__content {
+  .section-animated__content {
     position: relative;
     margin-top: -33vh; }
 
 .animated-head {
   text-align: center;
   position: relative;
-  z-index: 2; }
+  z-index: 2;
+  margin-bottom: 1500px; }
   .animated-head__container {
     height: 100vh;
     display: flex;

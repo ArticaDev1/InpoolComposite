@@ -1,4 +1,4 @@
-const Dev = true;
+const Dev = false;
 
 import 'lazysizes';
 //gsap
@@ -74,21 +74,22 @@ function mobile() {
 
 window.onload = function() {
   Resources.init();
-  //form
   Validation.init();
   inputs();
-  //
   TouchHoverEvents.init();
   Scroll.init();
   Modal.init();
 
+  if(!mobile()) {
+    Parallax.init();
+  }
+
   const activeFunctions = new ActiveFunctions();
   activeFunctions.create();
   activeFunctions.add(Model, '.section-model');
-  activeFunctions.add(AnimatedSection, '.animated-section_1');
+  activeFunctions.add(SectionAnimated, '.section-animated');
   activeFunctions.add(SectionVideoAnimation, '.section-video-animation');
   activeFunctions.add(SectionTechnologies, '.section-technologies');
-  activeFunctions.add(AnimatedSection, '.animated-section_2');
   activeFunctions.add(Map, '.contacts-block__map');
   activeFunctions.init();
 
@@ -254,6 +255,24 @@ const TouchHoverEvents = {
     else if(event.type=='mouseup' && !this.touched  && $targets[0]) {
       $targets[0].removeAttribute('data-focus');
     }
+  }
+}
+
+const Parallax = {
+  init: function() {
+    Scroll.addListener(this.update);
+  },
+  update: function() {
+    let $items = document.querySelectorAll('[data-parallax]');
+    $items.forEach(($this)=>{
+      let y = $this.getBoundingClientRect().y,
+          h1 = window.innerHeight,
+          h2 = $this.getBoundingClientRect().height,
+          scroll = Scroll.y,
+          factor = +$this.getAttribute('data-parallax'),
+          val = ((scroll+h1/2) - (y+scroll+h2/2)) * factor;
+      $this.style.transform = `translate3d(0, ${val}px, 0)`;
+    })
   }
 }
 
@@ -697,9 +716,11 @@ class SectionVideoAnimation {
     this.trigger = ScrollTrigger.create({
       trigger: this.$parent,
       start: "top top",
-      end: "top+=1500 top",
+      end: "+=1500",
+      pinSpacing: false,
       pin: true,
       pinType: pinType,
+      pinSpacing: false,
       onUpdate: self => {
         let index = Math.round(self.progress*(this.framesCount-1));
         this.activeFrame = this.frames[index];
@@ -738,6 +759,7 @@ class SectionTechnologies {
   }
 
   initDesktop() {
+    this.$content = this.$parent.querySelector('.section-technologies__container');
     this.$blocks = this.$parent.querySelectorAll('.technologies-block');
 
     this.animations_parallax = []
@@ -760,10 +782,10 @@ class SectionTechnologies {
     })
 
     this.animation_fade = gsap.timeline({paused:true}) 
-      .fromTo(this.$parent, {autoAlpha:0}, {autoAlpha:1, ease:'power2.in'})
+      .fromTo(this.$content, {autoAlpha:0}, {autoAlpha:1, ease:'power2.in'})
 
     this.trigger_fade = ScrollTrigger.create({
-      trigger: this.$parent,
+      trigger: this.$content,
       start: ()=>{
         let h = window.innerHeight/3;
         return `top bottom-=${h}`;
@@ -782,7 +804,7 @@ class SectionTechnologies {
 
 }
 
-class AnimatedSection {
+class SectionAnimated {
   constructor($parent) {
     this.$parent = $parent;
   }
@@ -810,15 +832,16 @@ class AnimatedSection {
 
     this.$head = this.$parent.querySelector('.animated-head');
     this.$head_inner = this.$head.querySelectorAll('.animated-head__container');
-    this.$content = this.$parent.querySelector('.animated-section__content');
+    this.$content = this.$parent.querySelector('.section-animated__content');
 
     this.animation_head = gsap.effects.slidingText(this.$head, this.$head_inner);
 
     this.animation_head_trigger = ScrollTrigger.create({
       trigger: this.$head,
       start: "top top",
-      end: "top+=1500 top",
+      end: "+=1500",
       pin: true,
+      pinSpacing: false,
       pinType: pinType,
       onUpdate: self => {
         this.animation_head.progress(self.progress);
@@ -831,7 +854,7 @@ class AnimatedSection {
     this.animation_content_trigger = ScrollTrigger.create({
       trigger: this.$content,
       start: "top bottom",
-      end: "top+=300 bottom",
+      end: "+=300",
       onUpdate: self => {
         this.animation_content.progress(self.progress);
       }

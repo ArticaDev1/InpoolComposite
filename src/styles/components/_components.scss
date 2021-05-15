@@ -137,5 +137,6 @@
   width: 1800px;
   height: 1800px;
   position: absolute;
+  will-change: transform;
   background: radial-gradient(50% 50% at 50% 50%, rgba(1, 153, 182, 0.114) 0%, rgba(0, 209, 255, 0) 100%);
 }

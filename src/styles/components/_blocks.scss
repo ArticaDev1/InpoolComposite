@@ -5,8 +5,9 @@
 .section-video-animation {
   min-height: 100vh;
   display: flex;
+  z-index: 2;
   color: var(--color-text-light);
-  //background: rgba(0, 0, 0, 0.1);
+  margin-bottom: 1500px;
   &__scene {
     position: absolute;
     width: 100%;
@@ -151,7 +152,7 @@
   }
 }
 
-.animated-section {
+.section-animated {
   margin-top: -33vh;
   &__content {
     position: relative;
@@ -163,6 +164,7 @@
   text-align: center;
   position: relative;
   z-index: 2;
+  margin-bottom: 1500px;
   &__container {
     height: 100vh;
     display: flex;

@@ -35,12 +35,12 @@ block content
 
   section.section.section-test
 
-  section.section.animated-section.animated-section_1.mb-1
+  section.section.section-animated.section-animated_1.mb-1
     .animated-head
       .container.animated-head__container
         h5.animated-head__sub-title Выберите модель 
         h2.h1.animated-head__title Ценим индивидуальность.
-    .animated-section__content
+    .section-animated__content
       .container 
         p Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem ratione quo maxime neque harum nostrum laboriosam nesciunt maiores? Ab facilis debitis architecto labore ad impedit quod possimus nobis ex aperiam.
 
@@ -53,8 +53,8 @@ block content
         p.section-video-animation__text.offset-xl-7.offset-xxl-8.col-xxl-4.col-xl-5 На всех этапах мы предлагаем сопровождение объекта и взаимодействие наших специалистов, представителей клиента, самого клиента в единой электронной системе, предназначенной для эффективного взаимодействия, скорости обмена данными и актуализации задач.
 
   section.section.section-technologies
-    .background-figure.background-figure_1
-    .background-figure.background-figure_2
+    .background-figure.background-figure_1(data-parallax='0.5')
+    .background-figure.background-figure_2(data-parallax='0.5')
     .container.section-technologies__container 
       .row
         mixin block1(image, title, text, link, classes, classes2)
@@ -112,16 +112,15 @@ block content
         )
         .col-xl-3
 
-
-  section.section.animated-section.animated-section_2.contact-form.mb-1
+  section.section.section-animated.contact-form.mb-1
     .figures-container.container
-      .background-figure.background-figure_1
-      .background-figure.background-figure_2
+      .background-figure.background-figure_1(data-parallax='0.5')
+      .background-figure.background-figure_2(data-parallax='0.5')
     .animated-head
       .container.animated-head__container
         h5.animated-head__sub-title Контакты
         h2.h1.animated-head__title Давайте знакомиться.
-    .animated-section__content.contact-form__content
+    .section-animated__content.contact-form__content
       .container
         h4.contact-form__title Оставьте свои контакты и мы вам перезвоним
         form(autocomplete="off").form.contact-form__form.row
