@@ -2169,11 +2169,19 @@ ul {
     height: 100%;
     display: block; }
 
+.figures-container {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none; }
+
 .background-figure {
   width: 1800px;
   height: 1800px;
   position: absolute;
-  background: radial-gradient(50% 50% at 50% 50%, rgba(1, 153, 182, 0.0738) 0%, rgba(1, 153, 183, 0.0731618) 6.67%, rgba(1, 155, 185, 0.0711794) 13.33%, rgba(1, 158, 188, 0.0677735) 20%, rgba(1, 161, 193, 0.062921) 26.67%, rgba(1, 166, 199, 0.056695) 33.33%, rgba(1, 172, 206, 0.049307) 40%, rgba(1, 178, 214, 0.0411294) 46.67%, rgba(0, 184, 223, 0.0326706) 53.33%, rgba(0, 190, 231, 0.024493) 60%, rgba(0, 196, 238, 0.017105) 66.67%, rgba(0, 201, 244, 0.010879) 73.33%, rgba(0, 205, 249, 0.0060265) 80%, rgba(0, 207, 252, 0.00262064) 86.67%, rgba(0, 209, 254, 0.000638163) 93.33%, rgba(0, 209, 255, 0) 100%); }
+  background: radial-gradient(50% 50% at 50% 50%, rgba(1, 153, 182, 0.114) 0%, rgba(0, 209, 255, 0) 100%); }
 
 /*========== Helpers ==========*/
 .pt-1 {
@@ -2396,8 +2404,6 @@ ul {
   top: 0;
   left: 0;
   display: none;
-  /* opacity: 1 !important;
-  visibility: visible !important; */
   background: var(--color-modal-back-background); }
   .modal .scroll-content {
     min-height: 100%;
@@ -2412,7 +2418,8 @@ ul {
     height: 100%;
     display: flex; }
   .modal__container {
-    display: flex; }
+    display: flex;
+    margin: auto; }
     .modal__container > .row {
       width: calc(100% + 24px);
       justify-content: center;
@@ -2471,6 +2478,9 @@ ul {
     min-height: 380px; } }
 
 /*========== Blocks ==========*/
+.section-test {
+  height: 100vh; }
+
 .section-video-animation {
   min-height: 100vh;
   display: flex;
@@ -2519,6 +2529,12 @@ ul {
 
 .section-technologies {
   margin-top: -33vh; }
+  .section-technologies .background-figure_1 {
+    top: 400px;
+    left: -900px; }
+  .section-technologies .background-figure_2 {
+    top: -900px;
+    right: -900px; }
   .section-technologies__container > .row {
     justify-content: space-between; }
 
@@ -2593,12 +2609,11 @@ ul {
 
 .contact-form .background-figure_1 {
   top: -500px;
-  left: 0;
-  transform: translateX(-50%); }
+  left: -1200px; }
 
 .contact-form .background-figure_2 {
   top: -1000px;
-  right: -1000px; }
+  right: -1400px; }
 
 .contact-form__title {
   text-align: center;
@@ -2607,43 +2622,39 @@ ul {
 .contact-form__form {
   justify-content: center; }
 
-.contacts-block__top {
-  background-color: var(--color-bg-section-dark); }
-
-.contacts-block__item:last-child {
-  margin-bottom: 0; }
-
-.contacts-block__phone {
-  transition: color 0.15s ease-in-out; }
-  .contacts-block__phone[data-touch], .contacts-block__phone[data-hover] {
-    color: var(--color-text); }
-
-.contacts-block__link {
-  border-width: 0 0 2px 0; }
-
-.contacts-block__text {
-  margin-top: 12px; }
-
-.contacts-block__map {
-  height: 600px;
-  position: relative; }
-  .contacts-block__map-loader {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); }
-  .contacts-block__map-element {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 2; }
-
-@media (max-width: 1599.98px) {
+.contacts-block {
+  z-index: 2; }
+  .contacts-block__top {
+    background-color: var(--color-bg-section-dark); }
+  .contacts-block__item:last-child {
+    margin-bottom: 0; }
+  .contacts-block__phone {
+    transition: color 0.15s ease-in-out; }
+    .contacts-block__phone[data-touch], .contacts-block__phone[data-hover] {
+      color: var(--color-text); }
+  .contacts-block__link {
+    border-width: 0 0 2px 0; }
+  .contacts-block__text {
+    margin-top: 12px; }
   .contacts-block__map {
-    height: 450px; } }
+    height: 600px;
+    position: relative; }
+    .contacts-block__map-loader {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); }
+    .contacts-block__map-element {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 2; }
+  @media (max-width: 1599.98px) {
+    .contacts-block__map {
+      height: 450px; } }
 
 .section-model {
   height: 100vh; }

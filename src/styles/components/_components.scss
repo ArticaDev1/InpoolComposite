@@ -125,10 +125,17 @@
     display: block;
   }
 }
-
+.figures-container {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
 .background-figure {
   width: 1800px;
   height: 1800px;
   position: absolute;
-  background: radial-gradient(50% 50% at 50% 50%, rgba(1, 153, 182, 0.0738) 0%, rgba(1, 153, 183, 0.0731618) 6.67%, rgba(1, 155, 185, 0.0711794) 13.33%, rgba(1, 158, 188, 0.0677735) 20%, rgba(1, 161, 193, 0.062921) 26.67%, rgba(1, 166, 199, 0.056695) 33.33%, rgba(1, 172, 206, 0.049307) 40%, rgba(1, 178, 214, 0.0411294) 46.67%, rgba(0, 184, 223, 0.0326706) 53.33%, rgba(0, 190, 231, 0.024493) 60%, rgba(0, 196, 238, 0.017105) 66.67%, rgba(0, 201, 244, 0.010879) 73.33%, rgba(0, 205, 249, 0.0060265) 80%, rgba(0, 207, 252, 0.00262064) 86.67%, rgba(0, 209, 254, 0.000638163) 93.33%, rgba(0, 209, 255, 0) 100%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(1, 153, 182, 0.114) 0%, rgba(0, 209, 255, 0) 100%);
 }

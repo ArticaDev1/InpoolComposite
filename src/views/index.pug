@@ -33,6 +33,16 @@ block content
             mark Строим со знанием того, зачем бассейны нужны вам, 
             | как оптимизировать их конфигурацию под ваши потребности, нужды и как ими пользоваться с максимальной пользой и удовлетворением.
 
+  section.section.section-test
+
+  section.section.animated-section.animated-section_1.mb-1
+    .animated-head
+      .container.animated-head__container
+        h5.animated-head__sub-title Выберите модель 
+        h2.h1.animated-head__title Ценим индивидуальность.
+    .animated-section__content
+      .container 
+        p Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem ratione quo maxime neque harum nostrum laboriosam nesciunt maiores? Ab facilis debitis architecto labore ad impedit quod possimus nobis ex aperiam.
 
   section.section.section-video-animation
     .section-video-animation__scene
@@ -43,6 +53,8 @@ block content
         p.section-video-animation__text.offset-xl-7.offset-xxl-8.col-xxl-4.col-xl-5 На всех этапах мы предлагаем сопровождение объекта и взаимодействие наших специалистов, представителей клиента, самого клиента в единой электронной системе, предназначенной для эффективного взаимодействия, скорости обмена данными и актуализации задач.
 
   section.section.section-technologies
+    .background-figure.background-figure_1
+    .background-figure.background-figure_2
     .container.section-technologies__container 
       .row
         mixin block1(image, title, text, link, classes, classes2)
@@ -101,14 +113,15 @@ block content
         .col-xl-3
 
 
-  section.section.animated-section.contact-form.mb-1
+  section.section.animated-section.animated-section_2.contact-form.mb-1
     .animated-head
       .container.animated-head__container
         h5.animated-head__sub-title Контакты
         h2.h1.animated-head__title Давайте знакомиться.
     .animated-section__content.contact-form__content
-      .background-figure.background-figure_1
-      .background-figure.background-figure_2
+      .container.figures-container
+        .background-figure.background-figure_1
+        .background-figure.background-figure_2
       .container
         h4.contact-form__title Оставьте свои контакты и мы вам перезвоним
         form(autocomplete="off").form.contact-form__form.row
@@ -142,16 +155,16 @@ block content
                     animate(attributeName='r' from='15' to='15' begin='0s' dur='0.8s' values='15;9;15' calcMode='linear' repeatCount='indefinite')
                     animate(attributeName='fill-opacity' from='1' to='1' begin='0s' dur='0.8s' values='1;.5;1' calcMode='linear' repeatCount='indefinite')
               p.form__message Нажимая кнопку “Отправить” вы соглашаетесь<br> с условиями 
-                a(href="javascript:void(0);") Политики конфиденциальности
+                a(href="#politics" data-modal='open') Политики конфиденциальности
 
   section.section.contacts-block 
     .contacts-block__top.pt-1.pb-1
       .container 
         .row 
           .col-xl-6.contacts-block__contacts
-            .contacts-block__item.mb-1
+            .contacts-block__item.mb-3
               a(href="mailto:mail@centr-bassein.ru").link.h3.contacts-block__link mail@centr-bassein.ru
-            .contacts-block__item.mb-1
+            .contacts-block__item.mb-3
               a(href="tel:+79269659259").h3.contacts-block__phone +7 926 965-9259
           .offset-xl-1.col-xl-5.contacts-block__text
             p Россия, Московская область, Красногорский район, Ильинское сельское поселение, Новорижское шоссе, 27-й км (10 км от МКАД), Садовый центр Балтия Гарден,  Центр Бассейнов

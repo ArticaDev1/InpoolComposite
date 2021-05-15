@@ -84,8 +84,21 @@
                 mark Строим со знанием того, зачем бассейны нужны вам, 
                 | как оптимизировать их конфигурацию под ваши потребности, нужды и как ими пользоваться с максимальной пользой и удовлетворением.
         
-        
         -->
+        <section class="section section-test"></section>
+        <section class="section animated-section animated-section_1 mb-1">
+          <div class="animated-head">
+            <div class="container animated-head__container">
+              <h5 class="animated-head__sub-title">Выберите модель </h5>
+              <h2 class="h1 animated-head__title">Ценим индивидуальность.</h2>
+            </div>
+          </div>
+          <div class="animated-section__content">
+            <div class="container">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem ratione quo maxime neque harum nostrum laboriosam nesciunt maiores? Ab facilis debitis architecto labore ad impedit quod possimus nobis ex aperiam.</p>
+            </div>
+          </div>
+        </section>
         <section class="section section-video-animation">
           <div class="section-video-animation__scene">
             <canvas></canvas>
@@ -98,6 +111,8 @@
           </div>
         </section>
         <section class="section section-technologies">
+          <div class="background-figure background-figure_1"></div>
+          <div class="background-figure background-figure_2"></div>
           <div class="container section-technologies__container">
             <div class="row">
                             <!--block-->
@@ -156,7 +171,7 @@
             </div>
           </div>
         </section>
-        <section class="section animated-section contact-form mb-1">
+        <section class="section animated-section animated-section_2 contact-form mb-1">
           <div class="animated-head">
             <div class="container animated-head__container">
               <h5 class="animated-head__sub-title">Контакты</h5>
@@ -164,8 +179,10 @@
             </div>
           </div>
           <div class="animated-section__content contact-form__content">
-            <div class="background-figure background-figure_1"></div>
-            <div class="background-figure background-figure_2"></div>
+            <div class="container figures-container">
+              <div class="background-figure background-figure_1"></div>
+              <div class="background-figure background-figure_2"></div>
+            </div>
             <div class="container">
               <h4 class="contact-form__title">Оставьте свои контакты и мы вам перезвоним</h4>
               <form class="form contact-form__form row" autocomplete="off">
@@ -204,7 +221,7 @@
                         </circle>
                       </svg>
                     </button>
-                    <p class="form__message">Нажимая кнопку «Отправить» вы соглашаетесь<br> с условиями <a href="javascript:void(0);">Политики конфиденциальности</a></p>
+                    <p class="form__message">Нажимая кнопку «Отправить» вы соглашаетесь<br> с условиями <a href="#politics" data-modal="open">Политики конфиденциальности</a></p>
                   </div>
                 </div>
               </form>
@@ -216,8 +233,8 @@
             <div class="container">
               <div class="row">
                 <div class="col-xl-6 contacts-block__contacts">
-                  <div class="contacts-block__item mb-1"><a class="link h3 contacts-block__link" href="mailto:mail@centr-bassein.ru">mail@centr-bassein.ru</a></div>
-                  <div class="contacts-block__item mb-1"><a class="h3 contacts-block__phone" href="tel:+79269659259">+7 926 965-92-59</a></div>
+                  <div class="contacts-block__item mb-3"><a class="link h3 contacts-block__link" href="mailto:mail@centr-bassein.ru">mail@centr-bassein.ru</a></div>
+                  <div class="contacts-block__item mb-3"><a class="h3 contacts-block__phone" href="tel:+79269659259">+7 926 965-92-59</a></div>
                 </div>
                 <div class="offset-xl-1 col-xl-5 contacts-block__text">
                   <p>Россия, Московская область, Красногорский район, Ильинское сельское поселение, Новорижское шоссе, 27-й км (10 км от МКАД), Садовый центр Балтия Гарден, Центр Бассейнов</p>
@@ -266,6 +283,26 @@
               <div class="modal-block modal-succes__block pt-2 pb-2">
                 <h3 class="modal-succes__title">Спасибо!</h3>
                 <p class="modal-succes__text">Ваша заявка успешно отправлена</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal modal-text" id="politics" style="opacity:0;visibility:hidden;">
+      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+        <div class="modal__container container">
+          <div class="row">
+            <div class="col-xl-10">
+              <div class="modal-block pt-2 pb-2">
+                <button class="modal-close" aria-label="close" data-modal="close"></button>
+                <div class="row">
+                  <div class="offset-xl-1 col-xl-10">
+                    <h5>Политика конфиденциальности</h5>
+                    <h6>1. Общие положения</h6>
+                    <p>Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006. № 152-ФЗ «О персональных данных» (далее — Закон о персональных данных) и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных…</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

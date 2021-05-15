@@ -1,3 +1,7 @@
+.section-test {
+  height: 100vh;
+}
+
 .section-video-animation {
   min-height: 100vh;
   display: flex;
@@ -55,6 +59,16 @@
 
 .section-technologies {
   margin-top: -33vh;
+  .background-figure {
+    &_1 {
+      top: 400px;
+      left: -900px;
+    }
+    &_2 {
+      top: -900px;
+      right: -900px;
+    }
+  }
   &__container {
     &>.row {
       justify-content: space-between;
@@ -166,12 +180,11 @@
   .background-figure {
     &_1 {
       top: -500px;
-      left: 0;
-      transform: translateX(-50%);
+      left: -1200px;
     }
     &_2 {
       top: -1000px;
-      right: -1000px;
+      right: -1400px;
     }
   }
   &__title {
@@ -184,6 +197,7 @@
 }
 
 .contacts-block {
+  z-index: 2;
   &__top {
     background-color: var(--color-bg-section-dark);
   }

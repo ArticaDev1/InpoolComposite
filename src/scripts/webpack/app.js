@@ -1,4 +1,4 @@
-const Dev = true;
+const Dev = false;
 
 import 'lazysizes';
 //gsap
@@ -9,7 +9,44 @@ gsap.defaults({
   ease: "power2.inOut", 
   duration: 1
 });
-import Scrollbar from 'smooth-scrollbar';
+import Scrollbar, {ScrollbarPlugin} from 'smooth-scrollbar';
+class SoftScrollPlugin extends ScrollbarPlugin {
+  static pluginName = 'SoftScroll';
+  transformDelta(delta, fromEvent) {
+    const dirX = delta.x > 0 ? 1 : -1;
+    const dirY = delta.y > 0 ? 1 : -1;
+    if (dirX === this.lockX || dirY === this.lockY) {
+      return {x: 0, y: 0};
+    } else {
+      this.lockX = null;
+      this.lockY = null;
+    }
+    return delta;
+  }
+  onRender(Data2d) {
+    const {x, y} = Data2d;
+    if(y<0 && !this.lockY && Math.abs(y) >= this.scrollbar.scrollTop) {
+      this.scrollbar.setMomentum(0, -this.scrollbar.scrollTop);
+      this.lockY = -1;
+    }
+    if(x<0 && !this.lockX && Math.abs(x) >= this.scrollbar.scrollLeft) {
+      this.scrollbar.setMomentum(-this.scrollbar.scrollLeft, 0);
+      this.lockX = -1;
+    }
+    if(x>0 && !this.lockX && Math.abs(x) >= (this.scrollbar.limit.x - this.scrollbar.scrollLeft)) {
+      this.scrollbar.setMomentum((this.scrollbar.limit.x - this.scrollbar.scrollLeft), 0);
+      this.lockX = 1;
+    }
+    if(y>0 && !this.lockY && Math.abs(y) >= (this.scrollbar.limit.y - this.scrollbar.scrollTop)) {
+      this.scrollbar.setMomentum(0, (this.scrollbar.limit.y - this.scrollbar.scrollTop));
+      this.lockY = 1;
+    }
+    if(y === 0) this.lockY = null;
+    if(x === 0) this.lockX = null;
+  }
+}
+Scrollbar.use(SoftScrollPlugin);
+
 const validate = require("validate.js");
 import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 import Inputmask from "inputmask";
@@ -48,9 +85,10 @@ window.onload = function() {
   const activeFunctions = new ActiveFunctions();
   activeFunctions.create();
   activeFunctions.add(Model, '.section-model');
+  activeFunctions.add(AnimatedSection, '.animated-section_1');
   activeFunctions.add(SectionVideoAnimation, '.section-video-animation');
   activeFunctions.add(SectionTechnologies, '.section-technologies');
-  activeFunctions.add(AnimatedSection, '.animated-section');
+  activeFunctions.add(AnimatedSection, '.animated-section_2');
   activeFunctions.add(Map, '.contacts-block__map');
   activeFunctions.init();
 
@@ -276,12 +314,11 @@ const Validation = {
         }
       }
     };
-
     Inputmask({
       mask: "+7 999 999-9999",
       showMaskOnHover: false,
       clearIncomplete: false
-    }).mask('[data-phone]');
+    }).mask('[data-validate="phone"]');
 
     gsap.registerEffect({
       name: "fadeMessages",
@@ -443,7 +480,10 @@ const Scroll = {
   custom: function() {
     $body.classList.add('hidden');
     this.scrollbar = Scrollbar.init($wrapper, {
-      damping: 0.1
+      damping: 0.1,
+      plugins: {
+        SoftScroll:{}
+      }
     })
     this.scrollbar.addListener(()=>{
       if(Dev) localStorage.setItem('scroll', this.scrollbar.offset.y);
@@ -892,7 +932,12 @@ const Modal = {
       $modal.style.display = 'block';
       //scrollbar create
       if(!Scrollbar.get($modal) && !mobile()) {
-        let scrollbar = Scrollbar.init($modal, {damping:1});
+        let scrollbar = Scrollbar.init($modal, {
+          damping: 0.1,
+          plugins: {
+            SoftScroll:{}
+          }
+        });
         scrollbar.track.yAxis.element.querySelector('.scrollbar-thumb').classList.add('scrollbar-thumb_modal');
       }
       //animation
