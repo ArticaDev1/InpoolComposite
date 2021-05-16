@@ -34,18 +34,101 @@ block content
             | как оптимизировать их конфигурацию под ваши потребности, нужды и как ими пользоваться с максимальной пользой и удовлетворением.
 
   section.section.section-test
-  
+
+  section.section.section-choose-models.section-animated
+    .figures-container.container
+      .background-figure.background-figure_1(data-parallax='0.5')
+    .animated-head
+      .container.animated-head__container
+        h5.animated-head__sub-title Выберите модель 
+        h2.h1.animated-head__title Ценим индивидуальность.
+    .section-animated__content.container
+      .desktop-models-list
+        .desktop-models-list__images 
+          .desktop-models-list__image
+            .image.image_cover
+              img(data-src="./img/desktop-models/1.jpg", alt="image").lazyload
+            .image.image_cover
+              img(data-src="./img/desktop-models/2.jpg", alt="image").lazyload
+            .image.image_cover
+              img(data-src="./img/desktop-models/3.jpg", alt="image").lazyload
+            .image.image_cover
+              img(data-src="./img/desktop-models/4.jpg", alt="image").lazyload
+            .image.image_cover
+              img(data-src="./img/desktop-models/5.jpg", alt="image").lazyload
+
+        .desktop-models-list__items
+          a(href="javascript:void(0);" data-cursor='light').pool-model-item
+            .row.pool-model-item__container 
+              h2.offset-lg-1.col-lg-4.pool-model-item__title Aqua
+              p.col-lg-6.pool-model-item__description прямоугольная модель со ступенями, расположенными в угловой части
+          a(href="javascript:void(0);" data-cursor='light').pool-model-item
+            .row.pool-model-item__container 
+              h2.offset-lg-1.col-lg-4.pool-model-item__title X-trainer
+              p.col-lg-6.pool-model-item__description прямоугольная модель со ступенями, расположенными зеркально вдоль длинных бортов
+          a(href="javascript:void(0);" data-cursor='light').pool-model-item
+            .row.pool-model-item__container 
+              h2.offset-lg-1.col-lg-4.pool-model-item__title Riverina
+              p.col-lg-6.pool-model-item__description бассейн красивой формы, плавно изогнутая линия борта придает неповторимое изящество
+          a(href="javascript:void(0);" data-cursor='light').pool-model-item
+            .row.pool-model-item__container 
+              h2.offset-lg-1.col-lg-4.pool-model-item__title Java
+              p.col-lg-6.pool-model-item__description прямоугольная модель с римской лестницей и двумя зонами отдыха
+          a(href="javascript:void(0);" data-cursor='light').pool-model-item
+            .row.pool-model-item__container 
+              h2.offset-lg-1.col-lg-4.pool-model-item__title Briliant
+              p.col-lg-6.pool-model-item__description прямоугольная модель со стильной угловой лестницей
+      .section-choose-models__more.mt-2
+        a(href="javascript:void(0);") Посмотреть таблицу сравнения моделей 
+
+
+  section.section.section-colors.section-animated
+    .animated-head
+      .container.animated-head__container
+        h5.animated-head__sub-title Уникальные цвета покрытий
+        h2.h1.animated-head__title Пляжи лучших курортов.
+    .section-animated__content
+      .colors-slider 
+        .colors-slider__container.container
+          .colors-slider__wrapper
+            //slide
+            .colors-slide
+              .colors-slide__left.image.image_cover
+                img(data-src="./img/colors/1_1.jpg", alt="image").lazyload
+              .colors-slide__center
+                .colors-slide__back
+                  .image.image_cover
+                    img(data-src="./img/colors/1_2.jpg", alt="image").lazyload
+                  .colors-slide__title.colors-slide__back-title
+                    .h1.colors-slide__title-element.colors-slide__title-element_1 Blue Saphire
+                .colors-slide__front 
+                  .colors-slide__front-container
+                    .image.image_cover
+                      img(data-src="./img/colors/1_2.jpg", alt="image").lazyload
+                    .colors-slide__title.colors-slide__front-title
+                      h2.h1.colors-slide__title-element.colors-slide__title-element_1 Blue Saphire
+
+              .colors-slide__right.image.image_cover
+                img(data-src="./img/colors/1_3.jpg", alt="image").lazyload
+              .colors-slide__text
+                p.mb-3 Приятный глубокий голубой цвет, напоминающий живописный тропический пляж
+                a(href="javascript:void(0);").button.colors-slide__button.colors-slide__button_style-1 Выбрать этот цвет
+        
+
+
   section.section.section-video-animation
-    .section-video-animation__scene
-      canvas
-    .container.section-video-animation__container
-      .row
-        h2.h1.section-video-animation__title Построим за 2 недели
-        p.section-video-animation__text.offset-xl-7.offset-xxl-8.col-xxl-4.col-xl-5 На всех этапах мы предлагаем сопровождение объекта и взаимодействие наших специалистов, представителей клиента, самого клиента в единой электронной системе, предназначенной для эффективного взаимодействия, скорости обмена данными и актуализации задач.
+    .section-video-animation__inner
+      .section-video-animation__scene
+        canvas
+      .container.section-video-animation__container
+        .row
+          h2.h1.section-video-animation__title Построим за 2 недели
+          p.section-video-animation__text.offset-xl-7.offset-xxl-8.col-xxl-4.col-xl-5 На всех этапах мы предлагаем сопровождение объекта и взаимодействие наших специалистов, представителей клиента, самого клиента в единой электронной системе, предназначенной для эффективного взаимодействия, скорости обмена данными и актуализации задач.
 
   section.section.section-technologies
-    .background-figure.background-figure_1(data-parallax='0.5')
-    .background-figure.background-figure_2(data-parallax='0.5')
+    .figures-container.container
+      .background-figure.background-figure_1(data-parallax='0.5')
+      .background-figure.background-figure_2(data-parallax='0.5')
     .container.section-technologies__container 
       .row
         mixin block1(image, title, text, link, classes, classes2)
@@ -111,41 +194,40 @@ block content
       .container.animated-head__container
         h5.animated-head__sub-title Контакты
         h2.h1.animated-head__title Давайте знакомиться.
-    .section-animated__content.contact-form__content
-      .container
-        h4.contact-form__title Оставьте свои контакты и мы вам перезвоним
-        form(autocomplete="off").form.contact-form__form.row
-          .col-xl-6 
-            .form__item
-              label.input
-                span.input__title Ваше имя  
-                  mark *
-                input(type="text" name="name" data-validate='name' data-required).input__element
-            .form__item
-              label.input
-                span.input__title Номер телефона 
-                  mark *
-                input(type="text" name="phone" data-validate='phone' data-required).input__element
-            .form__item
-              label.input
-                span.input__title Комментарий
-                textarea(name="message" data-validate='message').input__element
-              
-            .form__submit
-              button.button.button_style-1.button_loader 
-                span Отправить
-                svg(viewBox='0 0 120 30' fill='currentColor')
-                  circle(cx='15' cy='15' r='15')
-                    animate(attributeName='r' from='15' to='15' begin='0s' dur='0.8s' values='15;9;15' calcMode='linear' repeatCount='indefinite')
-                    animate(attributeName='fill-opacity' from='1' to='1' begin='0s' dur='0.8s' values='1;.5;1' calcMode='linear' repeatCount='indefinite')
-                  circle(cx='60' cy='15' r='9' fill-opacity='0.3')
-                    animate(attributeName='r' from='9' to='9' begin='0s' dur='0.8s' values='9;15;9' calcMode='linear' repeatCount='indefinite')
-                    animate(attributeName='fill-opacity' from='0.5' to='0.5' begin='0s' dur='0.8s' values='.5;1;.5' calcMode='linear' repeatCount='indefinite')
-                  circle(cx='105' cy='15' r='15')
-                    animate(attributeName='r' from='15' to='15' begin='0s' dur='0.8s' values='15;9;15' calcMode='linear' repeatCount='indefinite')
-                    animate(attributeName='fill-opacity' from='1' to='1' begin='0s' dur='0.8s' values='1;.5;1' calcMode='linear' repeatCount='indefinite')
-              p.form__message Нажимая кнопку “Отправить” вы соглашаетесь<br> с условиями 
-                a(href="#politics" data-modal='open') Политики конфиденциальности
+    .section-animated__content.container.contact-form__content
+      h4.contact-form__title Оставьте свои контакты и мы вам перезвоним
+      form(autocomplete="off").form.contact-form__form.row
+        .col-xl-6 
+          .form__item
+            label.input
+              span.input__title Ваше имя  
+                mark *
+              input(type="text" name="name" data-validate='name' data-required).input__element
+          .form__item
+            label.input
+              span.input__title Номер телефона 
+                mark *
+              input(type="text" name="phone" data-validate='phone' data-required).input__element
+          .form__item
+            label.input
+              span.input__title Комментарий
+              textarea(name="message" data-validate='message').input__element
+            
+          .form__submit
+            button.button.button_style-1.button_loader 
+              span Отправить
+              svg(viewBox='0 0 120 30' fill='currentColor')
+                circle(cx='15' cy='15' r='15')
+                  animate(attributeName='r' from='15' to='15' begin='0s' dur='0.8s' values='15;9;15' calcMode='linear' repeatCount='indefinite')
+                  animate(attributeName='fill-opacity' from='1' to='1' begin='0s' dur='0.8s' values='1;.5;1' calcMode='linear' repeatCount='indefinite')
+                circle(cx='60' cy='15' r='9' fill-opacity='0.3')
+                  animate(attributeName='r' from='9' to='9' begin='0s' dur='0.8s' values='9;15;9' calcMode='linear' repeatCount='indefinite')
+                  animate(attributeName='fill-opacity' from='0.5' to='0.5' begin='0s' dur='0.8s' values='.5;1;.5' calcMode='linear' repeatCount='indefinite')
+                circle(cx='105' cy='15' r='15')
+                  animate(attributeName='r' from='15' to='15' begin='0s' dur='0.8s' values='15;9;15' calcMode='linear' repeatCount='indefinite')
+                  animate(attributeName='fill-opacity' from='1' to='1' begin='0s' dur='0.8s' values='1;.5;1' calcMode='linear' repeatCount='indefinite')
+            p.form__message Нажимая кнопку “Отправить” вы соглашаетесь<br> с условиями 
+              a(href="#politics" data-modal='open') Политики конфиденциальности
 
   section.section.contacts-block 
     .contacts-block__top.pt-1.pb-1

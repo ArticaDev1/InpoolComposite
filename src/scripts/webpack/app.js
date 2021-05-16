@@ -1,6 +1,7 @@
-const Dev = true;
+const Dev = false;
 
 import 'lazysizes';
+lazySizes.cfg.preloadAfterLoad = true;
 //gsap
 import {gsap} from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -82,12 +83,14 @@ window.onload = function() {
 
   if(!mobile()) {
     Parallax.init();
+    Cursor.init();
   }
 
   const activeFunctions = new ActiveFunctions();
   activeFunctions.create();
   activeFunctions.add(Model, '.section-model');
   activeFunctions.add(SectionAnimated, '.section-animated');
+  activeFunctions.add(DesktopModelsList, '.desktop-models-list');
   activeFunctions.add(SectionVideoAnimation, '.section-video-animation');
   activeFunctions.add(SectionTechnologies, '.section-technologies');
   activeFunctions.add(Map, '.contacts-block__map');
@@ -114,7 +117,7 @@ gsap.registerEffect({
   effect: ($outer, $inner) => {
     let anim = gsap.timeline({paused: true})
       .fromTo($outer, {autoAlpha:0}, {autoAlpha:1, duration:0.2, ease:'power2.in'})
-      .fromTo($inner, {y:50}, {y:-50, ease:'none'}, `-=0.2`)
+      .fromTo($inner, {y:83}, {y:-83, ease:'none'}, `-=0.2`)
       .to($outer, {autoAlpha:0, duration:0.2, ease:'power2.out'}, `-=0.2`)
     return anim;
   },
@@ -252,19 +255,31 @@ const TouchHoverEvents = {
     //mouseenter
     if(event.type=='mouseenter' && !this.touched && $targets[0] && $targets[0]==event.target) {
       $targets[0].setAttribute('data-hover', '');
+      window.dispatchEvent(new CustomEvent("cursorMouseenter", {
+        detail:{target:$targets[0]}
+      }));
     }
     //mouseleave
     else if(event.type=='mouseleave' && !this.touched && $targets[0] && $targets[0]==event.target) {
-      $targets[0].removeAttribute('data-focus');
       $targets[0].removeAttribute('data-hover');
+      $targets[0].removeAttribute('data-click');
+      window.dispatchEvent(new CustomEvent("cursorMouseleave", {
+        detail:{target:$targets[0]}
+      }));
     }
     //mousedown
     if(event.type=='mousedown' && !this.touched && $targets[0]) {
-      $targets[0].setAttribute('data-focus', '');
+      $targets[0].setAttribute('data-click', '');
+      window.dispatchEvent(new CustomEvent("cursorMousedown", {
+        detail:{target:$targets[0]}
+      }));
     } 
     //mouseup
     else if(event.type=='mouseup' && !this.touched  && $targets[0]) {
-      $targets[0].removeAttribute('data-focus');
+      $targets[0].removeAttribute('data-click');
+      window.dispatchEvent(new CustomEvent("cursorMouseup", {
+        detail:{target:$targets[0]}
+      }));
     }
   }
 }
@@ -662,6 +677,57 @@ const Preloader = {
   }
 }
 
+const Cursor = {
+  init: function() {
+    this.$parent = document.querySelector('.cursor');
+    this.$element = this.$parent.querySelector('.cursor__element');
+    document.addEventListener('mousemove', (event)=>{
+      let x = event.clientX,
+          y = event.clientY;
+      gsap.to(this.$parent, {duration:0.5,x:x,y:y,ease:'power2.out'})
+    });
+    document.addEventListener('mouseleave', (event)=>{
+      this.$element.classList.add('hidden');
+    })
+    document.addEventListener('mouseenter', (event)=>{
+      this.$element.classList.remove('hidden');
+    })
+
+    window.addEventListener('cursorMouseenter', (event)=> {
+      Cursor.$element.classList.add('hover');
+      if(event.detail.target.getAttribute('data-cursor')=='light') {
+        Cursor.$element.classList.add('light');
+      }
+    })
+
+    window.addEventListener('cursorMouseleave', (event)=> {
+      if(this.hoverTimer) clearTimeout(this.hoverTimer)
+      if(Cursor.$element.classList.contains('click')) {
+        Cursor.$element.classList.remove('click');
+        this.hoverTimer = setTimeout(() => {
+          Cursor.$element.classList.remove('hover');
+        }, 150);
+      } else {
+        Cursor.$element.classList.remove('hover');
+      }
+      if(event.detail.target.getAttribute('data-cursor')=='light') {
+        Cursor.$element.classList.remove('light');
+      }
+    })
+
+    window.addEventListener('cursorMousedown', (event)=> {
+      Cursor.$element.classList.add('click');
+      if(this.clickTimer) clearTimeout(this.clickTimer)
+    })
+
+    window.addEventListener('cursorMouseup', (event)=> {
+      this.clickTimer = setTimeout(() => {
+        Cursor.$element.classList.remove('click');
+      }, 150);
+    })
+  }
+}
+
 class SectionVideoAnimation {
   constructor($parent) {
     this.$parent = $parent;
@@ -687,6 +753,7 @@ class SectionVideoAnimation {
 
   initDesktop() {
     let pinType = Scroll.scrollbar?'transform':'fixed';
+    this.$inner = this.$parent.querySelector('.section-video-animation__inner');
     this.$scene = this.$parent.querySelector('.section-video-animation__scene');
     this.$canvas = this.$parent.querySelector('.section-video-animation__scene canvas');
     this.$text = this.$parent.querySelector('.section-video-animation__container');
@@ -706,7 +773,6 @@ class SectionVideoAnimation {
       let h = this.$parent.getBoundingClientRect().height,
           w = this.$parent.getBoundingClientRect().width,
           res = this.$canvas.height/this.$canvas.width;
-
       if (h / w < res) {
         this.$canvas.style.width = `${w}px`;
         this.$canvas.style.height = `${w*res}px`;
@@ -718,7 +784,6 @@ class SectionVideoAnimation {
     this.resizeEvent();
     window.addEventListener('resize', this.resizeEvent);
 
-    
     let $color_title = getComputedStyle(document.documentElement).getPropertyValue('--color-text-accent'),
         $color_text = getComputedStyle(document.documentElement).getPropertyValue('--color-text'),
         $color_active = getComputedStyle(document.documentElement).getPropertyValue('--color-text-light'),
@@ -735,7 +800,7 @@ class SectionVideoAnimation {
 
 
     this.trigger = ScrollTrigger.create({
-      trigger: this.$parent,
+      trigger: this.$inner,
       start: "top top",
       end: "+=2500",
       pinSpacing: false,
@@ -745,11 +810,9 @@ class SectionVideoAnimation {
       onUpdate: self => {
         let y = 2500*self.progress;
         let progress2 = Math.max(0, Math.min((y-500)/1500, 1));
-
         let index = Math.round(progress2*(this.framesCount-1));
         this.activeFrame = this.frames[index];
         this.animation_fade_scene.progress(progress2);
-
         this.animation_text.progress(self.progress);
       }
     });
@@ -1127,6 +1190,120 @@ class Model {
         this.animation5.progress(time5); */
       }
     });
+
+  }
+}
+
+class DesktopModelsList {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
+
+  init() {
+    this.check = ()=> {
+      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+        this.initDesktop();
+        this.flag = true;
+      } 
+      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
+        if(this.initialized) {
+          this.destroyDesktop();
+        }
+        this.flag = false;
+      }
+    }
+    this.check();
+    window.addEventListener('resize', this.check);
+    this.initialized = true;
+  }
+
+  initDesktop() {
+    let pinType = Scroll.scrollbar?'transform':'fixed';
+    this.$content = this.$parent.querySelector('.desktop-models-list__items');
+    this.$images_container = this.$parent.querySelector('.desktop-models-list__images');
+    this.$image_container = this.$parent.querySelector('.desktop-models-list__image');;
+    this.$images = this.$image_container.querySelectorAll('.image');
+    this.$buttons = this.$parent.querySelectorAll('.pool-model-item');
+    this.x = 0;
+    this.y = 0;
+    
+    this.check = (event)=> {
+      if(event.type=='mousemove') {
+        this.x = event.clientX;
+        this.y = event.clientY;
+      }
+      gsap.to(this.$image_container, {duration:0.5, x:this.x, y:this.y, ease:'power2.out'})
+
+      let flag = false;
+      this.$buttons.forEach(($this, index) => {
+        let h = $this.getBoundingClientRect().height,
+            w = $this.getBoundingClientRect().width,
+            y = $this.getBoundingClientRect().top,
+            x = $this.getBoundingClientRect().left;
+        if(this.x>=x && this.x<=x+w && this.y>=y && this.y<=y+h) {
+          flag = true;
+          if(index!==this.index) {
+            if(this.index!==undefined) {
+              this.$images[this.index].classList.remove('active');
+              this.$buttons[this.index].classList.remove('active');
+            }
+            this.$buttons.forEach($this => {
+              $this.classList.add('disabled');
+            })
+            $this.classList.add('active');
+            $this.classList.remove('disabled');
+            this.$images[index].classList.add('active');
+            this.index = index;
+          }
+        } 
+      })
+      
+      //mousenter
+      if(flag && !this.isVisible) {
+        this.isVisible = true;
+        this.$image_container.classList.add('active');
+      } 
+      //mouseout
+      else if(!flag && this.isVisible) {
+        this.isVisible = false;
+        this.$image_container.classList.remove('active');
+        this.$images[this.index].classList.remove('active');
+        this.$buttons.forEach($this => {
+          $this.classList.remove('disabled', 'active');
+        })
+        delete this.index;
+      }
+    }
+
+    document.addEventListener('mousemove', this.check);
+    Scroll.addListener(this.check);
+
+    this.clickEvent = (event)=> {
+      if(event.type=='cursorMousedown' && this.isVisible) {
+        if(this.clickTimer) clearTimeout(this.clickTimer)
+        this.$image_container.classList.add('click');
+      } else if(event.type=='cursorMouseup') {
+        this.clickTimer = setTimeout(() => {
+          this.$image_container.classList.remove('click');
+        }, 150);
+      }
+    }
+
+    window.addEventListener('cursorMousedown', this.clickEvent)
+    window.addEventListener('cursorMouseup', this.clickEvent)
+
+    this.fixTrigger = ScrollTrigger.create({
+      trigger: this.$images_container,
+      start: "top top",
+      end: ()=> {
+        let val = this.$images_container.getBoundingClientRect().height+this.$content.getBoundingClientRect().height;
+        return `+=${val}`;
+      },
+      pin: true,
+      pinSpacing: false,
+      pinType: pinType
+    });
+
 
   }
 }

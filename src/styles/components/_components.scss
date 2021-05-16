@@ -71,8 +71,6 @@
   }
 }
 
-
-
 .dev-label {
   a {
     font-size: 0;
@@ -87,7 +85,6 @@
     width: 90px;
   }
 }
-
 
 .full-size-image {
   height: 350px;
@@ -139,4 +136,37 @@
   position: absolute;
   will-change: transform;
   background: radial-gradient(50% 50% at 50% 50%, rgba(1, 153, 182, 0.114) 0%, rgba(0, 209, 255, 0) 100%);
+}
+
+.cursor {
+  position: fixed;
+  z-index: 10000;
+  pointer-events: none;
+  &__element {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-top: -10px;
+    margin-left: -10px;
+    background-color: var(--color-cursor-bg);
+    transition: opacity $trs2, visibility $trs2, transform $trs1out, background-color $trs1out;
+    &.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    &.hover {
+      transform: scale(2);
+    }
+    &.click {
+      transform: scale(1.5) !important;
+      background-color: var(--color-cursor-bg-click);
+    }
+    &.light {
+      background-color: var(--color-cursor-bg-2);
+      transform: scale(3.75);
+      &.click {
+        background-color: var(--color-cursor-bg-2-click);
+      }
+    }
+  }
 }

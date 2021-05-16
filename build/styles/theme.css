@@ -11,6 +11,7 @@
   --color-scrollbar-hover: #4FA6A6;
   --color-background-unloaded: #F5F5F5;
   --color-bg-section-dark: #F5F5F5;
+  --color-borders: #C7C7C7;
   --color-input-bg-1: #F5F5F5;
   --color-input-bg-hover: #E9F7F9;
   --color-input-bg-error: #FAE6E7;
@@ -25,6 +26,10 @@
   --color-modal-close: #4FA6A6;
   --color-modal-close-bg: #F5F5F5;
   --color-modal-hover-close: #fff;
-  --color-modal-hover-close-bg: #4FA6A6; }
+  --color-modal-hover-close-bg: #4FA6A6;
+  --color-cursor-bg: rgba(79, 166, 166, 0.15);
+  --color-cursor-bg-click: rgba(79, 166, 166, 0.3);
+  --color-cursor-bg-2: rgba(255, 255, 255, 0.5);
+  --color-cursor-bg-2-click: rgba(255, 255, 255, 0.7); }
 
 /*# sourceMappingURL=maps/theme.css.map */

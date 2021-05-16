@@ -46,6 +46,9 @@
         <rect class="preloader__item" x="0" y="100%" width="100%" height="100%" fill="url(#preloader_icon_gradient2)" mask="url(#preloader-mask)"></rect>
       </svg>
     </div>
+    <div class="cursor">
+      <div class="cursor__element"></div>
+    </div>
     <div class="wrapper" style="opacity:0;visibility:hidden;">
       <header class="header"><a class="logo" href="./"><img src="./img/logos/logo.svg" alt="image"></a>
         <div class="header__right"><a class="header__phone" href="tel:+79269659259">+7 926 965-92-59</a><a class="button button_style-2" href="javascript:void(0);">Заказать звонок </a></div>
@@ -86,20 +89,110 @@
         
         -->
         <section class="section section-test"></section>
-        <section class="section section-video-animation">
-          <div class="section-video-animation__scene">
-            <canvas></canvas>
+        <section class="section section-choose-models section-animated">
+          <div class="figures-container container">
+            <div class="background-figure background-figure_1" data-parallax="0.5"></div>
           </div>
-          <div class="container section-video-animation__container">
-            <div class="row">
-              <h2 class="h1 section-video-animation__title">Построим за 2 недели</h2>
-              <p class="section-video-animation__text offset-xl-7 offset-xxl-8 col-xxl-4 col-xl-5">На всех этапах мы предлагаем сопровождение объекта и взаимодействие наших специалистов, представителей клиента, самого клиента в единой электронной системе, предназначенной для эффективного взаимодействия, скорости обмена данными и актуализации задач.</p>
+          <div class="animated-head">
+            <div class="container animated-head__container">
+              <h5 class="animated-head__sub-title">Выберите модель </h5>
+              <h2 class="h1 animated-head__title">Ценим индивидуальность.</h2>
+            </div>
+          </div>
+          <div class="section-animated__content container">
+            <div class="desktop-models-list">
+              <div class="desktop-models-list__images">
+                <div class="desktop-models-list__image">
+                  <div class="image image_cover"><img class="lazyload" data-src="./img/desktop-models/1.jpg" alt="image"></div>
+                  <div class="image image_cover"><img class="lazyload" data-src="./img/desktop-models/2.jpg" alt="image"></div>
+                  <div class="image image_cover"><img class="lazyload" data-src="./img/desktop-models/3.jpg" alt="image"></div>
+                  <div class="image image_cover"><img class="lazyload" data-src="./img/desktop-models/4.jpg" alt="image"></div>
+                  <div class="image image_cover"><img class="lazyload" data-src="./img/desktop-models/5.jpg" alt="image"></div>
+                </div>
+              </div>
+              <div class="desktop-models-list__items"><a class="pool-model-item" href="javascript:void(0);" data-cursor="light">
+                  <div class="row pool-model-item__container">
+                    <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">Aqua</h2>
+                    <p class="col-lg-6 pool-model-item__description">прямоугольная модель со ступенями, расположенными в угловой части</p>
+                  </div></a><a class="pool-model-item" href="javascript:void(0);" data-cursor="light">
+                  <div class="row pool-model-item__container">
+                    <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">X-trainer</h2>
+                    <p class="col-lg-6 pool-model-item__description">прямоугольная модель со ступенями, расположенными зеркально вдоль длинных бортов</p>
+                  </div></a><a class="pool-model-item" href="javascript:void(0);" data-cursor="light">
+                  <div class="row pool-model-item__container">
+                    <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">Riverina</h2>
+                    <p class="col-lg-6 pool-model-item__description">бассейн красивой формы, плавно изогнутая линия борта придает неповторимое изящество</p>
+                  </div></a><a class="pool-model-item" href="javascript:void(0);" data-cursor="light">
+                  <div class="row pool-model-item__container">
+                    <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">Java</h2>
+                    <p class="col-lg-6 pool-model-item__description">прямоугольная модель с римской лестницей и двумя зонами отдыха</p>
+                  </div></a><a class="pool-model-item" href="javascript:void(0);" data-cursor="light">
+                  <div class="row pool-model-item__container">
+                    <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">Briliant</h2>
+                    <p class="col-lg-6 pool-model-item__description">прямоугольная модель со стильной угловой лестницей</p>
+                  </div></a></div>
+            </div>
+            <div class="section-choose-models__more mt-2"><a href="javascript:void(0);">Посмотреть таблицу сравнения моделей </a></div>
+          </div>
+        </section>
+        <section class="section section-colors section-animated">
+          <div class="animated-head">
+            <div class="container animated-head__container">
+              <h5 class="animated-head__sub-title">Уникальные цвета покрытий</h5>
+              <h2 class="h1 animated-head__title">Пляжи лучших курортов.</h2>
+            </div>
+          </div>
+          <div class="section-animated__content">
+            <div class="colors-slider">
+              <div class="colors-slider__container container">
+                <div class="colors-slider__wrapper">
+                  <!--slide-->
+                  <div class="colors-slide">
+                    <div class="colors-slide__left image image_cover"><img class="lazyload" data-src="./img/colors/1_1.jpg" alt="image"></div>
+                    <div class="colors-slide__center">
+                      <div class="colors-slide__back">
+                        <div class="image image_cover"><img class="lazyload" data-src="./img/colors/1_2.jpg" alt="image"></div>
+                        <div class="colors-slide__title colors-slide__back-title">
+                          <div class="h1 colors-slide__title-element colors-slide__title-element_1">Blue Saphire</div>
+                        </div>
+                      </div>
+                      <div class="colors-slide__front">
+                        <div class="colors-slide__front-container">
+                          <div class="image image_cover"><img class="lazyload" data-src="./img/colors/1_2.jpg" alt="image"></div>
+                          <div class="colors-slide__title colors-slide__front-title">
+                            <h2 class="h1 colors-slide__title-element colors-slide__title-element_1">Blue Saphire</h2>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="colors-slide__right image image_cover"><img class="lazyload" data-src="./img/colors/1_3.jpg" alt="image"></div>
+                    <div class="colors-slide__text">
+                      <p class="mb-3">Приятный глубокий голубой цвет, напоминающий живописный тропический пляж</p><a class="button colors-slide__button colors-slide__button_style-1" href="javascript:void(0);">Выбрать этот цвет</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="section section-video-animation">
+          <div class="section-video-animation__inner">
+            <div class="section-video-animation__scene">
+              <canvas></canvas>
+            </div>
+            <div class="container section-video-animation__container">
+              <div class="row">
+                <h2 class="h1 section-video-animation__title">Построим за 2 недели</h2>
+                <p class="section-video-animation__text offset-xl-7 offset-xxl-8 col-xxl-4 col-xl-5">На всех этапах мы предлагаем сопровождение объекта и взаимодействие наших специалистов, представителей клиента, самого клиента в единой электронной системе, предназначенной для эффективного взаимодействия, скорости обмена данными и актуализации задач.</p>
+              </div>
             </div>
           </div>
         </section>
         <section class="section section-technologies">
-          <div class="background-figure background-figure_1" data-parallax="0.5"></div>
-          <div class="background-figure background-figure_2" data-parallax="0.5"></div>
+          <div class="figures-container container">
+            <div class="background-figure background-figure_1" data-parallax="0.5"></div>
+            <div class="background-figure background-figure_2" data-parallax="0.5"></div>
+          </div>
           <div class="container section-technologies__container">
             <div class="row">
                             <!--block-->
@@ -169,50 +262,48 @@
               <h2 class="h1 animated-head__title">Давайте знакомиться.</h2>
             </div>
           </div>
-          <div class="section-animated__content contact-form__content">
-            <div class="container">
-              <h4 class="contact-form__title">Оставьте свои контакты и мы вам перезвоним</h4>
-              <form class="form contact-form__form row" autocomplete="off">
-                <div class="col-xl-6">
-                  <div class="form__item">
-                    <label class="input"><span class="input__title">Ваше имя
-                        <mark>*</mark></span>
-                      <input class="input__element" type="text" name="name" data-validate="name" data-required>
-                    </label>
-                  </div>
-                  <div class="form__item">
-                    <label class="input"><span class="input__title">Номер телефона
-                        <mark>*</mark></span>
-                      <input class="input__element" type="text" name="phone" data-validate="phone" data-required>
-                    </label>
-                  </div>
-                  <div class="form__item">
-                    <label class="input"><span class="input__title">Комментарий</span>
-                      <textarea class="input__element" name="message" data-validate="message"></textarea>
-                    </label>
-                  </div>
-                  <div class="form__submit">
-                    <button class="button button_style-1 button_loader"> <span>Отправить</span>
-                      <svg viewBox="0 0 120 30" fill="currentColor">
-                        <circle cx="15" cy="15" r="15">
-                          <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate>
-                          <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate>
-                        </circle>
-                        <circle cx="60" cy="15" r="9" fill-opacity="0.3">
-                          <animate attributeName="r" from="9" to="9" begin="0s" dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite"></animate>
-                          <animate attributeName="fill-opacity" from="0.5" to="0.5" begin="0s" dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite"></animate>
-                        </circle>
-                        <circle cx="105" cy="15" r="15">
-                          <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate>
-                          <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate>
-                        </circle>
-                      </svg>
-                    </button>
-                    <p class="form__message">Нажимая кнопку «Отправить» вы соглашаетесь<br> с условиями <a href="#politics" data-modal="open">Политики конфиденциальности</a></p>
-                  </div>
+          <div class="section-animated__content container contact-form__content">
+            <h4 class="contact-form__title">Оставьте свои контакты и мы вам перезвоним</h4>
+            <form class="form contact-form__form row" autocomplete="off">
+              <div class="col-xl-6">
+                <div class="form__item">
+                  <label class="input"><span class="input__title">Ваше имя
+                      <mark>*</mark></span>
+                    <input class="input__element" type="text" name="name" data-validate="name" data-required>
+                  </label>
                 </div>
-              </form>
-            </div>
+                <div class="form__item">
+                  <label class="input"><span class="input__title">Номер телефона
+                      <mark>*</mark></span>
+                    <input class="input__element" type="text" name="phone" data-validate="phone" data-required>
+                  </label>
+                </div>
+                <div class="form__item">
+                  <label class="input"><span class="input__title">Комментарий</span>
+                    <textarea class="input__element" name="message" data-validate="message"></textarea>
+                  </label>
+                </div>
+                <div class="form__submit">
+                  <button class="button button_style-1 button_loader"> <span>Отправить</span>
+                    <svg viewBox="0 0 120 30" fill="currentColor">
+                      <circle cx="15" cy="15" r="15">
+                        <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate>
+                        <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate>
+                      </circle>
+                      <circle cx="60" cy="15" r="9" fill-opacity="0.3">
+                        <animate attributeName="r" from="9" to="9" begin="0s" dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite"></animate>
+                        <animate attributeName="fill-opacity" from="0.5" to="0.5" begin="0s" dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite"></animate>
+                      </circle>
+                      <circle cx="105" cy="15" r="15">
+                        <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate>
+                        <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate>
+                      </circle>
+                    </svg>
+                  </button>
+                  <p class="form__message">Нажимая кнопку «Отправить» вы соглашаетесь<br> с условиями <a href="#politics" data-modal="open">Политики конфиденциальности</a></p>
+                </div>
+              </div>
+            </form>
           </div>
         </section>
         <section class="section contacts-block">
