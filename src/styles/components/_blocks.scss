@@ -340,6 +340,7 @@
 
 .desktop-models-list {
   position: relative;
+  z-index: 2;
   &__items {
     margin: -45px 0;
   }
@@ -367,12 +368,6 @@
       opacity: 1;
       visibility: visible;
     }
-    &.click {
-      height: 440px;
-      width: 300px;
-      margin-left: -150px;
-      margin-top: -220px;
-    }
     .image {
       position: absolute;
       width: 100%;
@@ -384,8 +379,17 @@
       transition: visibility $trs1, opacity $trs1;
       background-color: transparent;
       &.active {
-        opacity: 0.5;
+        opacity: 0.7;
         visibility: visible;
+      }
+    }
+    &.click {
+      height: 380px;
+      width: 300px;
+      margin-left: -150px;
+      margin-top: -190px;
+      .image.active {
+        opacity: 0.9;
       }
     }
   }
@@ -532,9 +536,13 @@
     margin: 0;
     position: relative;
     z-index: 2;
+    color: inherit;
     &_1 {
       transform: translateX(0.04em);
     }
+  }
+  &__front-title {
+    color: var(--color-text-light);
   }
   @include media-breakpoint-down(xxl) {
     grid-template-columns: 282px 282px 282px;

@@ -2752,7 +2752,8 @@ ul {
   text-align: center; }
 
 .desktop-models-list {
-  position: relative; }
+  position: relative;
+  z-index: 2; }
   .desktop-models-list__items {
     margin: -45px 0; }
   .desktop-models-list__images {
@@ -2777,11 +2778,6 @@ ul {
     .desktop-models-list__image.active {
       opacity: 1;
       visibility: visible; }
-    .desktop-models-list__image.click {
-      height: 440px;
-      width: 300px;
-      margin-left: -150px;
-      margin-top: -220px; }
     .desktop-models-list__image .image {
       position: absolute;
       width: 100%;
@@ -2793,8 +2789,15 @@ ul {
       transition: visibility 0.15s ease-in-out, opacity 0.15s ease-in-out;
       background-color: transparent; }
       .desktop-models-list__image .image.active {
-        opacity: 0.5;
+        opacity: 0.7;
         visibility: visible; }
+    .desktop-models-list__image.click {
+      height: 380px;
+      width: 300px;
+      margin-left: -150px;
+      margin-top: -190px; }
+      .desktop-models-list__image.click .image.active {
+        opacity: 0.9; }
   @media (max-width: 1599.98px) {
     .desktop-models-list__items {
       margin: -40px 0; } }
@@ -2901,9 +2904,12 @@ ul {
     white-space: nowrap;
     margin: 0;
     position: relative;
-    z-index: 2; }
+    z-index: 2;
+    color: inherit; }
     .colors-slide__title-element_1 {
       transform: translateX(0.04em); }
+  .colors-slide__front-title {
+    color: var(--color-text-light); }
   @media (max-width: 1599.98px) {
     .colors-slide {
       grid-template-columns: 282px 282px 282px; } }
