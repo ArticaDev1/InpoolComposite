@@ -271,6 +271,11 @@
       transform: translate(-50%, -50%);
       width: 1500px;
       height: 842px;
+      &.wide {
+        width: 100% !important;
+        height: 100% !important;
+        top: 50% !important;
+      }
     }
     canvas {
       display: block;
@@ -301,6 +306,10 @@
 }
 .section-3d-part-1 {
   padding-bottom: 4500px;
+}
+.section-3d-part-2 {
+  padding-bottom: 4500px;
+  margin-top: -100vh;
 }
 
 .section-3d-screen {
@@ -492,10 +501,18 @@
   position: absolute;
   height: 100%;
   width: 100%;
+  opacity: 0;
+  visibility: hidden;
   display: grid;
   justify-content: space-between;
   grid-template-columns: 330px 330px 330px;
   grid-template-rows: 1fr auto;
+  * {
+    user-select: none;
+  }
+  &__element-inner {
+    height: 100%;
+  }
   &__left {
     height: 100%;
   }

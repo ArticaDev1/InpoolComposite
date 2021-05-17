@@ -51,7 +51,7 @@
     </div>
     <div class="wrapper" style="opacity:0;visibility:hidden;">
       <header class="header"><a class="logo" href="./"><img src="./img/logos/logo.svg" alt="image"></a>
-        <div class="header__right"><a class="header__phone" href="tel:+79269659259">+7 926 965-92-59</a><a class="button button_style-2" href="javascript:void(0);">Заказать звонок </a></div>
+        <div class="header__right"><a class="header__phone" href="tel:+79269659259">+7 926 965-92-59</a><a class="button button_style-2" href="#modal-form" data-modal="open">Заказать звонок </a></div>
       </header>
       <main class="main">
         <section class="section section-3d">
@@ -101,12 +101,15 @@
                 <div class="container">
                   <div class="row">
                     <div class="section-3d-screen-3__text offset-lg-8 col-lg-4">
-                      <p> <strong>Строим со знанием того, зачем бассейны нужны вам,</strong>как оптимизировать их конфигурацию под ваши потребности, нужды и как ими пользоваться с максимальной пользой и удовлетворением.</p>
+                      <p> <strong>Строим со знанием того, зачем бассейны нужны вам, </strong>как оптимизировать их конфигурацию под ваши потребности, нужды и как ими пользоваться с максимальной пользой и удовлетворением.</p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+          <div class="section-3d-part section-3d-part-2">
+            <div class="section-3d-part__container section-3d-part-2__container"></div>
           </div>
         </section>
         <section class="section section-choose-models section-animated">
@@ -166,30 +169,198 @@
             <div class="colors-slider">
               <div class="colors-slider__container container">
                 <div class="colors-slider__wrapper">
-                  <!--slide-->
-                  <div class="colors-slide">
-                    <div class="colors-slide__left image image_cover"><img class="lazyload" data-src="./img/colors/1_1.jpg" alt="image"></div>
-                    <div class="colors-slide__center">
-                      <div class="colors-slide__back">
-                        <div class="image image_cover"><img class="lazyload" data-src="./img/colors/1_2.jpg" alt="image"></div>
-                        <div class="colors-slide__title colors-slide__back-title">
-                          <div class="h1 colors-slide__title-element colors-slide__title-element_1">Blue Saphire</div>
-                        </div>
-                      </div>
-                      <div class="colors-slide__front">
-                        <div class="colors-slide__front-container">
-                          <div class="image image_cover"><img class="lazyload" data-src="./img/colors/1_2.jpg" alt="image"></div>
-                          <div class="colors-slide__title colors-slide__front-title">
-                            <h2 class="h1 colors-slide__title-element colors-slide__title-element_1">Blue Saphire</h2>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="colors-slide__right image image_cover"><img class="lazyload" data-src="./img/colors/1_3.jpg" alt="image"></div>
-                    <div class="colors-slide__text">
-                      <p class="mb-3">Приятный глубокий голубой цвет, напоминающий живописный тропический пляж</p><a class="button colors-slide__button colors-slide__button_style-1" href="javascript:void(0);">Выбрать этот цвет</a>
-                    </div>
-                  </div>
+                                    <!--slide-->
+                                    <div class="colors-slide">
+                                      <div class="colors-slide__left colors-slide__element">
+                                        <div class="colors-slide__element-inner image image_cover"><img class="lazyload" data-src="./img/colors/1_1.jpg" alt="image"></div>
+                                      </div>
+                                      <div class="colors-slide__center colors-slide__element">
+                                        <div class="colors-slide__element-inner">
+                                          <div class="colors-slide__back">
+                                            <div class="image image_cover"><img class="lazyload" data-src="./img/colors/1_2.jpg" alt="image"></div>
+                                            <div class="colors-slide__title colors-slide__back-title">
+                                              <div class="h1 colors-slide__title-element colors-slide__title-element_1">Blue Saphire</div>
+                                            </div>
+                                          </div>
+                                          <div class="colors-slide__front">
+                                            <div class="colors-slide__front-container">
+                                              <div class="image image_cover"><img class="lazyload" data-src="./img/colors/1_2.jpg" alt="image"></div>
+                                              <div class="colors-slide__title colors-slide__front-title">
+                                                <h2 class="h1 colors-slide__title-element colors-slide__title-element_1">Blue Saphire</h2>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="colors-slide__right colors-slide__element">
+                                        <div class="colors-slide__element-inner image image_cover"><img class="lazyload" data-src="./img/colors/1_3.jpg" alt="image"></div>
+                                      </div>
+                                      <div class="colors-slide__text colors-slide__element">
+                                        <div class="colors-slide__element-inner">
+                                          <p class="mb-3">Приятный глубокий голубой цвет, напоминающий живописный тропический пляж</p><a class="button colors-slide__button colors-slide__button_style-1" href="#modal-form" data-modal="open">Выбрать этот цвет</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!--slide-->
+                                    <div class="colors-slide">
+                                      <div class="colors-slide__left colors-slide__element">
+                                        <div class="colors-slide__element-inner image image_cover"><img class="lazyload" data-src="./img/colors/2_1.jpg" alt="image"></div>
+                                      </div>
+                                      <div class="colors-slide__center colors-slide__element">
+                                        <div class="colors-slide__element-inner">
+                                          <div class="colors-slide__back">
+                                            <div class="image image_cover"><img class="lazyload" data-src="./img/colors/2_2.jpg" alt="image"></div>
+                                            <div class="colors-slide__title colors-slide__back-title">
+                                              <div class="h1 colors-slide__title-element colors-slide__title-element_1">Smokey Quartz</div>
+                                            </div>
+                                          </div>
+                                          <div class="colors-slide__front">
+                                            <div class="colors-slide__front-container">
+                                              <div class="image image_cover"><img class="lazyload" data-src="./img/colors/2_2.jpg" alt="image"></div>
+                                              <div class="colors-slide__title colors-slide__front-title">
+                                                <h2 class="h1 colors-slide__title-element colors-slide__title-element_2">Smokey Quartz</h2>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="colors-slide__right colors-slide__element">
+                                        <div class="colors-slide__element-inner image image_cover"><img class="lazyload" data-src="./img/colors/2_3.jpg" alt="image"></div>
+                                      </div>
+                                      <div class="colors-slide__text colors-slide__element">
+                                        <div class="colors-slide__element-inner">
+                                          <p class="mb-3">Приятный глубокий голубой цвет, напоминающий живописный тропический пляж</p><a class="button colors-slide__button colors-slide__button_style-1" href="#modal-form" data-modal="open">Выбрать этот цвет</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!--slide-->
+                                    <div class="colors-slide">
+                                      <div class="colors-slide__left colors-slide__element">
+                                        <div class="colors-slide__element-inner image image_cover"><img class="lazyload" data-src="./img/colors/3_1.jpg" alt="image"></div>
+                                      </div>
+                                      <div class="colors-slide__center colors-slide__element">
+                                        <div class="colors-slide__element-inner">
+                                          <div class="colors-slide__back">
+                                            <div class="image image_cover"><img class="lazyload" data-src="./img/colors/3_2.jpg" alt="image"></div>
+                                            <div class="colors-slide__title colors-slide__back-title">
+                                              <div class="h1 colors-slide__title-element colors-slide__title-element_1">Golden Pebble</div>
+                                            </div>
+                                          </div>
+                                          <div class="colors-slide__front">
+                                            <div class="colors-slide__front-container">
+                                              <div class="image image_cover"><img class="lazyload" data-src="./img/colors/3_2.jpg" alt="image"></div>
+                                              <div class="colors-slide__title colors-slide__front-title">
+                                                <h2 class="h1 colors-slide__title-element colors-slide__title-element_3">Golden Pebble</h2>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="colors-slide__right colors-slide__element">
+                                        <div class="colors-slide__element-inner image image_cover"><img class="lazyload" data-src="./img/colors/3_3.jpg" alt="image"></div>
+                                      </div>
+                                      <div class="colors-slide__text colors-slide__element">
+                                        <div class="colors-slide__element-inner">
+                                          <p class="mb-3">Приятный глубокий голубой цвет, напоминающий живописный тропический пляж</p><a class="button colors-slide__button colors-slide__button_style-1" href="#modal-form" data-modal="open">Выбрать этот цвет</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!--slide-->
+                                    <div class="colors-slide">
+                                      <div class="colors-slide__left colors-slide__element">
+                                        <div class="colors-slide__element-inner image image_cover"><img class="lazyload" data-src="./img/colors/4_1.jpg" alt="image"></div>
+                                      </div>
+                                      <div class="colors-slide__center colors-slide__element">
+                                        <div class="colors-slide__element-inner">
+                                          <div class="colors-slide__back">
+                                            <div class="image image_cover"><img class="lazyload" data-src="./img/colors/4_2.jpg" alt="image"></div>
+                                            <div class="colors-slide__title colors-slide__back-title">
+                                              <div class="h1 colors-slide__title-element colors-slide__title-element_1">Nova Navy</div>
+                                            </div>
+                                          </div>
+                                          <div class="colors-slide__front">
+                                            <div class="colors-slide__front-container">
+                                              <div class="image image_cover"><img class="lazyload" data-src="./img/colors/4_2.jpg" alt="image"></div>
+                                              <div class="colors-slide__title colors-slide__front-title">
+                                                <h2 class="h1 colors-slide__title-element colors-slide__title-element_4">Nova Navy</h2>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="colors-slide__right colors-slide__element">
+                                        <div class="colors-slide__element-inner image image_cover"><img class="lazyload" data-src="./img/colors/4_3.jpg" alt="image"></div>
+                                      </div>
+                                      <div class="colors-slide__text colors-slide__element">
+                                        <div class="colors-slide__element-inner">
+                                          <p class="mb-3">Приятный глубокий голубой цвет, напоминающий живописный тропический пляж</p><a class="button colors-slide__button colors-slide__button_style-1" href="#modal-form" data-modal="open">Выбрать этот цвет</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!--slide-->
+                                    <div class="colors-slide">
+                                      <div class="colors-slide__left colors-slide__element">
+                                        <div class="colors-slide__element-inner image image_cover"><img class="lazyload" data-src="./img/colors/5_1.jpg" alt="image"></div>
+                                      </div>
+                                      <div class="colors-slide__center colors-slide__element">
+                                        <div class="colors-slide__element-inner">
+                                          <div class="colors-slide__back">
+                                            <div class="image image_cover"><img class="lazyload" data-src="./img/colors/5_2.jpg" alt="image"></div>
+                                            <div class="colors-slide__title colors-slide__back-title">
+                                              <div class="h1 colors-slide__title-element colors-slide__title-element_1">Nova Pearl</div>
+                                            </div>
+                                          </div>
+                                          <div class="colors-slide__front">
+                                            <div class="colors-slide__front-container">
+                                              <div class="image image_cover"><img class="lazyload" data-src="./img/colors/5_2.jpg" alt="image"></div>
+                                              <div class="colors-slide__title colors-slide__front-title">
+                                                <h2 class="h1 colors-slide__title-element colors-slide__title-element_5">Nova Pearl</h2>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="colors-slide__right colors-slide__element">
+                                        <div class="colors-slide__element-inner image image_cover"><img class="lazyload" data-src="./img/colors/5_3.jpg" alt="image"></div>
+                                      </div>
+                                      <div class="colors-slide__text colors-slide__element">
+                                        <div class="colors-slide__element-inner">
+                                          <p class="mb-3">Приятный глубокий голубой цвет, напоминающий живописный тропический пляж</p><a class="button colors-slide__button colors-slide__button_style-1" href="#modal-form" data-modal="open">Выбрать этот цвет</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!--slide-->
+                                    <div class="colors-slide">
+                                      <div class="colors-slide__left colors-slide__element">
+                                        <div class="colors-slide__element-inner image image_cover"><img class="lazyload" data-src="./img/colors/6_1.jpg" alt="image"></div>
+                                      </div>
+                                      <div class="colors-slide__center colors-slide__element">
+                                        <div class="colors-slide__element-inner">
+                                          <div class="colors-slide__back">
+                                            <div class="image image_cover"><img class="lazyload" data-src="./img/colors/6_2.jpg" alt="image"></div>
+                                            <div class="colors-slide__title colors-slide__back-title">
+                                              <div class="h1 colors-slide__title-element colors-slide__title-element_1">Nova Blue</div>
+                                            </div>
+                                          </div>
+                                          <div class="colors-slide__front">
+                                            <div class="colors-slide__front-container">
+                                              <div class="image image_cover"><img class="lazyload" data-src="./img/colors/6_2.jpg" alt="image"></div>
+                                              <div class="colors-slide__title colors-slide__front-title">
+                                                <h2 class="h1 colors-slide__title-element colors-slide__title-element_6">Nova Blue</h2>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="colors-slide__right colors-slide__element">
+                                        <div class="colors-slide__element-inner image image_cover"><img class="lazyload" data-src="./img/colors/6_3.jpg" alt="image"></div>
+                                      </div>
+                                      <div class="colors-slide__text colors-slide__element">
+                                        <div class="colors-slide__element-inner">
+                                          <p class="mb-3">Приятный глубокий голубой цвет, напоминающий живописный тропический пляж</p><a class="button colors-slide__button colors-slide__button_style-1" href="#modal-form" data-modal="open">Выбрать этот цвет</a>
+                                        </div>
+                                      </div>
+                                    </div>
                 </div>
               </div>
             </div>
@@ -373,6 +544,60 @@
       </footer>
     </div>
     <!--modals-->
+    <div class="modal" id="modal-form" style="opacity:0;visibility:hidden;">
+      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+        <div class="modal__container container">
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="modal-block pt-2 pb-2">
+                <button class="modal-close" aria-label="close" data-modal="close"></button>
+                <div class="row">
+                  <h4 class="contact-form__title offset-xl-1 col-xl-10">Оставьте свои контакты и мы вам перезвоним</h4>
+                  <form class="form offset-xl-3 col-xl-6" autocomplete="off">
+                    <div class="form__item">
+                      <label class="input"><span class="input__title">Ваше имя
+                          <mark>*</mark></span>
+                        <input class="input__element" type="text" name="name" data-validate="name" data-required>
+                      </label>
+                    </div>
+                    <div class="form__item">
+                      <label class="input"><span class="input__title">Номер телефона
+                          <mark>*</mark></span>
+                        <input class="input__element" type="text" name="phone" data-validate="phone" data-required>
+                      </label>
+                    </div>
+                    <div class="form__item">
+                      <label class="input"><span class="input__title">Комментарий</span>
+                        <textarea class="input__element" name="message" data-validate="message"></textarea>
+                      </label>
+                    </div>
+                    <div class="form__submit">
+                      <button class="button button_style-1 button_loader"> <span>Отправить</span>
+                        <svg viewBox="0 0 120 30" fill="currentColor">
+                          <circle cx="15" cy="15" r="15">
+                            <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate>
+                            <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate>
+                          </circle>
+                          <circle cx="60" cy="15" r="9" fill-opacity="0.3">
+                            <animate attributeName="r" from="9" to="9" begin="0s" dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite"></animate>
+                            <animate attributeName="fill-opacity" from="0.5" to="0.5" begin="0s" dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite"></animate>
+                          </circle>
+                          <circle cx="105" cy="15" r="15">
+                            <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate>
+                            <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate>
+                          </circle>
+                        </svg>
+                      </button>
+                      <p class="form__message">Нажимая кнопку «Отправить» вы соглашаетесь<br> с условиями <a href="#politics" data-modal="open">Политики конфиденциальности</a></p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="modal modal-succes" id="modal-succes" style="opacity:0;visibility:hidden;">
       <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
         <div class="modal__container container">

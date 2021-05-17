@@ -35,10 +35,14 @@ block content
             .row 
               .section-3d-screen-3__text.offset-lg-8.col-lg-4 
                 p 
-                  strong Строим со знанием того, зачем бассейны нужны вам,
+                  strong Строим со знанием того, зачем бассейны нужны вам, 
                   | как оптимизировать их конфигурацию под ваши потребности, нужды и как ими пользоваться с максимальной пользой и удовлетворением.
-  
-  
+
+    .section-3d-part.section-3d-part-2
+      .section-3d-part__container.section-3d-part-2__container
+
+
+
   section.section.section-choose-models.section-animated
     .figures-container.container
       .background-figure.background-figure_1(data-parallax='0.5')
@@ -95,29 +99,41 @@ block content
       .colors-slider 
         .colors-slider__container.container
           .colors-slider__wrapper
-            //slide
-            .colors-slide
-              .colors-slide__left.image.image_cover
-                img(data-src="./img/colors/1_1.jpg", alt="image").lazyload
-              .colors-slide__center
-                .colors-slide__back
-                  .image.image_cover
-                    img(data-src="./img/colors/1_2.jpg", alt="image").lazyload
-                  .colors-slide__title.colors-slide__back-title
-                    .h1.colors-slide__title-element.colors-slide__title-element_1 Blue Saphire
-                .colors-slide__front 
-                  .colors-slide__front-container
-                    .image.image_cover
-                      img(data-src="./img/colors/1_2.jpg", alt="image").lazyload
-                    .colors-slide__title.colors-slide__front-title
-                      h2.h1.colors-slide__title-element.colors-slide__title-element_1 Blue Saphire
+            mixin slide(title, image1, image2, image3, classes)
+              //slide
+              .colors-slide
+                .colors-slide__left.colors-slide__element
+                  .colors-slide__element-inner.image.image_cover
+                    img(data-src=image1, alt="image").lazyload
+                .colors-slide__center.colors-slide__element
+                  .colors-slide__element-inner
+                    .colors-slide__back
+                      .image.image_cover
+                        img(data-src=image2, alt="image").lazyload
+                      .colors-slide__title.colors-slide__back-title
+                        .h1.colors-slide__title-element.colors-slide__title-element_1=title
+                    .colors-slide__front 
+                      .colors-slide__front-container
+                        .image.image_cover
+                          img(data-src=image2, alt="image").lazyload
+                        .colors-slide__title.colors-slide__front-title
+                          h2.h1.colors-slide__title-element(class=classes)=title
 
-              .colors-slide__right.image.image_cover
-                img(data-src="./img/colors/1_3.jpg", alt="image").lazyload
-              .colors-slide__text
-                p.mb-3 Приятный глубокий голубой цвет, напоминающий живописный тропический пляж
-                a(href="javascript:void(0);").button.colors-slide__button.colors-slide__button_style-1 Выбрать этот цвет
-        
+                .colors-slide__right.colors-slide__element
+                  .colors-slide__element-inner.image.image_cover
+                    img(data-src=image3, alt="image").lazyload
+                .colors-slide__text.colors-slide__element
+                  .colors-slide__element-inner
+                    p.mb-3 Приятный глубокий голубой цвет, напоминающий живописный тропический пляж
+                    a(href="#modal-form" data-modal='open').button.colors-slide__button.colors-slide__button_style-1 Выбрать этот цвет
+            
+            +slide('Blue Saphire', './img/colors/1_1.jpg', './img/colors/1_2.jpg', './img/colors/1_3.jpg', 'colors-slide__title-element_1')
+            +slide('Smokey Quartz', './img/colors/2_1.jpg', './img/colors/2_2.jpg', './img/colors/2_3.jpg', 'colors-slide__title-element_2')
+            +slide('Golden Pebble', './img/colors/3_1.jpg', './img/colors/3_2.jpg', './img/colors/3_3.jpg', 'colors-slide__title-element_3')
+            +slide('Nova Navy', './img/colors/4_1.jpg', './img/colors/4_2.jpg', './img/colors/4_3.jpg', 'colors-slide__title-element_4')
+            +slide('Nova Pearl', './img/colors/5_1.jpg', './img/colors/5_2.jpg', './img/colors/5_3.jpg', 'colors-slide__title-element_5')
+            +slide('Nova Blue', './img/colors/6_1.jpg', './img/colors/6_2.jpg', './img/colors/6_3.jpg', 'colors-slide__title-element_6')
+
 
 
   section.section.section-video-animation

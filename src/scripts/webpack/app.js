@@ -49,6 +49,7 @@ class SoftScrollPlugin extends ScrollbarPlugin {
 Scrollbar.use(SoftScrollPlugin);
 
 const validate = require("validate.js");
+import SwipeListener from 'swipe-listener';
 import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 import Inputmask from "inputmask";
 import autosize from 'autosize';
@@ -91,6 +92,7 @@ window.onload = function() {
   activeFunctions.add(Section3d, '.section-3d');
   activeFunctions.add(SectionAnimated, '.section-animated');
   activeFunctions.add(DesktopModelsList, '.desktop-models-list');
+  activeFunctions.add(ColorsSlider, '.colors-slider');
   activeFunctions.add(SectionVideoAnimation, '.section-video-animation');
   activeFunctions.add(SectionTechnologies, '.section-technologies');
   activeFunctions.add(Map, '.contacts-block__map');
@@ -162,6 +164,12 @@ const Resources = {
         src: './img/model/1/',
         type: 'png',
         framesCount: 98,
+        frames: []
+      },
+      1: {
+        src: './img/model/2/',
+        type: 'png',
+        framesCount: 84,
         frames: []
       },
       4: {
@@ -1103,6 +1111,10 @@ class Section3d {
     this.frames1 = Resources.sources[0].frames;
     this.framesCount1 = Resources.sources[0].framesCount;
     //
+    this.$part2 = this.$parent.querySelector('.section-3d-part-2__container');
+    this.frames2 = Resources.sources[1].frames;
+    this.framesCount2 = Resources.sources[1].framesCount;
+    //
     this.activeFrame = this.frames1[0];
 
     this.sceneRender = ()=> {
@@ -1135,7 +1147,7 @@ class Section3d {
       animation_start.play();
     })
     //animation fade scene
-    this.animation_fade_out = gsap.timeline({paused:true})
+    this.animation_fade = gsap.timeline({paused:true})
       .to(this.$scene, {autoAlpha:0, ease:'power2.out'})
 
     //ANIMATION 1
@@ -1153,7 +1165,7 @@ class Section3d {
     this.sceneTrigger = ScrollTrigger.create({
       trigger: this.$scene,
       start: "top top",
-      end: "+=4500",
+      end: "+=9000",
       pin: true,
       pinType: pinType,
       pinSpacing: false
@@ -1179,7 +1191,38 @@ class Section3d {
         let time3 = Math.max(0, Math.min((y-2500)/1500, 1));
         this.animation3.progress(time3);
         let time4 = Math.max(0, Math.min((y-4000)/500, 1));
-        this.animation_fade_out.progress(time4);
+        if(time4>0 && time4<1) this.animation_fade.progress(time4);
+      
+      },
+      onEnterBack: ()=> {
+        this.$scene_inner.classList.remove('wide');
+        this.resizeEvent();
+      }
+    })
+
+    this.trigger2 = ScrollTrigger.create({
+      trigger: this.$part2,
+      start: "top top",
+      end: "+=4500",
+      pin: true,
+      pinType: pinType,
+      pinSpacing: false,
+      onUpdate: self => {
+        let y = (self.end-self.start)*self.progress;
+        //4500 change
+        let index = Math.round(Math.max(0, Math.min(y/3500, 1)*(this.framesCount2-1)));
+        this.activeFrame = this.frames2[index];
+        console.log(index)
+        
+        //animations
+        let time1 = Math.max(0, Math.min(y/500, 1));
+        if(time1>0 && time1<1) this.animation_fade.progress(1-time1);
+        let time2 = Math.max(0, Math.min((y-4000)/500, 1));
+        if(time2>0 && time2<1) this.animation_fade.progress(time2);
+      },
+      onEnter: ()=> {
+        this.$scene_inner.classList.add('wide');
+        this.resizeEvent();
       }
     })
 
@@ -1354,6 +1397,97 @@ class DesktopModelsList {
       pinSpacing: false,
       pinType: pinType
     });
+
+
+  }
+}
+
+class ColorsSlider {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
+
+  init() {
+    this.check = ()=> {
+      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+        this.initDesktop();
+        this.flag = true;
+      } 
+      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
+        if(this.initialized) {
+          this.destroyDesktop();
+        }
+        this.flag = false;
+      }
+    }
+    this.check();
+    window.addEventListener('resize', this.check);
+    this.initialized = true;
+  }
+
+  initDesktop() {
+    this.$container = this.$parent.querySelector('.colors-slider__container')
+    this.$slide = this.$parent.querySelectorAll('.colors-slide');
+
+    this.animations_enter = [];
+    this.animations_exit = [];
+    this.$slide.forEach(($slide, index) => {
+      let $items = $slide.querySelectorAll('.colors-slide__element'),
+          $inners = $slide.querySelectorAll('.colors-slide__element-inner'),
+          $images = $slide.querySelectorAll('.image img'),
+          $title = $slide.querySelectorAll('.colors-slide__title-element');
+
+      this.animations_enter[index] = gsap.timeline({paused:true})
+        .set($slide, {autoAlpha:1})
+        .fromTo($items, {autoAlpha:0}, {autoAlpha:1, duration:0.75, stagger:{amount:0.25}})
+        .fromTo($items, {y:100}, {y:0, ease:'power2.out', duration:0.75, stagger:{amount:0.25}}, '-=1')
+        .fromTo($images, {scale:1.25}, {scale:1, ease:'power2.out', duration:0.75, stagger:{amount:0.25}}, '-=1')
+        .fromTo($title, {y:50}, {y:0, ease:'power2.out', duration:1.5}, '-=1')
+      
+      this.animations_exit[index] = gsap.timeline({paused:true})
+        .to($inners, {y:-50, ease:'power2.in', duration:0.4, stagger:{amount:0.1, from:'end'}})
+        .to($inners, {autoAlpha:0, duration:0.4, stagger:{amount:0.1, from:'end'}}, '-=0.5')
+        .set($slide, {autoAlpha:0})
+    })
+
+    this.getNext = (index)=> {
+      let val = index==this.$slide.length-1?0:index+1;
+      return val;
+    }
+    this.getPrev = (index)=> {
+      let val = index==0?this.$slide.length-1:index-1;
+      return val;
+    }
+
+    console.log(this.getNext(1))
+
+    this.change = (index)=> {
+      if(this.index!==undefined) {
+        if(this.animations_enter[this.index].isActive()) {
+          this.animations_enter[this.index].pause();
+        }
+        this.animations_exit[this.index].play(0).eventCallback('onComplete', ()=> {
+          this.animations_exit[index].pause().progress(0);
+          this.animations_enter[index].play(0);
+        });
+      } else {
+        this.animations_enter[index].play(0);
+      }
+      this.index = index;
+    }
+
+    setTimeout(() => {
+      this.change(0)
+    }, 1000);
+
+    
+    this.swipes = SwipeListener(this.$container);
+    this.$container.addEventListener('swipe', (event)=> {
+      let dir = event.detail.directions;
+      if(dir.left) this.change(this.getNext(this.index));
+      else if(dir.right) this.change(this.getPrev(this.index));
+    });
+
 
 
   }
