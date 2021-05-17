@@ -55,11 +55,17 @@
       </header>
       <main class="main">
         <section class="section section-3d">
+          <div class="figures-container container">
+            <div class="background-figure background-figure_1" data-parallax="0.5"></div>
+            <div class="background-figure background-figure_2" data-parallax="0.5"></div>
+            <div class="background-figure background-figure_3" data-parallax="0.5"></div>
+          </div>
           <div class="section-3d__scene">
             <div class="section-3d__scene-inner">
               <canvas></canvas>
             </div>
           </div>
+          <!--1-->
           <div class="section-3d-part section-3d-part-1">
             <div class="section-3d-part__container section-3d-part-1__container">
               <!---->
@@ -108,9 +114,38 @@
               </div>
             </div>
           </div>
+          <!--2-->
           <div class="section-3d-part section-3d-part-2">
-            <div class="section-3d-part__container section-3d-part-2__container"></div>
+            <div class="section-3d-part__container section-3d-part-2__container">
+              <!--точки технологий-->
+              <div class="section-3d-screen section-3d-screen-4"></div>
+            </div>
           </div>
+          <!--3-->
+          <div class="section-3d-part section-3d-part-3">
+            <div class="section-3d-part__container section-3d-part-3__container">
+              <div class="section-3d-screen section-3d-screen-5 animated-head">
+                <div class="container animated-head__container">
+                  <h5 class="animated-head__sub-title">Технологии</h5>
+                  <h2 class="h1 animated-head__title">Инновационные<br> преимущества.</h2>
+                </div>
+              </div>
+              <!--точки технологий-->
+              <div class="section-3d-screen section-3d-screen-6"></div>
+            </div>
+          </div>
+          <!--4-->
+          <!--.section-3d-part.section-3d-part-4
+          .section-3d-part__container.section-3d-part-4__container
+            
+            .section-3d-screen.section-3d-screen-7.animated-head
+              .container.animated-head__container
+                h5.animated-head__sub-title А в жизни как?
+                h2.h1.animated-head__title Представьте.
+          
+          
+          
+          -->
         </section>
         <section class="section section-choose-models section-animated">
           <div class="figures-container container">
@@ -167,6 +202,20 @@
           </div>
           <div class="section-animated__content">
             <div class="colors-slider">
+              <div class="colors-slider__head container mb-2">
+                <div class="colors-slider__navigation">
+                  <button class="colors-slider__navigation-trigger">Гавайи</button>
+                  <button class="colors-slider__navigation-trigger">о. Маврикий</button>
+                  <button class="colors-slider__navigation-trigger">о. Таити</button>
+                  <button class="colors-slider__navigation-trigger">Мальдивы</button>
+                  <button class="colors-slider__navigation-trigger">о. Занзибар</button>
+                  <button class="colors-slider__navigation-trigger">о. Мадагаскар</button>
+                </div>
+                <div class="colors-slider__line">
+                  <div class="image image_cover"> <img class="lazyload colors-slider__texture" data-src="./img/texture.jpg" alt="image"></div>
+                  <div class="colors-slider__slider-element"></div>
+                </div>
+              </div>
               <div class="colors-slider__container container">
                 <div class="colors-slider__wrapper">
                                     <!--slide-->
@@ -612,6 +661,38 @@
         </div>
       </div>
     </div>
+    <!--модели-->
+    <!--.modal.modal-model#aqua(style='opacity:0;visibility:hidden;')
+    .modal__wrapper.pt-2.pb-2(data-scroll-lock-scrollable)  
+      .modal__container.container 
+        .row
+          .col-xl-12
+            .modal-block.pt-2.pb-2
+              button.modal-close(aria-label='close' data-modal='close')
+              .modal-model__head.row 
+                h3.modal-model__title.offset-xl-1.col-xl-4 Aqua
+                p.modal-model__head-text.col-xl-6 прямоугольная модель со ступенями, расположенными в угловой части
+              .modal-model__content.row 
+                //images
+                -var images = ['./img/models-sliders/1_1.jpg', './img/models-sliders/1_2.jpg', './img/models-sliders/1_3.jpg', './img/models-sliders/1_4.jpg']
+                .modal-model__images.offset-xl-1.col-xl-4
+                  .swiper.modal-model__top-slider
+                    .swiper-container
+                      .swiper-wrapper
+                        each val in images
+                          //slide
+                          .swiper-slide.image.image_contain.modal-model__top-slide 
+                            img(data-src=val, alt="image").swiper-lazy
+                  .modal-model__bottom-images
+                    each val in images
+                      //slide
+                      .modal-model__bottom-image.image.image_contain
+                        img(data-src=val, alt="image").lazyload
+    
+    
+    
+    
+    -->
     <div class="modal modal-text" id="politics" style="opacity:0;visibility:hidden;">
       <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
         <div class="modal__container container">

@@ -1,10 +1,16 @@
 extends layout/layout
 block content
   section.section.section-3d
+    .figures-container.container
+      .background-figure.background-figure_1(data-parallax='0.5')
+      .background-figure.background-figure_2(data-parallax='0.5')
+      .background-figure.background-figure_3(data-parallax='0.5')
+
     .section-3d__scene
       .section-3d__scene-inner
         canvas
 
+    //1
     .section-3d-part.section-3d-part-1
       .section-3d-part__container.section-3d-part-1__container
         //
@@ -38,8 +44,33 @@ block content
                   strong Строим со знанием того, зачем бассейны нужны вам, 
                   | как оптимизировать их конфигурацию под ваши потребности, нужды и как ими пользоваться с максимальной пользой и удовлетворением.
 
+    //2
     .section-3d-part.section-3d-part-2
       .section-3d-part__container.section-3d-part-2__container
+
+        //точки технологий
+        .section-3d-screen.section-3d-screen-4
+
+    //3
+    .section-3d-part.section-3d-part-3
+      .section-3d-part__container.section-3d-part-3__container
+        
+        .section-3d-screen.section-3d-screen-5.animated-head
+          .container.animated-head__container
+            h5.animated-head__sub-title Технологии
+            h2.h1.animated-head__title Инновационные<br> преимущества.
+
+        //точки технологий
+        .section-3d-screen.section-3d-screen-6
+
+    //4
+    //.section-3d-part.section-3d-part-4
+      .section-3d-part__container.section-3d-part-4__container
+        
+        .section-3d-screen.section-3d-screen-7.animated-head
+          .container.animated-head__container
+            h5.animated-head__sub-title А в жизни как?
+            h2.h1.animated-head__title Представьте.
 
 
 
@@ -97,6 +128,19 @@ block content
         h2.h1.animated-head__title Пляжи лучших курортов.
     .section-animated__content
       .colors-slider 
+        .colors-slider__head.container.mb-2
+          .colors-slider__navigation
+            button.colors-slider__navigation-trigger Гавайи
+            button.colors-slider__navigation-trigger о. Маврикий
+            button.colors-slider__navigation-trigger о. Таити
+            button.colors-slider__navigation-trigger Мальдивы
+            button.colors-slider__navigation-trigger о. Занзибар
+            button.colors-slider__navigation-trigger о. Мадагаскар
+          .colors-slider__line
+            .image.image_cover 
+              img(data-src="./img/texture.jpg", alt="image").lazyload.colors-slider__texture
+            .colors-slider__slider-element
+
         .colors-slider__container.container
           .colors-slider__wrapper
             mixin slide(title, image1, image2, image3, classes)

@@ -53,6 +53,7 @@ import SwipeListener from 'swipe-listener';
 import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 import Inputmask from "inputmask";
 import autosize from 'autosize';
+import Swiper, {Pagination, Lazy, EffectFade} from 'swiper/core';
 
 const brakepoints = {
   sm: 576,
@@ -172,6 +173,12 @@ const Resources = {
         framesCount: 84,
         frames: []
       },
+      2: {
+        src: './img/model/3/',
+        type: 'jpg',
+        framesCount: 25,
+        frames: []
+      },
       4: {
         src: './img/drone_video/',
         type: 'jpg',
@@ -181,16 +188,33 @@ const Resources = {
     }
 
     this.load = () => {
-      for(let source in this.sources) {
-        for(let i = 0; i < this.sources[source].framesCount; i++) {
-          this.sources[source].frames[i] = new Image();
-          this.sources[source].frames[i].onload = ()=> {
-            this.framesLoaded++;
+      //load first scene
+      for(let i = 0; i < this.sources[0].framesCount; i++) {
+        this.sources[0].frames[i] = new Image();
+        this.sources[0].frames[i].onload = ()=> {
+          this.framesLoaded++;
+          //dirst loaded
+          if(this.framesLoaded==this.sources[0].framesCount) {
+            //load else
+            for(let source in this.sources) {
+              if(source>0) {
+                for(let i = 0; i < this.sources[source].framesCount; i++) {
+                  this.sources[source].frames[i] = new Image();
+                  this.sources[source].frames[i].onload = ()=> {
+                    this.framesLoaded++;
+                  }
+                  let name = (i + 1).toString().padStart(3, '0'),
+                      type = this.sources[source].type;
+                  this.sources[source].frames[i].src = `${this.sources[source].src+name}.${type}`;
+                }
+              }
+            }
+
           }
-          let name = (i + 1).toString().padStart(3, '0'),
-              type = this.sources[source].type;
-          this.sources[source].frames[i].src = `${this.sources[source].src+name}.${type}`;
         }
+        let name = (i + 1).toString().padStart(3, '0'),
+            type = this.sources[0].type;
+        this.sources[0].frames[i].src = `${this.sources[0].src+name}.${type}`;
       }
     }
 
@@ -623,8 +647,6 @@ const Preloader = {
   init: function() {
     this.$element = document.querySelector('.preloader');
     this.$item = document.querySelector('.preloader__item');
-
-    let framesLoadCount = Resources.sources[0].framesCount;
     
     this.finish = () => {
       if(!Dev) {
@@ -653,14 +675,14 @@ const Preloader = {
           this.animationFrame = requestAnimationFrame(this.check);
           //animation
           this.$item.style.opacity = '1';
-          this.$item.setAttribute('y', `${100-(Math.min(Resources.framesLoaded/framesLoadCount, 1)*100)}%`);
+          this.$item.setAttribute('y', `${100-(Math.min(Resources.framesLoaded/Resources.sources[0].framesCount, 1)*100)}%`);
           //frames loaded
-          if(Resources.framesLoaded>=framesLoadCount) {
+          if(Resources.framesLoaded>=Resources.sources[0].framesCount) {
             cancelAnimationFrame(this.animationFrame);
             clearInterval(this.timer);
             setTimeout(() => {
               this.finish();
-            }, 500);
+            }, 250);
           }
         }
         this.check();
@@ -767,7 +789,9 @@ class SectionVideoAnimation {
     this.frames = Resources.sources[4].frames;
     this.activeFrame = this.frames[0];
     this.sceneRender = ()=> {
-      this.context.drawImage(this.activeFrame, 0, 0);
+      if(this.activeFrame) {
+        this.context.drawImage(this.activeFrame, 0, 0);
+      }
       this.animationFrame = requestAnimationFrame(this.sceneRender);
     }
     this.sceneRender();
@@ -1032,6 +1056,9 @@ const Modal = {
         this.close();
       }
     })
+
+    //this.open(document.querySelector('#aqua'))
+
   },
   open: function ($modal) {
     let open = ()=> {
@@ -1117,11 +1144,23 @@ class Section3d {
     this.frames2 = Resources.sources[1].frames;
     this.framesCount2 = Resources.sources[1].framesCount;
     //
+    this.$part3 = this.$parent.querySelector('.section-3d-part-3__container');
+    this.frames3 = Resources.sources[2].frames;
+    this.framesCount3 = Resources.sources[2].framesCount;
+    this.$screen5 = this.$parent.querySelector('.section-3d-screen-5');
+    this.$screen5_content = this.$screen5.querySelector('.container');
+    //
+    /* this.$part4 = this.$parent.querySelector('.section-3d-part-4__container');
+    this.frames4 = Resources.sources[3].frames;
+    this.framesCount4 = Resources.sources[3].framesCount; */
+    //
     this.activeFrame = this.frames1[0];
 
     this.sceneRender = ()=> {
       this.context.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
-      this.context.drawImage(this.activeFrame, 0, 0);
+      if(this.activeFrame) {
+        this.context.drawImage(this.activeFrame, 0, 0);
+      }
       this.animationFrame = requestAnimationFrame(this.sceneRender);
     }
     this.sceneRender();
@@ -1162,12 +1201,14 @@ class Section3d {
     //ANIMATION 3
     this.animation3 = gsap.effects.slidingText(this.$screen3, this.$screen3_content);
 
+    //ANIMATION 5
+    this.animation5 = gsap.effects.slidingText(this.$screen5, this.$screen5_content);
 
 
     this.sceneTrigger = ScrollTrigger.create({
       trigger: this.$scene,
       start: "top top",
-      end: "+=9000",
+      end: "+=13000",
       pin: true,
       pinType: pinType,
       pinSpacing: false
@@ -1205,7 +1246,7 @@ class Section3d {
     this.trigger2 = ScrollTrigger.create({
       trigger: this.$part2,
       start: "top top",
-      end: "+=4500",
+      end: "+=5000",
       pin: true,
       pinType: pinType,
       pinSpacing: false,
@@ -1214,12 +1255,11 @@ class Section3d {
         //4500 change
         let index = Math.round(Math.max(0, Math.min(y/3500, 1)*(this.framesCount2-1)));
         this.activeFrame = this.frames2[index];
-        console.log(index)
         
         //animations
         let time1 = Math.max(0, Math.min(y/500, 1));
         if(time1>0 && time1<1) this.animation_fade.progress(1-time1);
-        let time2 = Math.max(0, Math.min((y-4000)/500, 1));
+        let time2 = Math.max(0, Math.min((y-4000)/1000, 1));
         if(time2>0 && time2<1) this.animation_fade.progress(time2);
       },
       onEnter: ()=> {
@@ -1228,64 +1268,30 @@ class Section3d {
       }
     })
 
-    /* //1
-    let $screen1 = this.$parent.querySelector('.section-model-screen_1'),
-        $items1 = this.$parent.querySelectorAll('.section-model-screen__item-1');
-    this.animation1 = gsap.timeline({paused:true})
-      .to($items1, {y:-50, ease:'none'})
-      .to($items1, {autoAlpha:0, duration:0.3, ease:'power2.out', stagger:{amount:0.2}}, `-=0.5`)
-      .set($screen1, {autoAlpha:0})
-    
-    //2
-    let $screen2 = this.$parent.querySelector('.section-model-screen_2'),
-        $screen2_content = $screen2.querySelector('.animated-head__container');
-    this.animation2 = gsap.effects.slidingText($screen2, $screen2_content);
-
-    //3
-    let $screen3 = this.$parent.querySelector('.section-model-screen_3'),
-        $screen3_content = $screen3.querySelector('.section-model-screen__text-3');
-    this.animation3 = gsap.effects.slidingText($screen3, $screen3_content);
-
-    //4
-    this.animation4 = gsap.timeline({paused:true})
-      .to(this.$scene, {autoAlpha:0, ease:'power2.in'})
-
-    //5
-    this.animation5 = gsap.timeline({paused:true})
-      .to(this.$scene, {autoAlpha:0, ease:'power2.out'}) */
-
-
-
-    /* this.trigger = ScrollTrigger.create({
-      trigger: this.$parent,
+    this.trigger3 = ScrollTrigger.create({
+      trigger: this.$part3,
       start: "top top",
-      end: "top+=10800 top",
+      end: "+=3500",
       pin: true,
       pinType: pinType,
+      pinSpacing: false,
       onUpdate: self => {
-        let y = self.end*self.progress;
-        let index = Math.round(self.progress*(this.framesCount-1));
-        this.activeFrame = this.frames[index];
-
-        let time1 = Math.max(0, Math.min(y/750, 1)), //750
-            time2 = Math.max(0, Math.min((y-1100)/1500, 1)), //2500
-            time3 = Math.max(0, Math.min((y-2600)/1500, 1)), //4000
-            time4 = Math.max(0, Math.min((y-4100)/1000, 1)), //5100
-            time5 = Math.max(0, Math.min((y-5100)/1000, 1)); //6100
-
-        if(y<5100) {
-          gsap.set(this.$canvas, {scale:1})
-        } else {
-          gsap.set(this.$scene, {scale:0.73})
-        }
-
-        this.animation1.progress(time1);
-        this.animation2.progress(time2);
-        this.animation3.progress(time3);
-        this.animation4.progress(time4);
-        this.animation5.progress(time5);
+        let y = (self.end-self.start)*self.progress;
+        //2000 change
+        let index = Math.round(Math.max(0, Math.min((y-1500)/2000, 1)*(this.framesCount3-1)));
+        this.activeFrame = this.frames3[index];
+        
+        
+        //animations
+        let time1 = Math.max(0, Math.min(y/1500, 1));
+        this.animation5.progress(time1);
+        //fadeInScene
+        let time2 = Math.max(0, Math.min((y-1500)/500, 1));
+        if(time2>0 && time2<1) this.animation_fade.progress(1-time2);
+        let time3 = Math.max(0, Math.min((y-2500)/1000, 1));
+        if(time3>0 && time3<1) this.animation_fade.progress(time3);
       }
-    }); */
+    })
 
   }
 }
@@ -1430,6 +1436,8 @@ class ColorsSlider {
   initDesktop() {
     this.$container = this.$parent.querySelector('.colors-slider__container')
     this.$slide = this.$parent.querySelectorAll('.colors-slide');
+    this.$triggers = this.$parent.querySelectorAll('.colors-slider__navigation-trigger');
+    this.$slide_element = this.$parent.querySelector('.colors-slider__slider-element');
 
     this.animations_enter = [];
     this.animations_exit = [];
@@ -1461,10 +1469,11 @@ class ColorsSlider {
       return val;
     }
 
-    console.log(this.getNext(1))
-
     this.change = (index)=> {
+      gsap.to(this.$slide_element, {xPercent:100*index})
       if(this.index!==undefined) {
+        this.$triggers[this.index].classList.remove('active');
+
         if(this.animations_enter[this.index].isActive()) {
           this.animations_enter[this.index].pause();
         }
@@ -1472,17 +1481,27 @@ class ColorsSlider {
           this.animations_exit[index].pause().progress(0);
           this.animations_enter[index].play(0);
         });
-      } else {
+
+      } 
+      
+      else {
         this.animations_enter[index].play(0);
       }
+
+      this.$triggers[index].classList.add('active');
       this.index = index;
     }
 
-    setTimeout(() => {
-      this.change(0)
-    }, 1000);
+    this.change(0)
 
+    this.$triggers.forEach(($trigger, index) => {
+      $trigger.addEventListener('click', ()=> {
+        this.change(index);
+      })
+    })  
     
+    
+
     this.swipes = SwipeListener(this.$container);
     this.$container.addEventListener('swipe', (event)=> {
       let dir = event.detail.directions;
@@ -1494,3 +1513,46 @@ class ColorsSlider {
 
   }
 }
+
+/* class ModelsSlider {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
+
+  init() {
+    this.$slider = this.$parent.querySelector('.swiper-container');
+
+
+    this.slider = new Swiper(this.$slider, {
+      effect: 'fade',
+      touchStartPreventDefault: false,
+      longSwipesRatio: 0.1,
+      slidesPerView: 1,
+      speed: 500,
+      lazy: {
+        loadOnTransitionStart: true,
+        loadPrevNext: true
+      }
+    });
+  
+    
+  
+    if(this.$bottom_images.length>1) {
+      this.$bottom_images[0].classList.add('is-active');
+      this.slider.on('slideChange', (event)=> {
+        this.$bottom_images.forEach($this => {
+          $this.classList.remove('is-active')
+        })
+        this.$bottom_images[event.realIndex].classList.add('is-active');
+      })
+      this.events = [];
+      this.$bottom_images.forEach(($this, index)=>{
+        this.events[index] = ()=> {
+          this.slider.slideTo(index)
+        }
+        $this.addEventListener('mouseenter', this.events[index])
+        $this.addEventListener('click', this.events[index])
+      })
+    }
+  }
+} */
