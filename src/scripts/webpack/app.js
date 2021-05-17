@@ -161,7 +161,7 @@ const Resources = {
       0: {
         src: './img/model/1/',
         type: 'png',
-        framesCount: 77,
+        framesCount: 98,
         frames: []
       },
       4: {
@@ -619,13 +619,16 @@ const Preloader = {
     let framesLoadCount = Resources.sources[0].framesCount;
     
     this.finish = () => {
-      window.dispatchEvent(new Event("start"));
       if(!Dev) {
-        gsap.timeline({onComplete:()=>{this.$element.remove()}})
+        gsap.timeline({onComplete:()=>{
+          window.dispatchEvent(new Event("start"));
+          this.$element.remove();
+        }})
           .to(this.$element, {autoAlpha:0, duration:0.5})
           .to($wrapper, {autoAlpha:1}, '-=0.5')
       } 
       else {
+        window.dispatchEvent(new Event("start"));
         this.$element.remove();
         gsap.set($wrapper, {autoAlpha:1});
       }
@@ -1089,7 +1092,14 @@ class Section3d {
     this.$canvas.width=1920;
     this.$canvas.height=1080;
     //1
-    this.$screen1 = this.$parent.querySelector('.section-3d-screen_1');
+    this.$part1 = this.$parent.querySelector('.section-3d-part-1__container');
+    this.$screen1 = this.$parent.querySelector('.section-3d-screen-1');
+    this.$screen1_items = this.$screen1.querySelectorAll('.section-3d-screen-1__item');
+    this.$screen1_items_inner = this.$screen1.querySelectorAll('.section-3d-screen-1__item-inner');
+    this.$screen2 = this.$parent.querySelector('.section-3d-screen-2');
+    this.$screen2_content = this.$screen2.querySelector('.animated-head__container');
+    this.$screen3 = this.$parent.querySelector('.section-3d-screen-3');
+    this.$screen3_content = this.$screen3.querySelector('.container');
     this.frames1 = Resources.sources[0].frames;
     this.framesCount1 = Resources.sources[0].framesCount;
     //
@@ -1117,6 +1127,29 @@ class Section3d {
     this.resizeEvent();
     window.addEventListener('resize', this.resizeEvent);
 
+    //START ANIMATION 
+    let animation_start = gsap.timeline({paused:true})
+      .fromTo(this.$canvas, {scale:0.9, autoAlpha:0}, {scale:1, autoAlpha:1, ease:'power2.out'})
+      .fromTo(this.$screen1_items, {autoAlpha:0, y:20}, {autoAlpha:1, y:0, duration:0.75, ease:'power2.out', stagger:{amount:0.25}}, `-=0.75`)
+    window.addEventListener('start', () => {
+      animation_start.play();
+    })
+    //animation fade scene
+    this.animation_fade_out = gsap.timeline({paused:true})
+      .to(this.$scene, {autoAlpha:0, ease:'power2.out'})
+
+    //ANIMATION 1
+    this.animation1 = gsap.timeline({paused:true})
+      .to(this.$screen1, {y:-50, ease:'none'})
+      .to(this.$screen1_items_inner, {autoAlpha:0, duration:0.75, ease:'power2.out', stagger:{amount:0.25}}, `-=1`)
+      .set(this.$screen1, {autoAlpha:0})
+    //ANIMATION 2
+    this.animation2 = gsap.effects.slidingText(this.$screen2, this.$screen2_content);
+    //ANIMATION 3
+    this.animation3 = gsap.effects.slidingText(this.$screen3, this.$screen3_content);
+
+
+
     this.sceneTrigger = ScrollTrigger.create({
       trigger: this.$scene,
       start: "top top",
@@ -1127,7 +1160,7 @@ class Section3d {
     })
 
     this.trigger1 = ScrollTrigger.create({
-      trigger: this.$screen1,
+      trigger: this.$part1,
       start: "top top",
       end: "+=4500",
       pin: true,
@@ -1135,17 +1168,20 @@ class Section3d {
       pinSpacing: false,
       onUpdate: self => {
         let index = Math.round(self.progress*(this.framesCount1-1));
-        console.log(index)
         this.activeFrame = this.frames1[index];
+        //animations
+        let y = self.end*self.progress;
+
+        let time1 = Math.max(0, Math.min(y/750, 1));
+        this.animation1.progress(time1);
+        let time2 = Math.max(0, Math.min((y-750)/1500, 1));
+        this.animation2.progress(time2);
+        let time3 = Math.max(0, Math.min((y-2500)/1500, 1));
+        this.animation3.progress(time3);
+        let time4 = Math.max(0, Math.min((y-4000)/500, 1));
+        this.animation_fade_out.progress(time4);
       }
     })
-
-    /* //start animation
-    let animation_start = gsap.timeline({paused:true})
-      .fromTo(this.$canvas, {scale:0.5}, {scale:1, duration:1, ease:'power2.out'})
-    window.addEventListener('start', () => {
-      animation_start.play();
-    }) */
 
     /* //1
     let $screen1 = this.$parent.querySelector('.section-model-screen_1'),

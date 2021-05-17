@@ -2716,36 +2716,61 @@ ul {
 
 @media (max-width: 1599.98px) {
   .section-3d__scene-inner {
-    max-width: 980px; } }
+    max-width: 1018px;
+    height: 570px; } }
+
+.section-3d-part__container {
+  height: 100vh;
+  width: 100%;
+  position: relative; }
+
+.section-3d-part-1 {
+  padding-bottom: 4500px; }
 
 .section-3d-screen {
-  height: 100vh;
-  width: 100%; }
-  .section-3d-screen .container {
-    height: 100%; }
-  .section-3d-screen_1 {
-    margin-bottom: 4500px; }
-  .section-3d-screen__title-1 {
-    position: absolute;
-    top: calc((100% - 430px)/4);
-    width: 100%;
-    transform: translateY(-50%); }
-  .section-3d-screen__text-1 {
-    position: absolute;
-    width: 100%;
-    bottom: calc((100% - 430px)/4);
-    transform: translateY(50%);
-    font-size: 1rem;
-    color: var(--color-text-accent); }
-  .section-3d-screen__text-3 {
-    position: absolute;
-    bottom: 20%; }
-  @media (max-width: 1599.98px) {
-    .section-3d-screen__title-1 {
-      top: 25px;
-      transform: translate(0); }
-    .section-3d-screen__text-1 {
-      bottom: calc((100% - 280px)/4); } }
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0; }
+
+.section-3d-screen-1 .container {
+  height: 100%; }
+
+.section-3d-screen-1__title {
+  position: absolute;
+  top: calc((100% - 410px)/4);
+  width: 100%;
+  transform: translateY(-50%); }
+
+.section-3d-screen-1__text {
+  position: absolute;
+  width: 100%;
+  bottom: calc((100% - 410px)/4);
+  transform: translateY(50%);
+  font-size: 1rem;
+  color: var(--color-text-accent); }
+
+@media (max-width: 1599.98px) {
+  .section-3d-screen-1__title {
+    top: 28px;
+    transform: translate(0); }
+  .section-3d-screen-1__text {
+    bottom: calc((100% - 280px)/4); } }
+
+.section-3d-screen-2 {
+  background-color: rgba(255, 255, 255, 0.7); }
+
+.section-3d-screen-3 .container {
+  height: 100%; }
+
+.section-3d-screen-3 .row {
+  height: 100%;
+  position: relative; }
+
+.section-3d-screen-3__text {
+  position: absolute;
+  bottom: 20%; }
 
 .section-choose-models .background-figure_1 {
   left: -200px;
