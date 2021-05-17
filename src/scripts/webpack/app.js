@@ -658,7 +658,9 @@ const Preloader = {
           if(Resources.framesLoaded>=framesLoadCount) {
             cancelAnimationFrame(this.animationFrame);
             clearInterval(this.timer);
-            this.finish();
+            setTimeout(() => {
+              this.finish();
+            }, 500);
           }
         }
         this.check();
