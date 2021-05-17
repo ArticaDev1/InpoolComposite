@@ -21,7 +21,9 @@
 }
 .section {
   position: relative;
-  z-index: 0;
+}
+.container {
+  position: relative;
 }
 
 @include media-breakpoint-down(md) {

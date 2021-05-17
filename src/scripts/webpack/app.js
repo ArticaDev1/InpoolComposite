@@ -88,7 +88,7 @@ window.onload = function() {
 
   const activeFunctions = new ActiveFunctions();
   activeFunctions.create();
-  activeFunctions.add(Model, '.section-model');
+  activeFunctions.add(Section3d, '.section-3d');
   activeFunctions.add(SectionAnimated, '.section-animated');
   activeFunctions.add(DesktopModelsList, '.desktop-models-list');
   activeFunctions.add(SectionVideoAnimation, '.section-video-animation');
@@ -156,21 +156,20 @@ function inputs() {
 
 const Resources = {
   init: function() {
-    this.framesCount = 0;
     this.framesLoaded = 0;
     this.sources = {
       0: {
+        src: './img/model/1/',
+        type: 'png',
+        framesCount: 77,
+        frames: []
+      },
+      4: {
         src: './img/drone_video/',
         type: 'jpg',
         framesCount: 40,
         frames: []
       },
-      1: {
-        src: './img/model/1/',
-        type: 'png',
-        framesCount: 108,
-        frames: []
-      }
     }
 
     this.load = () => {
@@ -184,7 +183,6 @@ const Resources = {
               type = this.sources[source].type;
           this.sources[source].frames[i].src = `${this.sources[source].src+name}.${type}`;
         }
-        this.framesCount+=this.sources[source].framesCount;
       }
     }
 
@@ -617,16 +615,17 @@ const Preloader = {
   init: function() {
     this.$element = document.querySelector('.preloader');
     this.$item = document.querySelector('.preloader__item');
+
+    let framesLoadCount = Resources.sources[0].framesCount;
     
     this.finish = () => {
       window.dispatchEvent(new Event("start"));
       if(!Dev) {
-        gsap.timeline({onComplete:()=>{
-          this.$element.remove();
-        }})
+        gsap.timeline({onComplete:()=>{this.$element.remove()}})
           .to(this.$element, {autoAlpha:0, duration:0.5})
           .to($wrapper, {autoAlpha:1}, '-=0.5')
-      } else {
+      } 
+      else {
         this.$element.remove();
         gsap.set($wrapper, {autoAlpha:1});
       }
@@ -640,26 +639,16 @@ const Preloader = {
       //desktop
       if(window.innerWidth >= brakepoints.lg) {
         this.check = () => {
-          this.time = 50;
-          this.timer = setInterval(() => {
-            this.time+=50;
-          }, 50);
           this.animationFrame = requestAnimationFrame(this.check);
           //animation
           this.$item.style.opacity = '1';
-          this.$item.setAttribute('y', `${100-(Resources.framesLoaded/Resources.framesCount*100)}%`);
-          //
-          if(Resources.framesLoaded==Resources.framesCount) {
+          this.$item.setAttribute('y', `${100-(Math.min(Resources.framesLoaded/framesLoadCount, 1)*100)}%`);
+          //frames loaded
+          if(Resources.framesLoaded>=framesLoadCount) {
             cancelAnimationFrame(this.animationFrame);
             clearInterval(this.timer);
-            if(this.time<500) {
-              setTimeout(() => {
-                this.finish();
-              }, 500-this.time);
-            } else {
-              this.finish();
-            }
-          } 
+            this.finish();
+          }
         }
         this.check();
       }
@@ -671,7 +660,8 @@ const Preloader = {
           this.finish();
         }})
       }
-    } else {
+    } 
+    else {
       this.finish();
     }
   }
@@ -760,8 +750,8 @@ class SectionVideoAnimation {
     this.context = this.$canvas.getContext("2d");
     this.$canvas.width=1280;
     this.$canvas.height=720;
-    this.framesCount = Resources.sources[0].framesCount;
-    this.frames = Resources.sources[0].frames;
+    this.framesCount = Resources.sources[4].framesCount;
+    this.frames = Resources.sources[4].frames;
     this.activeFrame = this.frames[0];
     this.sceneRender = ()=> {
       this.context.drawImage(this.activeFrame, 0, 0);
@@ -806,7 +796,6 @@ class SectionVideoAnimation {
       pinSpacing: false,
       pin: true,
       pinType: pinType,
-      pinSpacing: false,
       onUpdate: self => {
         let y = 2500*self.progress;
         let progress2 = Math.max(0, Math.min((y-500)/1500, 1));
@@ -1069,11 +1058,10 @@ const Modal = {
   }
 }
 
-class Model {
+class Section3d {
   constructor($parent) {
     this.$parent = $parent;
   }
-
   init() {
     this.check = ()=> {
       if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
@@ -1094,14 +1082,18 @@ class Model {
 
   initDesktop() {
     let pinType = Scroll.scrollbar?'transform':'fixed';
-    this.$scene = this.$parent.querySelector('.section-model__scene');
+    this.$scene = this.$parent.querySelector('.section-3d__scene');
+    this.$scene_inner = this.$parent.querySelector('.section-3d__scene-inner');
     this.$canvas = this.$parent.querySelector('canvas');
     this.context = this.$canvas.getContext("2d");
     this.$canvas.width=1920;
     this.$canvas.height=1080;
-    this.frames = Resources.sources[1].frames;
-    this.framesCount = 108;
-    this.activeFrame = this.frames[0];
+    //1
+    this.$screen1 = this.$parent.querySelector('.section-3d-screen_1');
+    this.frames1 = Resources.sources[0].frames;
+    this.framesCount1 = Resources.sources[0].framesCount;
+    //
+    this.activeFrame = this.frames1[0];
 
     this.sceneRender = ()=> {
       this.context.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
@@ -1109,13 +1101,12 @@ class Model {
       this.animationFrame = requestAnimationFrame(this.sceneRender);
     }
     this.sceneRender();
-
     this.resizeEvent = () => {
-      let h = this.$scene.getBoundingClientRect().height,
-          w = this.$scene.getBoundingClientRect().width,
+      let h = this.$scene_inner.getBoundingClientRect().height,
+          w = this.$scene_inner.getBoundingClientRect().width,
           res = this.$canvas.height/this.$canvas.width;
 
-      if (h / w > res) {
+      if (h / w < res) {
         this.$canvas.style.width = `${w}px`;
         this.$canvas.style.height = `${w*res}px`;
       } else {
@@ -1126,14 +1117,37 @@ class Model {
     this.resizeEvent();
     window.addEventListener('resize', this.resizeEvent);
 
-    //start animation
+    this.sceneTrigger = ScrollTrigger.create({
+      trigger: this.$scene,
+      start: "top top",
+      end: "+=4500",
+      pin: true,
+      pinType: pinType,
+      pinSpacing: false
+    })
+
+    this.trigger1 = ScrollTrigger.create({
+      trigger: this.$screen1,
+      start: "top top",
+      end: "+=4500",
+      pin: true,
+      pinType: pinType,
+      pinSpacing: false,
+      onUpdate: self => {
+        let index = Math.round(self.progress*(this.framesCount1-1));
+        console.log(index)
+        this.activeFrame = this.frames1[index];
+      }
+    })
+
+    /* //start animation
     let animation_start = gsap.timeline({paused:true})
       .fromTo(this.$canvas, {scale:0.5}, {scale:1, duration:1, ease:'power2.out'})
     window.addEventListener('start', () => {
       animation_start.play();
-    })
+    }) */
 
-    //1
+    /* //1
     let $screen1 = this.$parent.querySelector('.section-model-screen_1'),
         $items1 = this.$parent.querySelectorAll('.section-model-screen__item-1');
     this.animation1 = gsap.timeline({paused:true})
@@ -1157,10 +1171,11 @@ class Model {
 
     //5
     this.animation5 = gsap.timeline({paused:true})
-      .to(this.$scene, {autoAlpha:0, ease:'power2.out'})
+      .to(this.$scene, {autoAlpha:0, ease:'power2.out'}) */
 
 
-    this.trigger = ScrollTrigger.create({
+
+    /* this.trigger = ScrollTrigger.create({
       trigger: this.$parent,
       start: "top top",
       end: "top+=10800 top",
@@ -1186,10 +1201,10 @@ class Model {
         this.animation1.progress(time1);
         this.animation2.progress(time2);
         this.animation3.progress(time3);
-        /* this.animation4.progress(time4);
-        this.animation5.progress(time5); */
+        this.animation4.progress(time4);
+        this.animation5.progress(time5);
       }
-    });
+    }); */
 
   }
 }

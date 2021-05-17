@@ -256,17 +256,22 @@
   }
 }
 
-.section-model {
-  height: 100vh;
+.section-3d {
   &__scene {
     position: absolute;
-    height: 104%;
+    height: 100vh;
     width: 100%;
     top: 0;
-    left: 50%;
+    left: 0;
     overflow: hidden;
-    max-width: 1460px;
-    transform: translateX(-50%);
+    &-inner {
+      position: absolute;
+      top: 51%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 1500px;
+      height: 842px;
+    }
     canvas {
       display: block;
       position: absolute;
@@ -279,22 +284,21 @@
   }
   @include media-breakpoint-down(xxl) {
     &__scene {
-      max-width: 980px;
+      &-inner {
+        max-width: 980px;
+      }
     }
   }
 }
 
-.section-model-screen {
-  height: 100%;
+.section-3d-screen {
+  height: 100vh;
   width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
   .container {
     height: 100%;
   }
-  &_2 {
-    background: rgba(255, 255, 255, 0.7);
+  &_1 {
+    margin-bottom: 4500px;
   }
   &__title-1 {
     position: absolute;
@@ -324,6 +328,9 @@
     }
   }
 }
+
+
+
 
 .section-choose-models {
   .background-figure {
