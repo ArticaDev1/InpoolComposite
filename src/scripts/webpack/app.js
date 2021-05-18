@@ -1248,7 +1248,7 @@ class Section3d {
     this.sceneTrigger = ScrollTrigger.create({
       trigger: this.$scene,
       start: "top top",
-      end: "+=15500",
+      end: "+=15300",
       pin: true,
       pinType: pinType,
       pinSpacing: false
@@ -1336,14 +1336,14 @@ class Section3d {
     this.trigger4 = ScrollTrigger.create({
       trigger: this.$part4,
       start: "top top",
-      end: "+=3500",
+      end: "+=3300",
       pin: true,
       pinType: pinType,
       pinSpacing: false,
       onUpdate: self => {
         let y = (self.end-self.start)*self.progress;
 
-        let index = Math.round(Math.max(0, Math.min((y-1500)/750, 1)*(this.framesCount4-1)));
+        let index = Math.round(Math.max(0, Math.min((y-1500)/500, 1)*(this.framesCount4-1)));
         this.activeFrame = this.frames4[index];
 
         console.log(index)
@@ -1352,11 +1352,11 @@ class Section3d {
         let time1 = Math.max(0, Math.min(y/1500, 1));
         this.animation7.progress(time1);
         //fadeInScene
-        let time2 = Math.max(0, Math.min((y-1500)/750, 1));
+        let time2 = Math.max(0, Math.min((y-1500)/500, 1));
         if(time2>0 && time2<1) this.animation_fade.progress(1-time2);
-        let time3 = Math.max(0, Math.min((y-2250)/500, 1));
+        let time3 = Math.max(0, Math.min((y-2000)/500, 1));
         if(time3>0 && time3<1) this.animation_fade.progress(time3);
-        let time4 = Math.max(0, Math.min((y-2000)/1500, 1));
+        let time4 = Math.max(0, Math.min((y-1800)/1500, 1));
         this.animation8.progress(time4);
       }
     })
