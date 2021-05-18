@@ -1134,6 +1134,7 @@ class Section3d {
     let pinType = Scroll.scrollbar?'transform':'fixed';
     this.$scene = this.$parent.querySelector('.section-3d__scene');
     this.$scene_inner = this.$parent.querySelector('.section-3d__scene-inner');
+    this.$scene_canvas = this.$parent.querySelector('.section-3d__scene-canvas');
     this.$canvas = this.$parent.querySelector('canvas');
     this.context = this.$canvas.getContext("2d");
     this.$canvas.width=1920;
@@ -1167,6 +1168,7 @@ class Section3d {
     this.$screen7_content = this.$screen7.querySelector('.container');
     this.$screen8 = this.$parent.querySelector('.section-3d-screen-8');
     this.$screen8_image = this.$screen8.querySelector('.image');
+    this.$screen8_image_element = this.$screen8.querySelector('.image');
     //
     this.activeFrame = this.frames1[0];
 
@@ -1207,7 +1209,7 @@ class Section3d {
 
     //START ANIMATION 
     let animation_start = gsap.timeline({paused:true})
-      .fromTo(this.$canvas, {scale:0.9, autoAlpha:0}, {scale:1, autoAlpha:1, ease:'power2.out'})
+      .fromTo(this.$scene_canvas, {scale:0.9, autoAlpha:0}, {scale:1, autoAlpha:1, ease:'power2.out'})
       .fromTo(this.$screen1_items, {autoAlpha:0, y:20}, {autoAlpha:1, y:0, duration:0.75, ease:'power2.out', stagger:{amount:0.25}}, `-=0.75`)
     window.addEventListener('start', () => {
       animation_start.play();
@@ -1235,7 +1237,7 @@ class Section3d {
     //ANIMATION 8
     this.animation8 = gsap.timeline({paused:true})
       .fromTo(this.$screen8_image, {autoAlpha:0}, {autoAlpha:1, duration:0.33})
-      .fromTo(this.$screen8_image, {scale:0.65}, {scale:1, ease:'power2.in'})
+      .fromTo(this.$screen8_image_element, {scale:0.65}, {scale:1, ease:'power2.in'})
       .to(this.$screen8_image, {autoAlpha:0, duration:0.33}, '-=0.33')
       
 
