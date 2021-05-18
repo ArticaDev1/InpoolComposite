@@ -1142,6 +1142,8 @@ class Section3d {
     this.context = this.$canvas.getContext("2d");
     this.$canvas.width=1920;
     this.$canvas.height=1080;
+
+    this.$scene_size_element = this.$parent.querySelectorAll('[data-scene-size-element]');
     //1
     this.$part1 = this.$parent.querySelector('.section-3d-part-1__container');
     this.$screen1 = this.$parent.querySelector('.section-3d-screen-1');
@@ -1157,12 +1159,16 @@ class Section3d {
     this.$part2 = this.$parent.querySelector('.section-3d-part-2__container');
     this.frames2 = Resources.sources[1].frames;
     this.framesCount2 = Resources.sources[1].framesCount;
+    this.$screen4 = this.$parent.querySelector('.section-3d-info');
+    this.$screen4_items = this.$screen4.querySelectorAll('.section-3d-info__item');
     //
     this.$part3 = this.$parent.querySelector('.section-3d-part-3__container');
     this.frames3 = Resources.sources[2].frames;
     this.framesCount3 = Resources.sources[2].framesCount;
     this.$screen5 = this.$parent.querySelector('.section-3d-screen-5');
     this.$screen5_content = this.$screen5.querySelector('.container');
+    this.$screen6 = this.$parent.querySelector('.section-3d-dots');
+    this.$screen6_items = this.$screen6.querySelectorAll('.section-3d-dots__item');
     //
     this.$part4 = this.$parent.querySelector('.section-3d-part-4__container');
     this.frames4 = Resources.sources[3].frames;
@@ -1188,12 +1194,17 @@ class Section3d {
           w = this.$scene_inner.getBoundingClientRect().width,
           res = this.$canvas.height/this.$canvas.width;
 
+
       if (h / w < res) {
-        this.$canvas.style.width = `${w}px`;
-        this.$canvas.style.height = `${w*res}px`;
+        this.$scene_size_element.forEach(($this)=>{
+          $this.style.width = `${w}px`;
+          $this.style.height = `${w*res}px`;
+        })
       } else {
-        this.$canvas.style.width = `${h/res}px`;
-        this.$canvas.style.height = `${h}px`;
+        this.$scene_size_element.forEach(($this)=>{
+          $this.style.width = `${h/res}px`;
+          $this.style.height = `${h}px`;
+        })
       }
 
       //image
@@ -1231,8 +1242,20 @@ class Section3d {
     //ANIMATION 3
     this.animation3 = gsap.effects.slidingText(this.$screen3, this.$screen3_content);
 
+    this.animation4 = gsap.timeline({paused:true})
+      .set(this.$screen4, {autoAlpha:1})
+      .fromTo(this.$screen4_items, {autoAlpha:0}, {autoAlpha:1, duration:1, stagger:{amount:1}})
+      .fromTo(this.$screen4_items, {y:30}, {y:0, duration:1, ease:'power2.out', stagger:{amount:1}}, '-=2')
+      .to(this.$screen4, {autoAlpha:0})
+
+
     //ANIMATION 5
     this.animation5 = gsap.effects.slidingText(this.$screen5, this.$screen5_content);
+
+    this.animation6 = gsap.timeline({paused:true})
+      .set(this.$screen6, {autoAlpha:1})
+      .fromTo(this.$screen6_items, {autoAlpha:0}, {autoAlpha:1, duration:0.5, stagger:{amount:0.5}})
+      .to(this.$screen6, {autoAlpha:0, duration:0.5}, '+=0.5')
 
     //ANIMATION 7
     this.animation7 = gsap.effects.slidingText(this.$screen7, this.$screen7_content);
@@ -1248,7 +1271,7 @@ class Section3d {
     this.sceneTrigger = ScrollTrigger.create({
       trigger: this.$scene,
       start: "top top",
-      end: "+=15500",
+      end: "+=16500",
       pin: true,
       pinType: pinType,
       pinSpacing: false
@@ -1286,7 +1309,7 @@ class Section3d {
     this.trigger2 = ScrollTrigger.create({
       trigger: this.$part2,
       start: "top top",
-      end: "+=3500",
+      end: "+=4000",
       pin: true,
       pinType: pinType,
       pinSpacing: false,
@@ -1299,8 +1322,12 @@ class Section3d {
         //animations
         let time1 = Math.max(0, Math.min(y/500, 1));
         if(time1>0 && time1<1) this.animation_fade.progress(1-time1);
-        let time2 = Math.max(0, Math.min((y-3000)/500, 1));
+        let time2 = Math.max(0, Math.min((y-3500)/500, 1));
         if(time2>0 && time2<1) this.animation_fade.progress(time2);
+        //dots1
+        let time3 = Math.max(0, Math.min((y-2500)/1500, 1));
+        this.animation4.progress(time3);
+
       },
       onEnter: ()=> {
         this.$scene_inner.classList.add('wide');
@@ -1311,14 +1338,14 @@ class Section3d {
     this.trigger3 = ScrollTrigger.create({
       trigger: this.$part3,
       start: "top top",
-      end: "+=4000",
+      end: "+=4500",
       pin: true,
       pinType: pinType,
       pinSpacing: false,
       onUpdate: self => {
         let y = (self.end-self.start)*self.progress;
         //2000 change
-        let index = Math.round(Math.max(0, Math.min((y-1500)/2500, 1)*(this.framesCount3-1)));
+        let index = Math.round(Math.max(0, Math.min((y-1500)/3000, 1)*(this.framesCount3-1)));
         this.activeFrame = this.frames3[index];
         
         
@@ -1328,8 +1355,11 @@ class Section3d {
         //fadeInScene
         let time2 = Math.max(0, Math.min((y-1500)/500, 1));
         if(time2>0 && time2<1) this.animation_fade.progress(1-time2);
-        let time3 = Math.max(0, Math.min((y-3500)/500, 1));
+        let time3 = Math.max(0, Math.min((y-3500)/1000, 1));
         if(time3>0 && time3<1) this.animation_fade.progress(time3);
+        //dots
+        let time4 = Math.max(0, Math.min((y-2300)/1100, 1));
+        this.animation6.progress(time4);
       }
     })
 
