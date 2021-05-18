@@ -133,3 +133,41 @@ ul {
     }
   }
 }
+
+.table {
+  overflow-x: auto;
+}
+
+table {
+  font-size: 1rem;
+  min-width: 100%;
+  tr {
+    &:nth-child(odd) {
+      color: var(--color-text-accent);
+    }
+    &:not(:last-child) {
+      td {
+        padding-bottom: 18px;
+      }
+    }
+  }
+  td, th {
+    &:not(:last-child) {
+      padding-right: 40px;
+    }
+  }
+  th {
+    vertical-align: middle;
+    font-weight: inherit;
+    text-align: left;
+    padding-bottom: 30px;
+  }
+  @include media-breakpoint-down(xxl) {
+    font-size: 0.875rem;
+    td, th {
+      &:not(:last-child) {
+        padding-right: 24px;
+      }
+    }
+  }
+}

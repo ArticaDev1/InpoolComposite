@@ -48,8 +48,20 @@
             h3.modal-succes__title Спасибо!
             p.modal-succes__text Ваша заявка успешно отправлена
 
+.modal.modal-shema#modal-shema(style='opacity:0;visibility:hidden;')
+  .modal__wrapper.pt-2.pb-2(data-scroll-lock-scrollable)  
+    .modal__container.container 
+      .row
+        .col-xl-12
+          .modal-block.pt-2.pb-2
+            button.modal-close(aria-label='close' data-modal='close')
+            .row
+              .offset-xl-1.col-xl-10
+                .modal-shema__image.image.image_cover 
+                  img(data-src="./img/katalog_19-29 1.jpg", alt="image").lazyload
+
 //модели
-//.modal.modal-model#aqua(style='opacity:0;visibility:hidden;')
+.modal.modal-model#aqua(style='opacity:0;visibility:hidden;')
   .modal__wrapper.pt-2.pb-2(data-scroll-lock-scrollable)  
     .modal__container.container 
       .row
@@ -60,21 +72,301 @@
               h3.modal-model__title.offset-xl-1.col-xl-4 Aqua
               p.modal-model__head-text.col-xl-6 прямоугольная модель со ступенями, расположенными в угловой части
             .modal-model__content.row 
-              //images
+              //models-slider
               -var images = ['./img/models-sliders/1_1.jpg', './img/models-sliders/1_2.jpg', './img/models-sliders/1_3.jpg', './img/models-sliders/1_4.jpg']
-              .modal-model__images.offset-xl-1.col-xl-4
-                .swiper.modal-model__top-slider
+              .models-slider.offset-xl-1.col-xl-4
+                .swiper.models-slider__top
                   .swiper-container
                     .swiper-wrapper
                       each val in images
                         //slide
-                        .swiper-slide.image.image_contain.modal-model__top-slide 
-                          img(data-src=val, alt="image").swiper-lazy
-                .modal-model__bottom-images
+                        .swiper-slide.image.image_cover.models-slider__top-slide 
+                          img(data-src=val, alt="image").lazyload
+                .models-slider__bottom
                   each val in images
                     //slide
-                    .modal-model__bottom-image.image.image_contain
+                    .models-slider__bottom-image.image.image_cover
                       img(data-src=val, alt="image").lazyload
+              //description
+              .modal-model__description.col-xl-6
+                .table.modal-model__table
+                  table 
+                    tr 
+                      th Модель
+                      th Длина<br> внешняя / внутренняя
+                      th Ширина<br> внешняя / внутренняя
+                      th Глубина
+                    tr 
+                      td Aqua 110 RC
+                      td 11,00 м / 10,66 м
+                      td 3,58 м / 3,24 м
+                      td 1,5 м
+                    tr 
+                      td Aqua 100 RC
+                      td 10,00 м / 9,64 м
+                      td 3,58 м / 3,24 м
+                      td 1,5 м
+                    tr 
+                      td Aqua 75  RC
+                      td 7,5 м / 7,14 м
+                      td 3,58 м / 3,24 м
+                      td 1,5 м
+                    tr 
+                      td Aqua 125
+                      td 12,5 м / 12,16 м
+                      td 3,58 м / 3,24 м
+                      td 1,5 м
+                    tr 
+                      td Aqua 110
+                      td 11,00 м / 10,66 м
+                      td 3,58 м / 3,24 м
+                      td 1,5 м
+                    tr 
+                      td Aqua 95
+                      td 9,5 м / 9,16 м
+                      td 3,58 м / 3,24 м
+                      td 1,5 м
+                    tr 
+                      td Aqua 80
+                      td 8 м / 7,66 м
+                      td 3,58 м / 3,24 м
+                      td 1,5 м
+                .modal-model__button 
+                  a(href="#modal-form" data-modal='open').button.button_style-1 Заказать звонок
+
+.modal.modal-model#x-trainer(style='opacity:0;visibility:hidden;')
+  .modal__wrapper.pt-2.pb-2(data-scroll-lock-scrollable)  
+    .modal__container.container 
+      .row
+        .col-xl-12
+          .modal-block.pt-2.pb-2
+            button.modal-close(aria-label='close' data-modal='close')
+            .modal-model__head.row 
+              h3.modal-model__title.offset-xl-1.col-xl-4 X-trainer
+              p.modal-model__head-text.col-xl-6 прямоугольная модель со ступенями, расположенными зеркально вдоль длинных бортов
+            .modal-model__content.row 
+              //models-slider
+              -var images = ['./img/models-sliders/2_1.jpg', './img/models-sliders/2_2.jpg', './img/models-sliders/2_3.jpg', './img/models-sliders/2_4.jpg', './img/models-sliders/2_5.jpg']
+              .models-slider.offset-xl-1.col-xl-4
+                .swiper.models-slider__top
+                  .swiper-container
+                    .swiper-wrapper
+                      each val in images
+                        //slide
+                        .swiper-slide.image.image_cover.models-slider__top-slide 
+                          img(data-src=val, alt="image").lazyload
+                .models-slider__bottom
+                  each val in images
+                    //slide
+                    .models-slider__bottom-image.image.image_cover
+                      img(data-src=val, alt="image").lazyload
+              //description
+              .modal-model__description.col-xl-6
+                .table.modal-model__table
+                  table 
+                    tr 
+                      th Модель
+                      th Длина<br> внешняя / внутренняя
+                      th Ширина<br> внешняя / внутренняя
+                      th Глубина
+                    tr 
+                      td XL-Trainer 110
+                      td 11,00 м  / 10,66 м
+                      td 4,05 м / 3,70 м
+                      td 1,08-1,79 м
+                    tr 
+                      td XL-Trainer 90
+                      td 8,24 м / 7,89 м
+                      td 3,69 м / 3,35 м
+                      td 1,09-1,75 м
+                    tr 
+                      td X-Trainer 82
+                      td 8,24 м / 7,89 м
+                      td 3,69 м / 3,35 м
+                      td 1,09-1,75 м	
+                    tr 
+                      td X-Trainer 58
+                      td 5,78 м / 5,51 м
+                      td 3,44 м / 3,16 м	 
+                      td 1,09-1,51 м	
+                    tr 
+                      td X-Trainer 45
+                      td 4,45 м / 4,09 м	 
+                      td 2,94 м / 2,63 м
+                      td 1,21-1,49 м
+
+                .modal-model__button 
+                  a(href="#modal-form" data-modal='open').button.button_style-1 Заказать звонок
+
+.modal.modal-model#riverina(style='opacity:0;visibility:hidden;')
+  .modal__wrapper.pt-2.pb-2(data-scroll-lock-scrollable)  
+    .modal__container.container 
+      .row
+        .col-xl-12
+          .modal-block.pt-2.pb-2
+            button.modal-close(aria-label='close' data-modal='close')
+            .modal-model__head.row 
+              h3.modal-model__title.offset-xl-1.col-xl-4 Riverina
+              p.modal-model__head-text.col-xl-6 бассейн красивой формы, плавно изогнутая линия борта придает неповторимое изящество
+            .modal-model__content.row 
+              //models-slider
+              -var images = ['./img/models-sliders/3_1.jpg', './img/models-sliders/3_2.jpg', './img/models-sliders/3_3.jpg', './img/models-sliders/3_4.jpg', './img/models-sliders/3_5.jpg']
+              .models-slider.offset-xl-1.col-xl-4
+                .swiper.models-slider__top
+                  .swiper-container
+                    .swiper-wrapper
+                      each val in images
+                        //slide
+                        .swiper-slide.image.image_cover.models-slider__top-slide 
+                          img(data-src=val, alt="image").lazyload
+                .models-slider__bottom
+                  each val in images
+                    //slide
+                    .models-slider__bottom-image.image.image_cover
+                      img(data-src=val, alt="image").lazyload
+              //description
+              .modal-model__description.col-xl-6
+                .table.modal-model__table
+                  table 
+                    tr 
+                      th Модель
+                      th Длина<br> внешняя / внутренняя
+                      th Ширина<br> внешняя / внутренняя
+                      th Глубина
+                    tr 
+                      td Riverina 106
+                      td 10,60 м / 10,32 м
+                      td 3,79 м / 3,29 м
+                      td 1,03-1,88 м
+                    tr 
+                      td Riverina 84
+                      td 8,40 м / 8,10 м
+                      td 3,75 м / 3,30 м
+                      td 1,03-1,68 м
+                    tr 
+                      td Riverina 74
+                      td 7,43 м / 7,10 м
+                      td 3,58 м / 3,24 м
+                      td 1,04-1,59 м
+                    tr 
+                      td Riverina 67
+                      td 6,70 м / 6,36 м
+                      td 3,45 м / 3,14 м
+                      td 1,03-1,59 м
+
+                .modal-model__button 
+                  a(href="#modal-form" data-modal='open').button.button_style-1 Заказать звонок
+
+.modal.modal-model#java(style='opacity:0;visibility:hidden;')
+  .modal__wrapper.pt-2.pb-2(data-scroll-lock-scrollable)  
+    .modal__container.container 
+      .row
+        .col-xl-12
+          .modal-block.pt-2.pb-2
+            button.modal-close(aria-label='close' data-modal='close')
+            .modal-model__head.row 
+              h3.modal-model__title.offset-xl-1.col-xl-4 Java
+              p.modal-model__head-text.col-xl-6 прямоугольная модель с римской лестницей и двумя зонами отдыха
+            .modal-model__content.row 
+              //models-slider
+              -var images = ['./img/models-sliders/4_1.jpg', './img/models-sliders/4_2.jpg', './img/models-sliders/4_3.jpg', './img/models-sliders/4_4.jpg']
+              .models-slider.offset-xl-1.col-xl-4
+                .swiper.models-slider__top
+                  .swiper-container
+                    .swiper-wrapper
+                      each val in images
+                        //slide
+                        .swiper-slide.image.image_cover.models-slider__top-slide 
+                          img(data-src=val, alt="image").lazyload
+                .models-slider__bottom
+                  each val in images
+                    //slide
+                    .models-slider__bottom-image.image.image_cover
+                      img(data-src=val, alt="image").lazyload
+              //description
+              .modal-model__description.col-xl-6
+                .table.modal-model__table
+                  table 
+                    tr 
+                      th Модель
+                      th Длина<br> внешняя / внутренняя
+                      th Ширина<br> внешняя / внутренняя
+                      th Глубина
+                    tr 
+                      td Java 125
+                      td 12,86 м / 12,50 м
+                      td 4,05 м / 3,69 м
+                      td 1,50 м	
+                    tr 
+                      td Java 125 RC
+                      td 12,86 м / 11,64 м
+                      td 4,05 м / 3,69 м
+                      td 1,50 м
+
+                .modal-model__button 
+                  a(href="#modal-form" data-modal='open').button.button_style-1 Заказать звонок
+
+.modal.modal-model#briliant(style='opacity:0;visibility:hidden;')
+  .modal__wrapper.pt-2.pb-2(data-scroll-lock-scrollable)  
+    .modal__container.container 
+      .row
+        .col-xl-12
+          .modal-block.pt-2.pb-2
+            button.modal-close(aria-label='close' data-modal='close')
+            .modal-model__head.row 
+              h3.modal-model__title.offset-xl-1.col-xl-4 Briliant
+              p.modal-model__head-text.col-xl-6 прямоугольная модель со стильной угловой лестницей
+            .modal-model__content.row 
+              //models-slider
+              -var images = ['./img/models-sliders/5_1.jpg', './img/models-sliders/5_2.jpg', './img/models-sliders/5_3.jpg', './img/models-sliders/5_4.jpg', './img/models-sliders/5_5.jpg']
+              .models-slider.offset-xl-1.col-xl-4
+                .swiper.models-slider__top
+                  .swiper-container
+                    .swiper-wrapper
+                      each val in images
+                        //slide
+                        .swiper-slide.image.image_cover.models-slider__top-slide 
+                          img(data-src=val, alt="image").lazyload
+                .models-slider__bottom
+                  each val in images
+                    //slide
+                    .models-slider__bottom-image.image.image_cover
+                      img(data-src=val, alt="image").lazyload
+              //description
+              .modal-model__description.col-xl-6
+                .table.modal-model__table
+                  table 
+                    tr 
+                      th Модель
+                      th Длина<br> внешняя / внутренняя
+                      th Ширина<br> внешняя / внутренняя
+                      th Глубина
+                    tr 
+                      td XL-Briliant 87
+                      td 8,72 м / 8,39 м
+                      td 3,76 м / 3,43 м
+                      td 1,5м
+                    tr 
+                      td Briliant 77
+                      td 7,68 м / 7,34 м
+                      td 3,58 м / 3,24 м
+                      td 1,5м
+                    tr 
+                      td Briliant 67
+                      td 6,74 м / 6,39 м
+                      td 3,58 м / 3,24 м
+                      td 1,5м
+                    tr 
+                      td Briliant 52
+                      td 5,2 м / 4,86 м
+                      td 3,0 м / 2,66 м
+                      td 1,5м
+
+                .modal-model__button 
+                  a(href="#modal-form" data-modal='open').button.button_style-1 Заказать звонок
+
+
+
 
 
 
@@ -156,7 +448,7 @@
                 .iframe.row
                   .offset-lg-2.col-lg-8
                     .iframe__element
-                      iframe(data-src='https://www.youtube.com/embed/My3dNv5BCkA' title='YouTube video player').lazyload
+                      iframe(src='https://www.youtube.com/embed/My3dNv5BCkA' title='YouTube video player')
                 h5 Уменьшается потребление воды и дезинфекторов
                 p Под прямыми лучами солнца вода испаряется быстрее , химические вещества расходуются интенсивнее. Однако благодаря равномерному перемешиванию воды системой Compass Pools Vantage, траты на реагенты снижаются до 50%, а испарение происходит менее интенсивно.
                 p Так же снижаются затраты на нагрев воды - это связано с особенностями работы циркуляционной системы, она равномерно перемешивает воду, что снижает расходы на обогрев бассейна в среднем до 30%.

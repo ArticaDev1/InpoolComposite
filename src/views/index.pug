@@ -64,13 +64,17 @@ block content
         .section-3d-screen.section-3d-screen-6
 
     //4
-    //.section-3d-part.section-3d-part-4
+    .section-3d-part.section-3d-part-4
       .section-3d-part__container.section-3d-part-4__container
         
         .section-3d-screen.section-3d-screen-7.animated-head
           .container.animated-head__container
             h5.animated-head__sub-title А в жизни как?
             h2.h1.animated-head__title Представьте.
+
+        .section-3d-screen.section-3d-screen-8
+          .image.image_cover 
+            img(src="./img/final.jpg", alt="image").lazyload
 
 
 
@@ -97,28 +101,28 @@ block content
               img(data-src="./img/desktop-models/5.jpg", alt="image").lazyload
 
         .desktop-models-list__items
-          a(href="javascript:void(0);" data-cursor='light').pool-model-item
+          a(href="#aqua" data-modal='open' data-cursor='light').pool-model-item
             .row.pool-model-item__container 
               h2.offset-lg-1.col-lg-4.pool-model-item__title Aqua
               p.col-lg-6.pool-model-item__description прямоугольная модель со ступенями, расположенными в угловой части
-          a(href="javascript:void(0);" data-cursor='light').pool-model-item
+          a(href="#x-trainer" data-modal='open' data-cursor='light').pool-model-item
             .row.pool-model-item__container 
               h2.offset-lg-1.col-lg-4.pool-model-item__title X-trainer
               p.col-lg-6.pool-model-item__description прямоугольная модель со ступенями, расположенными зеркально вдоль длинных бортов
-          a(href="javascript:void(0);" data-cursor='light').pool-model-item
+          a(href="#riverina" data-modal='open' data-cursor='light').pool-model-item
             .row.pool-model-item__container 
               h2.offset-lg-1.col-lg-4.pool-model-item__title Riverina
               p.col-lg-6.pool-model-item__description бассейн красивой формы, плавно изогнутая линия борта придает неповторимое изящество
-          a(href="javascript:void(0);" data-cursor='light').pool-model-item
+          a(href="#java" data-modal='open' data-cursor='light').pool-model-item
             .row.pool-model-item__container 
               h2.offset-lg-1.col-lg-4.pool-model-item__title Java
               p.col-lg-6.pool-model-item__description прямоугольная модель с римской лестницей и двумя зонами отдыха
-          a(href="javascript:void(0);" data-cursor='light').pool-model-item
+          a(href="#briliant" data-modal='open' data-cursor='light').pool-model-item
             .row.pool-model-item__container 
               h2.offset-lg-1.col-lg-4.pool-model-item__title Briliant
               p.col-lg-6.pool-model-item__description прямоугольная модель со стильной угловой лестницей
       .section-choose-models__more.mt-2
-        a(href="javascript:void(0);").btn-link Посмотреть таблицу сравнения моделей 
+        a(href="#modal-shema" data-modal='open').btn-link Посмотреть таблицу сравнения моделей 
 
 
   section.section.section-colors.section-animated

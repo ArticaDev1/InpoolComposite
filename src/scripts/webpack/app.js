@@ -54,6 +54,7 @@ import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 import Inputmask from "inputmask";
 import autosize from 'autosize';
 import Swiper, {Pagination, Lazy, EffectFade} from 'swiper/core';
+Swiper.use([Pagination, Lazy, EffectFade]);
 
 const brakepoints = {
   sm: 576,
@@ -97,6 +98,7 @@ window.onload = function() {
   activeFunctions.add(SectionVideoAnimation, '.section-video-animation');
   activeFunctions.add(SectionTechnologies, '.section-technologies');
   activeFunctions.add(Map, '.contacts-block__map');
+  activeFunctions.add(ModelsSlider, '.models-slider');
   activeFunctions.init();
 
   //preload
@@ -176,7 +178,13 @@ const Resources = {
       2: {
         src: './img/model/3/',
         type: 'jpg',
-        framesCount: 25,
+        framesCount: 100,
+        frames: []
+      },
+      3: {
+        src: './img/model/4/',
+        type: 'png',
+        framesCount: 22,
         frames: []
       },
       4: {
@@ -231,7 +239,7 @@ const Resources = {
 };
 
 const TouchHoverEvents = {
-  targets: 'a, button, label, tr, [data-touch-hover], .scrollbar-track, .scrollbar-thumb, .input',
+  targets: 'a, button, [data-touch-hover], .scrollbar-track, .scrollbar-thumb, .input',
   touched: false,
   touchEndDelay: 100, //ms
   init: function() {
@@ -556,6 +564,7 @@ const Scroll = {
     $body.classList.add('hidden');
     this.scrollbar = Scrollbar.init($wrapper, {
       damping: 0.1,
+      thumbMinSize: 100,
       plugins: {
         SoftScroll:{}
       }
@@ -1057,13 +1066,11 @@ const Modal = {
       }
     })
 
-    //this.open(document.querySelector('#aqua'))
-
   },
   open: function ($modal) {
     let open = ()=> {
       disablePageScroll();
-      $modal.style.display = 'block';
+      $modal.classList.add('active');
       //scrollbar create
       if(!Scrollbar.get($modal) && !mobile()) {
         let scrollbar = Scrollbar.init($modal, {
@@ -1090,7 +1097,10 @@ const Modal = {
       this.animation.timeScale(2).reverse().eventCallback('onReverseComplete', ()=> {
         delete this.animation;
         enablePageScroll();
-        this.$active.style.display = 'none';
+        this.$active.classList.remove('active');
+        //scroll top
+        let scrollbar = Scrollbar.get(this.$active);
+        if(scrollbar) scrollbar.scrollTop = 0;
         delete this.$active;
         if(callback) callback();
       })
@@ -1150,9 +1160,13 @@ class Section3d {
     this.$screen5 = this.$parent.querySelector('.section-3d-screen-5');
     this.$screen5_content = this.$screen5.querySelector('.container');
     //
-    /* this.$part4 = this.$parent.querySelector('.section-3d-part-4__container');
+    this.$part4 = this.$parent.querySelector('.section-3d-part-4__container');
     this.frames4 = Resources.sources[3].frames;
-    this.framesCount4 = Resources.sources[3].framesCount; */
+    this.framesCount4 = Resources.sources[3].framesCount;
+    this.$screen7 = this.$parent.querySelector('.section-3d-screen-7');
+    this.$screen7_content = this.$screen7.querySelector('.container');
+    this.$screen8 = this.$parent.querySelector('.section-3d-screen-8');
+    this.$screen8_image = this.$screen8.querySelector('.image');
     //
     this.activeFrame = this.frames1[0];
 
@@ -1176,6 +1190,17 @@ class Section3d {
         this.$canvas.style.width = `${h/res}px`;
         this.$canvas.style.height = `${h}px`;
       }
+
+      //image
+      let res1 = 0.666;
+      if (h / w < res1) {
+        this.$screen8_image.style.width = `${w}px`;
+        this.$screen8_image.style.height = `${w*res1}px`;
+      } else {
+        this.$screen8_image.style.width = `${h/res1}px`;
+        this.$screen8_image.style.height = `${h}px`;
+      }
+
     }
     this.resizeEvent();
     window.addEventListener('resize', this.resizeEvent);
@@ -1189,7 +1214,7 @@ class Section3d {
     })
     //animation fade scene
     this.animation_fade = gsap.timeline({paused:true})
-      .to(this.$scene, {autoAlpha:0, ease:'power2.out'})
+      .to(this.$scene, {autoAlpha:0})
 
     //ANIMATION 1
     this.animation1 = gsap.timeline({paused:true})
@@ -1204,11 +1229,21 @@ class Section3d {
     //ANIMATION 5
     this.animation5 = gsap.effects.slidingText(this.$screen5, this.$screen5_content);
 
+    //ANIMATION 7
+    this.animation7 = gsap.effects.slidingText(this.$screen7, this.$screen7_content);
+
+    //ANIMATION 8
+    this.animation8 = gsap.timeline({paused:true})
+      .fromTo(this.$screen8_image, {autoAlpha:0}, {autoAlpha:1, duration:0.33})
+      .fromTo(this.$screen8_image, {scale:0.65}, {scale:1, ease:'power2.in'})
+      .to(this.$screen8_image, {autoAlpha:0, duration:0.33}, '-=0.33')
+      
+
 
     this.sceneTrigger = ScrollTrigger.create({
       trigger: this.$scene,
       start: "top top",
-      end: "+=13000",
+      end: "+=15500",
       pin: true,
       pinType: pinType,
       pinSpacing: false
@@ -1246,20 +1281,20 @@ class Section3d {
     this.trigger2 = ScrollTrigger.create({
       trigger: this.$part2,
       start: "top top",
-      end: "+=5000",
+      end: "+=3500",
       pin: true,
       pinType: pinType,
       pinSpacing: false,
       onUpdate: self => {
         let y = (self.end-self.start)*self.progress;
-        //4500 change
-        let index = Math.round(Math.max(0, Math.min(y/3500, 1)*(this.framesCount2-1)));
+
+        let index = Math.round(Math.max(0, Math.min(y/3000, 1)*(this.framesCount2-1)));
         this.activeFrame = this.frames2[index];
         
         //animations
         let time1 = Math.max(0, Math.min(y/500, 1));
         if(time1>0 && time1<1) this.animation_fade.progress(1-time1);
-        let time2 = Math.max(0, Math.min((y-4000)/1000, 1));
+        let time2 = Math.max(0, Math.min((y-3000)/500, 1));
         if(time2>0 && time2<1) this.animation_fade.progress(time2);
       },
       onEnter: ()=> {
@@ -1271,14 +1306,14 @@ class Section3d {
     this.trigger3 = ScrollTrigger.create({
       trigger: this.$part3,
       start: "top top",
-      end: "+=3500",
+      end: "+=4000",
       pin: true,
       pinType: pinType,
       pinSpacing: false,
       onUpdate: self => {
         let y = (self.end-self.start)*self.progress;
         //2000 change
-        let index = Math.round(Math.max(0, Math.min((y-1500)/2000, 1)*(this.framesCount3-1)));
+        let index = Math.round(Math.max(0, Math.min((y-1500)/2500, 1)*(this.framesCount3-1)));
         this.activeFrame = this.frames3[index];
         
         
@@ -1288,8 +1323,36 @@ class Section3d {
         //fadeInScene
         let time2 = Math.max(0, Math.min((y-1500)/500, 1));
         if(time2>0 && time2<1) this.animation_fade.progress(1-time2);
-        let time3 = Math.max(0, Math.min((y-2500)/1000, 1));
+        let time3 = Math.max(0, Math.min((y-3500)/500, 1));
         if(time3>0 && time3<1) this.animation_fade.progress(time3);
+      }
+    })
+
+    this.trigger4 = ScrollTrigger.create({
+      trigger: this.$part4,
+      start: "top top",
+      end: "+=3500",
+      pin: true,
+      pinType: pinType,
+      pinSpacing: false,
+      onUpdate: self => {
+        let y = (self.end-self.start)*self.progress;
+
+        let index = Math.round(Math.max(0, Math.min((y-1500)/750, 1)*(this.framesCount4-1)));
+        this.activeFrame = this.frames4[index];
+
+        console.log(index)
+        
+        //animations
+        let time1 = Math.max(0, Math.min(y/1500, 1));
+        this.animation7.progress(time1);
+        //fadeInScene
+        let time2 = Math.max(0, Math.min((y-1500)/750, 1));
+        if(time2>0 && time2<1) this.animation_fade.progress(1-time2);
+        let time3 = Math.max(0, Math.min((y-2250)/500, 1));
+        if(time3>0 && time3<1) this.animation_fade.progress(time3);
+        let time4 = Math.max(0, Math.min((y-2000)/1500, 1));
+        this.animation8.progress(time4);
       }
     })
 
@@ -1330,51 +1393,54 @@ class DesktopModelsList {
     this.y = 0;
     
     this.check = (event)=> {
-      if(event.type=='mousemove') {
-        this.x = event.clientX;
-        this.y = event.clientY;
-      }
-      gsap.to(this.$image_container, {duration:0.5, x:this.x, y:this.y, ease:'power2.out'})
+        if(event.type=='mousemove') {
+          this.x = event.clientX;
+          this.y = event.clientY;
+        }
 
-      let flag = false;
-      this.$buttons.forEach(($this, index) => {
-        let h = $this.getBoundingClientRect().height,
-            w = $this.getBoundingClientRect().width,
-            y = $this.getBoundingClientRect().top,
-            x = $this.getBoundingClientRect().left;
-        if(this.x>=x && this.x<=x+w && this.y>=y && this.y<=y+h) {
-          flag = true;
-          if(index!==this.index) {
-            if(this.index!==undefined) {
-              this.$images[this.index].classList.remove('active');
-              this.$buttons[this.index].classList.remove('active');
+        if(!Modal.$active) {
+          gsap.to(this.$image_container, {duration:0.5, x:this.x, y:this.y, ease:'power2.out'})
+        }
+  
+        let flag = false;
+        this.$buttons.forEach(($this, index) => {
+          let h = $this.getBoundingClientRect().height,
+              w = $this.getBoundingClientRect().width,
+              y = $this.getBoundingClientRect().top,
+              x = $this.getBoundingClientRect().left;
+          if(this.x>=x && this.x<=x+w && this.y>=y && this.y<=y+h) {
+            flag = true;
+            if(index!==this.index) {
+              if(this.index!==undefined) {
+                this.$images[this.index].classList.remove('active');
+                this.$buttons[this.index].classList.remove('active');
+              }
+              this.$buttons.forEach($this => {
+                $this.classList.add('disabled');
+              })
+              $this.classList.add('active');
+              $this.classList.remove('disabled');
+              this.$images[index].classList.add('active');
+              this.index = index;
             }
-            this.$buttons.forEach($this => {
-              $this.classList.add('disabled');
-            })
-            $this.classList.add('active');
-            $this.classList.remove('disabled');
-            this.$images[index].classList.add('active');
-            this.index = index;
-          }
-        } 
-      })
-      
-      //mousenter
-      if(flag && !this.isVisible) {
-        this.isVisible = true;
-        this.$image_container.classList.add('active');
-      } 
-      //mouseout
-      else if(!flag && this.isVisible) {
-        this.isVisible = false;
-        this.$image_container.classList.remove('active');
-        this.$images[this.index].classList.remove('active');
-        this.$buttons.forEach($this => {
-          $this.classList.remove('disabled', 'active');
+          } 
         })
-        delete this.index;
-      }
+        
+        //mousenter
+        if(flag && !this.isVisible && !Modal.$active) {
+          this.isVisible = true;
+          this.$image_container.classList.add('active');
+        } 
+        //mouseout
+        else if((Modal.$active || !flag) && this.isVisible) {
+          this.isVisible = false;
+          this.$image_container.classList.remove('active');
+          this.$images[this.index].classList.remove('active');
+          this.$buttons.forEach($this => {
+            $this.classList.remove('disabled', 'active');
+          })
+          delete this.index;
+        }
     }
 
     document.addEventListener('mousemove', this.check);
@@ -1514,20 +1580,19 @@ class ColorsSlider {
   }
 }
 
-/* class ModelsSlider {
+class ModelsSlider {
   constructor($parent) {
     this.$parent = $parent;
   }
 
   init() {
     this.$slider = this.$parent.querySelector('.swiper-container');
-
+    this.$bottom_images = this.$parent.querySelectorAll('.models-slider__bottom-image');
 
     this.slider = new Swiper(this.$slider, {
       effect: 'fade',
       touchStartPreventDefault: false,
       longSwipesRatio: 0.1,
-      slidesPerView: 1,
       speed: 500,
       lazy: {
         loadOnTransitionStart: true,
@@ -1535,9 +1600,8 @@ class ColorsSlider {
       }
     });
   
-    
-  
     if(this.$bottom_images.length>1) {
+
       this.$bottom_images[0].classList.add('is-active');
       this.slider.on('slideChange', (event)=> {
         this.$bottom_images.forEach($this => {
@@ -1545,14 +1609,17 @@ class ColorsSlider {
         })
         this.$bottom_images[event.realIndex].classList.add('is-active');
       })
-      this.events = [];
+
       this.$bottom_images.forEach(($this, index)=>{
-        this.events[index] = ()=> {
-          this.slider.slideTo(index)
-        }
-        $this.addEventListener('mouseenter', this.events[index])
-        $this.addEventListener('click', this.events[index])
+        $this.addEventListener('mouseenter', ()=> {
+          this.slider.slideTo(index);
+        })
+        $this.addEventListener('click', ()=> {
+          this.slider.slideTo(index);
+        })
       })
+      
     }
+
   }
-} */
+}

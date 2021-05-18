@@ -135,17 +135,19 @@
             </div>
           </div>
           <!--4-->
-          <!--.section-3d-part.section-3d-part-4
-          .section-3d-part__container.section-3d-part-4__container
-            
-            .section-3d-screen.section-3d-screen-7.animated-head
-              .container.animated-head__container
-                h5.animated-head__sub-title А в жизни как?
-                h2.h1.animated-head__title Представьте.
-          
-          
-          
-          -->
+          <div class="section-3d-part section-3d-part-4">
+            <div class="section-3d-part__container section-3d-part-4__container">
+              <div class="section-3d-screen section-3d-screen-7 animated-head">
+                <div class="container animated-head__container">
+                  <h5 class="animated-head__sub-title">А в жизни как?</h5>
+                  <h2 class="h1 animated-head__title">Представьте.</h2>
+                </div>
+              </div>
+              <div class="section-3d-screen section-3d-screen-8">
+                <div class="image image_cover"> <img class="lazyload" src="./img/final.jpg" alt="image"></div>
+              </div>
+            </div>
+          </div>
         </section>
         <section class="section section-choose-models section-animated">
           <div class="figures-container container">
@@ -168,29 +170,29 @@
                   <div class="image image_cover"><img class="lazyload" data-src="./img/desktop-models/5.jpg" alt="image"></div>
                 </div>
               </div>
-              <div class="desktop-models-list__items"><a class="pool-model-item" href="javascript:void(0);" data-cursor="light">
+              <div class="desktop-models-list__items"><a class="pool-model-item" href="#aqua" data-modal="open" data-cursor="light">
                   <div class="row pool-model-item__container">
                     <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">Aqua</h2>
                     <p class="col-lg-6 pool-model-item__description">прямоугольная модель со ступенями, расположенными в угловой части</p>
-                  </div></a><a class="pool-model-item" href="javascript:void(0);" data-cursor="light">
+                  </div></a><a class="pool-model-item" href="#x-trainer" data-modal="open" data-cursor="light">
                   <div class="row pool-model-item__container">
                     <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">X-trainer</h2>
                     <p class="col-lg-6 pool-model-item__description">прямоугольная модель со ступенями, расположенными зеркально вдоль длинных бортов</p>
-                  </div></a><a class="pool-model-item" href="javascript:void(0);" data-cursor="light">
+                  </div></a><a class="pool-model-item" href="#riverina" data-modal="open" data-cursor="light">
                   <div class="row pool-model-item__container">
                     <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">Riverina</h2>
                     <p class="col-lg-6 pool-model-item__description">бассейн красивой формы, плавно изогнутая линия борта придает неповторимое изящество</p>
-                  </div></a><a class="pool-model-item" href="javascript:void(0);" data-cursor="light">
+                  </div></a><a class="pool-model-item" href="#java" data-modal="open" data-cursor="light">
                   <div class="row pool-model-item__container">
                     <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">Java</h2>
                     <p class="col-lg-6 pool-model-item__description">прямоугольная модель с римской лестницей и двумя зонами отдыха</p>
-                  </div></a><a class="pool-model-item" href="javascript:void(0);" data-cursor="light">
+                  </div></a><a class="pool-model-item" href="#briliant" data-modal="open" data-cursor="light">
                   <div class="row pool-model-item__container">
                     <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">Briliant</h2>
                     <p class="col-lg-6 pool-model-item__description">прямоугольная модель со стильной угловой лестницей</p>
                   </div></a></div>
             </div>
-            <div class="section-choose-models__more mt-2"><a class="btn-link" href="javascript:void(0);">Посмотреть таблицу сравнения моделей </a></div>
+            <div class="section-choose-models__more mt-2"><a class="btn-link" href="#modal-shema" data-modal="open">Посмотреть таблицу сравнения моделей </a></div>
           </div>
         </section>
         <section class="section section-colors section-animated">
@@ -661,38 +663,469 @@
         </div>
       </div>
     </div>
+    <div class="modal modal-shema" id="modal-shema" style="opacity:0;visibility:hidden;">
+      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+        <div class="modal__container container">
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="modal-block pt-2 pb-2">
+                <button class="modal-close" aria-label="close" data-modal="close"></button>
+                <div class="row">
+                  <div class="offset-xl-1 col-xl-10">
+                    <div class="modal-shema__image image image_cover"> <img class="lazyload" data-src="./img/katalog_19-29 1.jpg" alt="image"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!--модели-->
-    <!--.modal.modal-model#aqua(style='opacity:0;visibility:hidden;')
-    .modal__wrapper.pt-2.pb-2(data-scroll-lock-scrollable)  
-      .modal__container.container 
-        .row
-          .col-xl-12
-            .modal-block.pt-2.pb-2
-              button.modal-close(aria-label='close' data-modal='close')
-              .modal-model__head.row 
-                h3.modal-model__title.offset-xl-1.col-xl-4 Aqua
-                p.modal-model__head-text.col-xl-6 прямоугольная модель со ступенями, расположенными в угловой части
-              .modal-model__content.row 
-                //images
-                -var images = ['./img/models-sliders/1_1.jpg', './img/models-sliders/1_2.jpg', './img/models-sliders/1_3.jpg', './img/models-sliders/1_4.jpg']
-                .modal-model__images.offset-xl-1.col-xl-4
-                  .swiper.modal-model__top-slider
-                    .swiper-container
-                      .swiper-wrapper
-                        each val in images
-                          //slide
-                          .swiper-slide.image.image_contain.modal-model__top-slide 
-                            img(data-src=val, alt="image").swiper-lazy
-                  .modal-model__bottom-images
-                    each val in images
-                      //slide
-                      .modal-model__bottom-image.image.image_contain
-                        img(data-src=val, alt="image").lazyload
-    
-    
-    
-    
-    -->
+    <div class="modal modal-model" id="aqua" style="opacity:0;visibility:hidden;">
+      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+        <div class="modal__container container">
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="modal-block pt-2 pb-2">
+                <button class="modal-close" aria-label="close" data-modal="close"></button>
+                <div class="modal-model__head row">
+                  <h3 class="modal-model__title offset-xl-1 col-xl-4">Aqua</h3>
+                  <p class="modal-model__head-text col-xl-6">прямоугольная модель со ступенями, расположенными в угловой части</p>
+                </div>
+                <div class="modal-model__content row">
+                  <!--models-slider-->
+                  <div class="models-slider offset-xl-1 col-xl-4">
+                    <div class="swiper models-slider__top">
+                      <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/1_1.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/1_2.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/1_3.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/1_4.jpg" alt="image"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="models-slider__bottom">
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/1_1.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/1_2.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/1_3.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/1_4.jpg" alt="image"></div>
+                    </div>
+                  </div>
+                  <!--description-->
+                  <div class="modal-model__description col-xl-6">
+                    <div class="table modal-model__table">
+                      <table>
+                        <tr>
+                          <th>Модель</th>
+                          <th>Длина<br> внешняя / внутренняя</th>
+                          <th>Ширина<br> внешняя / внутренняя</th>
+                          <th>Глубина</th>
+                        </tr>
+                        <tr>
+                          <td>Aqua 110 RC</td>
+                          <td>11,00 м / 10,66 м</td>
+                          <td>3,58 м / 3,24 м</td>
+                          <td>1,5 м</td>
+                        </tr>
+                        <tr>
+                          <td>Aqua 100 RC</td>
+                          <td>10,00 м / 9,64 м</td>
+                          <td>3,58 м / 3,24 м</td>
+                          <td>1,5 м</td>
+                        </tr>
+                        <tr>
+                          <td>Aqua 75 RC</td>
+                          <td>7,5 м / 7,14 м</td>
+                          <td>3,58 м / 3,24 м</td>
+                          <td>1,5 м</td>
+                        </tr>
+                        <tr>
+                          <td>Aqua 125</td>
+                          <td>12,5 м / 12,16 м</td>
+                          <td>3,58 м / 3,24 м</td>
+                          <td>1,5 м</td>
+                        </tr>
+                        <tr>
+                          <td>Aqua 110</td>
+                          <td>11,00 м / 10,66 м</td>
+                          <td>3,58 м / 3,24 м</td>
+                          <td>1,5 м</td>
+                        </tr>
+                        <tr>
+                          <td>Aqua 95</td>
+                          <td>9,5 м / 9,16 м</td>
+                          <td>3,58 м / 3,24 м</td>
+                          <td>1,5 м</td>
+                        </tr>
+                        <tr>
+                          <td>Aqua 80</td>
+                          <td>8 м / 7,66 м</td>
+                          <td>3,58 м / 3,24 м</td>
+                          <td>1,5 м</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="modal-model__button"> <a class="button button_style-1" href="#modal-form" data-modal="open">Заказать звонок</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal modal-model" id="x-trainer" style="opacity:0;visibility:hidden;">
+      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+        <div class="modal__container container">
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="modal-block pt-2 pb-2">
+                <button class="modal-close" aria-label="close" data-modal="close"></button>
+                <div class="modal-model__head row">
+                  <h3 class="modal-model__title offset-xl-1 col-xl-4">X-trainer</h3>
+                  <p class="modal-model__head-text col-xl-6">прямоугольная модель со ступенями, расположенными зеркально вдоль длинных бортов</p>
+                </div>
+                <div class="modal-model__content row">
+                  <!--models-slider-->
+                  <div class="models-slider offset-xl-1 col-xl-4">
+                    <div class="swiper models-slider__top">
+                      <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/2_1.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/2_2.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/2_3.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/2_4.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/2_5.jpg" alt="image"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="models-slider__bottom">
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/2_1.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/2_2.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/2_3.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/2_4.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/2_5.jpg" alt="image"></div>
+                    </div>
+                  </div>
+                  <!--description-->
+                  <div class="modal-model__description col-xl-6">
+                    <div class="table modal-model__table">
+                      <table>
+                        <tr>
+                          <th>Модель</th>
+                          <th>Длина<br> внешняя / внутренняя</th>
+                          <th>Ширина<br> внешняя / внутренняя</th>
+                          <th>Глубина</th>
+                        </tr>
+                        <tr>
+                          <td>XL-Trainer 110</td>
+                          <td>11,00 м / 10,66 м</td>
+                          <td>4,05 м / 3,70 м</td>
+                          <td>1,08-1,79 м</td>
+                        </tr>
+                        <tr>
+                          <td>XL-Trainer 90</td>
+                          <td>8,24 м / 7,89 м</td>
+                          <td>3,69 м / 3,35 м</td>
+                          <td>1,09-1,75 м</td>
+                        </tr>
+                        <tr>
+                          <td>X-Trainer 82</td>
+                          <td>8,24 м / 7,89 м</td>
+                          <td>3,69 м / 3,35 м</td>
+                          <td>1,09-1,75 м </td>
+                        </tr>
+                        <tr>
+                          <td>X-Trainer 58</td>
+                          <td>5,78 м / 5,51 м</td>
+                          <td>3,44 м / 3,16 м </td>
+                          <td>1,09-1,51 м </td>
+                        </tr>
+                        <tr>
+                          <td>X-Trainer 45</td>
+                          <td>4,45 м / 4,09 м </td>
+                          <td>2,94 м / 2,63 м</td>
+                          <td>1,21-1,49 м</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="modal-model__button"> <a class="button button_style-1" href="#modal-form" data-modal="open">Заказать звонок</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal modal-model" id="riverina" style="opacity:0;visibility:hidden;">
+      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+        <div class="modal__container container">
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="modal-block pt-2 pb-2">
+                <button class="modal-close" aria-label="close" data-modal="close"></button>
+                <div class="modal-model__head row">
+                  <h3 class="modal-model__title offset-xl-1 col-xl-4">Riverina</h3>
+                  <p class="modal-model__head-text col-xl-6">бассейн красивой формы, плавно изогнутая линия борта придает неповторимое изящество</p>
+                </div>
+                <div class="modal-model__content row">
+                  <!--models-slider-->
+                  <div class="models-slider offset-xl-1 col-xl-4">
+                    <div class="swiper models-slider__top">
+                      <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/3_1.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/3_2.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/3_3.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/3_4.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/3_5.jpg" alt="image"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="models-slider__bottom">
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/3_1.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/3_2.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/3_3.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/3_4.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/3_5.jpg" alt="image"></div>
+                    </div>
+                  </div>
+                  <!--description-->
+                  <div class="modal-model__description col-xl-6">
+                    <div class="table modal-model__table">
+                      <table>
+                        <tr>
+                          <th>Модель</th>
+                          <th>Длина<br> внешняя / внутренняя</th>
+                          <th>Ширина<br> внешняя / внутренняя</th>
+                          <th>Глубина</th>
+                        </tr>
+                        <tr>
+                          <td>Riverina 106</td>
+                          <td>10,60 м / 10,32 м</td>
+                          <td>3,79 м / 3,29 м</td>
+                          <td>1,03-1,88 м</td>
+                        </tr>
+                        <tr>
+                          <td>Riverina 84</td>
+                          <td>8,40 м / 8,10 м</td>
+                          <td>3,75 м / 3,30 м</td>
+                          <td>1,03-1,68 м</td>
+                        </tr>
+                        <tr>
+                          <td>Riverina 74</td>
+                          <td>7,43 м / 7,10 м</td>
+                          <td>3,58 м / 3,24 м</td>
+                          <td>1,04-1,59 м</td>
+                        </tr>
+                        <tr>
+                          <td>Riverina 67</td>
+                          <td>6,70 м / 6,36 м</td>
+                          <td>3,45 м / 3,14 м</td>
+                          <td>1,03-1,59 м</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="modal-model__button"> <a class="button button_style-1" href="#modal-form" data-modal="open">Заказать звонок</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal modal-model" id="java" style="opacity:0;visibility:hidden;">
+      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+        <div class="modal__container container">
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="modal-block pt-2 pb-2">
+                <button class="modal-close" aria-label="close" data-modal="close"></button>
+                <div class="modal-model__head row">
+                  <h3 class="modal-model__title offset-xl-1 col-xl-4">Java</h3>
+                  <p class="modal-model__head-text col-xl-6">прямоугольная модель с римской лестницей и двумя зонами отдыха</p>
+                </div>
+                <div class="modal-model__content row">
+                  <!--models-slider-->
+                  <div class="models-slider offset-xl-1 col-xl-4">
+                    <div class="swiper models-slider__top">
+                      <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/4_1.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/4_2.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/4_3.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/4_4.jpg" alt="image"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="models-slider__bottom">
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/4_1.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/4_2.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/4_3.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/4_4.jpg" alt="image"></div>
+                    </div>
+                  </div>
+                  <!--description-->
+                  <div class="modal-model__description col-xl-6">
+                    <div class="table modal-model__table">
+                      <table>
+                        <tr>
+                          <th>Модель</th>
+                          <th>Длина<br> внешняя / внутренняя</th>
+                          <th>Ширина<br> внешняя / внутренняя</th>
+                          <th>Глубина</th>
+                        </tr>
+                        <tr>
+                          <td>Java 125</td>
+                          <td>12,86 м / 12,50 м</td>
+                          <td>4,05 м / 3,69 м</td>
+                          <td>1,50 м </td>
+                        </tr>
+                        <tr>
+                          <td>Java 125 RC</td>
+                          <td>12,86 м / 11,64 м</td>
+                          <td>4,05 м / 3,69 м</td>
+                          <td>1,50 м</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="modal-model__button"> <a class="button button_style-1" href="#modal-form" data-modal="open">Заказать звонок</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal modal-model" id="briliant" style="opacity:0;visibility:hidden;">
+      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+        <div class="modal__container container">
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="modal-block pt-2 pb-2">
+                <button class="modal-close" aria-label="close" data-modal="close"></button>
+                <div class="modal-model__head row">
+                  <h3 class="modal-model__title offset-xl-1 col-xl-4">Briliant</h3>
+                  <p class="modal-model__head-text col-xl-6">прямоугольная модель со стильной угловой лестницей</p>
+                </div>
+                <div class="modal-model__content row">
+                  <!--models-slider-->
+                  <div class="models-slider offset-xl-1 col-xl-4">
+                    <div class="swiper models-slider__top">
+                      <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/5_1.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/5_2.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/5_3.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/5_4.jpg" alt="image"></div>
+                          <!--slide-->
+                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/5_5.jpg" alt="image"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="models-slider__bottom">
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/5_1.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/5_2.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/5_3.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/5_4.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/5_5.jpg" alt="image"></div>
+                    </div>
+                  </div>
+                  <!--description-->
+                  <div class="modal-model__description col-xl-6">
+                    <div class="table modal-model__table">
+                      <table>
+                        <tr>
+                          <th>Модель</th>
+                          <th>Длина<br> внешняя / внутренняя</th>
+                          <th>Ширина<br> внешняя / внутренняя</th>
+                          <th>Глубина</th>
+                        </tr>
+                        <tr>
+                          <td>XL-Briliant 87</td>
+                          <td>8,72 м / 8,39 м</td>
+                          <td>3,76 м / 3,43 м</td>
+                          <td>1,5 м</td>
+                        </tr>
+                        <tr>
+                          <td>Briliant 77</td>
+                          <td>7,68 м / 7,34 м</td>
+                          <td>3,58 м / 3,24 м</td>
+                          <td>1,5 м</td>
+                        </tr>
+                        <tr>
+                          <td>Briliant 67</td>
+                          <td>6,74 м / 6,39 м</td>
+                          <td>3,58 м / 3,24 м</td>
+                          <td>1,5 м</td>
+                        </tr>
+                        <tr>
+                          <td>Briliant 52</td>
+                          <td>5,2 м / 4,86 м</td>
+                          <td>3,0 м / 2,66 м</td>
+                          <td>1,5 м</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="modal-model__button"> <a class="button button_style-1" href="#modal-form" data-modal="open">Заказать звонок</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="modal modal-text" id="politics" style="opacity:0;visibility:hidden;">
       <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
         <div class="modal__container container">
@@ -782,7 +1215,7 @@
                     <div class="iframe row">
                       <div class="offset-lg-2 col-lg-8">
                         <div class="iframe__element">
-                          <iframe class="lazyload" data-src="https://www.youtube.com/embed/My3dNv5BCkA" title="YouTube video player"></iframe>
+                          <iframe src="https://www.youtube.com/embed/My3dNv5BCkA" title="YouTube video player"></iframe>
                         </div>
                       </div>
                     </div>
