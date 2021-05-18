@@ -77,6 +77,7 @@ function mobile() {
 }
 
 window.onload = function() {
+  console.log('LOAD')
   Resources.init();
   Validation.init();
   inputs();
@@ -97,8 +98,8 @@ window.onload = function() {
   activeFunctions.add(ColorsSlider, '.colors-slider');
   activeFunctions.add(SectionVideoAnimation, '.section-video-animation');
   activeFunctions.add(SectionTechnologies, '.section-technologies');
-  activeFunctions.add(Map, '.contacts-block__map');
   activeFunctions.add(ModelsSlider, '.models-slider');
+  activeFunctions.add(Map, '.contacts-block__map');
   activeFunctions.init();
 
   //preload
@@ -1028,7 +1029,9 @@ class Map {
     }
 
 
-    loadMap();
+    setTimeout(() => {
+      loadMap();
+    }, 5000);
   }
 
   destroy() {
@@ -1168,7 +1171,7 @@ class Section3d {
     this.$screen7_content = this.$screen7.querySelector('.container');
     this.$screen8 = this.$parent.querySelector('.section-3d-screen-8');
     this.$screen8_image = this.$screen8.querySelector('.image');
-    this.$screen8_image_element = this.$screen8.querySelector('.image');
+    this.$screen8_image_element = this.$screen8.querySelector('.image img');
     //
     this.activeFrame = this.frames1[0];
 
