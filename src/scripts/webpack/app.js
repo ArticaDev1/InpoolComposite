@@ -1254,7 +1254,7 @@ class Section3d {
 
     this.animation6 = gsap.timeline({paused:true})
       .set(this.$screen6, {autoAlpha:1})
-      .fromTo(this.$screen6_items, {autoAlpha:0}, {autoAlpha:1, duration:0.5, stagger:{amount:0.5}})
+      .fromTo(this.$screen6_items, {autoAlpha:0}, {autoAlpha:1, duration:0.6, stagger:{amount:0.4}})
       .to(this.$screen6, {autoAlpha:0, duration:0.5}, '+=0.5')
 
     //ANIMATION 7
@@ -1358,7 +1358,7 @@ class Section3d {
         let time3 = Math.max(0, Math.min((y-3500)/1000, 1));
         if(time3>0 && time3<1) this.animation_fade.progress(time3);
         //dots
-        let time4 = Math.max(0, Math.min((y-2300)/1100, 1));
+        let time4 = Math.max(0, Math.min((y-2300)/1200, 1));
         this.animation6.progress(time4);
       }
     })
