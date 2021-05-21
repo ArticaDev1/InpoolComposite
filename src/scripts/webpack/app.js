@@ -1707,7 +1707,3 @@ class ParallaxImage {
     gsap.set(this.$img, {clearProps: "all"});
   }
 }
-
-window.addEventListener('resize', ()=> {
-  ScrollTrigger.Refresh();
-})

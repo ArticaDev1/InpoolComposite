@@ -1214,6 +1214,11 @@
   overflow: auto;
 }
 
-.animated-head {
-  background-color: rgba(22, 202, 34, 0.2);
+.section-animated {
+  margin-top: 0;
+}
+
+
+.section-animated {
+  pointer-events: all;
 }
