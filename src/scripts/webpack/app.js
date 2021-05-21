@@ -932,13 +932,13 @@ class SectionAnimated {
     this.$parent = $parent;
   }
 
-  init() {
+  /* init() {
     this.check = ()=> {
-      if(window.innerWidth >= brakepoints.sm && (!this.initialized || !this.flag)) {
+      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
         this.initDesktop();
         this.flag = true;
       } 
-      else if(window.innerWidth < brakepoints.sm && (!this.initialized || this.flag)) {
+      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
         if(this.initialized) {
           this.destroyDesktop();
         }
@@ -948,9 +948,9 @@ class SectionAnimated {
     this.check();
     window.addEventListener('resize', this.check);
     this.initialized = true;
-  }
+  } */
 
-  initDesktop() {
+  init() {
     let pinType = Scroll.scrollbar?'transform':'fixed';
 
     this.$head = this.$parent.querySelector('.animated-head');
