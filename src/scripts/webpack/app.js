@@ -1707,3 +1707,7 @@ class ParallaxImage {
     gsap.set(this.$img, {clearProps: "all"});
   }
 }
+
+setInterval(() => {
+  ScrollTrigger.refresh();
+}, 1000);
