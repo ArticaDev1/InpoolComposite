@@ -961,7 +961,6 @@ class SectionAnimated {
       start: "top top",
       end: "+=1500",
       pin: true,
-      anticipatePin: true,
       pinSpacing: false,
       pinType: pinType,
       onUpdate: self => {
