@@ -962,7 +962,7 @@ class SectionAnimated {
       end: "+=1500",
       pin: true,
       pinSpacing: false,
-      pinType: pinType,
+      pinType: 'transform',
       onUpdate: self => {
         this.animation_head.progress(self.progress);
         $consol.insertAdjacentHTML('afterbegin', `<p>${self.progress}</p>`)
