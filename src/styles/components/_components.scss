@@ -43,6 +43,16 @@ img {
   }
 }
 
+.parallax-image {
+  @include media-breakpoint-up(lg) {
+    img {
+      height: 140%;
+      top: initial;
+      bottom: 0;
+    }
+  }
+}
+
 .swiper {
   position: relative;
   * {
@@ -148,6 +158,7 @@ img {
     display: block;
   }
 }
+
 .figures-container {
   position: absolute;
   height: 100%;
@@ -156,12 +167,21 @@ img {
   transform: translateX(-50%);
   pointer-events: none;
 }
+
 .background-figure {
   width: 1800px;
   height: 1800px;
   position: absolute;
   will-change: transform;
   background: radial-gradient(50% 50% at 50% 50%, rgba(1, 153, 182, 0.114) 0%, rgba(0, 209, 255, 0) 100%);
+  @include media-breakpoint-down(xl) {
+    width: 1300px;
+    height: 1300px;
+  }
+  @include media-breakpoint-down(md) {
+    width: 500px;
+    height: 500px;
+  }
 }
 
 .cursor {

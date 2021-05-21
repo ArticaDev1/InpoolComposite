@@ -1,4 +1,4 @@
-const Dev = false;
+const Dev = true;
 
 import 'lazysizes';
 lazySizes.cfg.preloadAfterLoad = true;
@@ -100,6 +100,7 @@ window.onload = function() {
   activeFunctions.add(SectionTechnologies, '.section-technologies');
   activeFunctions.add(ModelsSlider, '.models-slider');
   activeFunctions.add(Map, '.contacts-block__map');
+  activeFunctions.add(ParallaxImage, '.parallax-image');
   activeFunctions.init();
 
   //preload
@@ -150,7 +151,9 @@ function inputs() {
               $input.style.height = '68px';
             } else if(window.innerWidth>=brakepoints.xl) {
               $input.style.height = '62px';
-            }
+            } else {
+              $input.style.height = '56px';
+            } 
           }
         }
       }
@@ -492,7 +495,9 @@ const Validation = {
           $input.style.height = '68px';
         } else if(window.innerWidth>=brakepoints.xl) {
           $input.style.height = '62px';
-        }
+        } else {
+          $input.style.height = '56px';
+        } 
       }
       $parent.classList.remove('focused', 'filled');
       
@@ -929,11 +934,11 @@ class SectionAnimated {
 
   init() {
     this.check = ()=> {
-      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+      if(window.innerWidth >= brakepoints.sm && (!this.initialized || !this.flag)) {
         this.initDesktop();
         this.flag = true;
       } 
-      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
+      else if(window.innerWidth < brakepoints.sm && (!this.initialized || this.flag)) {
         if(this.initialized) {
           this.destroyDesktop();
         }
@@ -1656,5 +1661,51 @@ class ModelsSlider {
       
     }
 
+  }
+}
+
+class ParallaxImage {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
+
+  init() {
+    this.check = ()=> {
+      if(window.innerWidth >= brakepoints.xl && (!this.initialized || !this.flag)) {
+        this.initDesktop();
+        this.flag = true;
+      } 
+      else if(window.innerWidth < brakepoints.xl && (!this.initialized || this.flag)) {
+        if(this.initialized) {
+          this.destroyDesktop();
+        }
+        this.flag = false;
+      }
+    }
+    this.check();
+    window.addEventListener('resize', this.check);
+    this.initialized = true;
+  }
+
+  initDesktop() {
+    this.$img = this.$parent.querySelector('img');
+
+    this.animation = gsap.timeline({paused:true}) 
+      .to(this.$img, {yPercent:40, ease:'none'})
+
+    this.trigger = ScrollTrigger.create({
+      trigger: this.$parent,
+      start: "top bottom",
+      end: "bottom top",
+      onUpdate: self => {
+        this.animation.progress(self.progress);
+      }
+    });
+  }
+
+  destroyDesktop() {
+    this.animation.kill();
+    this.trigger.kill();
+    gsap.set(this.$img, {clearProps: "all"});
   }
 }

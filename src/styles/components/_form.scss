@@ -67,15 +67,26 @@
     }
   }
   @include media-breakpoint-down(xxl) {
-   font-size: 1.125rem;
-   line-height: 24px;
-   &__element {
-      padding: 19px 27px;
-      height: 62px;
-   }
-   &__title {
-     top: 19px;
-   }
+    font-size: 1.125rem;
+    line-height: 24px;
+    &__element {
+        padding: 19px 27px;
+        height: 62px;
+    }
+    &__title {
+      top: 19px;
+    }
+  }
+  @include media-breakpoint-down(xl) {
+    font-size: 1rem;
+    line-height: 22px;
+    &__element {
+      padding: 17px 27px;
+      height: 56px;
+    }
+    &__title {
+      top: 17px;
+    }
   }
 }
 
@@ -93,5 +104,13 @@
     margin: 15px 0 0 0;
     color: var(--color-text-muted);
     text-align: center;
+  }
+  @include media-breakpoint-down(xl) {
+    &__item {
+      margin-bottom: 30px;
+    }
+    &__submit {
+      margin-top: 45px;
+    }
   }
 }

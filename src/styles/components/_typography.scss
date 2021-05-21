@@ -12,6 +12,9 @@ body {
   @include media-breakpoint-down(xxl) {
     font-size: 1.125rem;
   }
+  @include media-breakpoint-down(xl) {
+    font-size: 1rem;
+  }
 }
 
 strong {
@@ -85,10 +88,54 @@ h6, .h6 {
   }
 }
 
+@include media-breakpoint-down(xl) {
+  h1, .h1 {
+    font-size: 3.125rem;
+  }
+  h2, .h2 {
+    font-size: 2.5rem;
+  }
+  h3, .h3 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  h4, .h4 {
+    font-size: 1.625rem;
+    margin-bottom: 40px;
+  }
+  h5, .h5 {
+    font-size: 1.25rem;
+  }
+  h6, .h6 {
+    font-size: 1.25rem;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  h1, .h1 {
+    font-size: 2.625rem;
+    line-height: 1.15;
+  }
+  h2, .h2 {
+    font-size: 1.875rem;
+  }
+  h3, .h3 {
+    font-size: 1.875rem;
+  }
+  h4, .h4 {
+    font-weight: 700;
+    font-size: 1.375rem;
+  }
+}
+
+
 p {
   margin: 0 0 15px 0;
   &:last-child {
     margin-bottom: 0;
+  }
+  @include media-breakpoint-down(xl) {
+    margin: 0 0 10px 0;
   }
 }
 

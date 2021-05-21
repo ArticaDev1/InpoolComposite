@@ -205,7 +205,7 @@ block content
 
         .colors-slider__container.container
           .colors-slider__wrapper
-            mixin slide(title, image1, image2, image3, classes)
+            mixin slide(title, image1, image2, image3, classes, classes2)
               //slide
               .colors-slide
                 .colors-slide__left.colors-slide__element
@@ -231,16 +231,14 @@ block content
                 .colors-slide__text.colors-slide__element
                   .colors-slide__element-inner
                     p.mb-3 Приятный глубокий голубой цвет, напоминающий живописный тропический пляж
-                    a(href="#modal-form" data-modal='open').button.colors-slide__button.colors-slide__button_style-1 Выбрать этот цвет
+                    a(href="#modal-form" data-modal='open' class=classes2).button.colors-slide__button Выбрать этот цвет
             
-            +slide('Blue Saphire', './img/colors/1_1.jpg', './img/colors/1_2.jpg', './img/colors/1_3.jpg', 'colors-slide__title-element_1')
-            +slide('Smokey Quartz', './img/colors/2_1.jpg', './img/colors/2_2.jpg', './img/colors/2_3.jpg', 'colors-slide__title-element_2')
-            +slide('Golden Pebble', './img/colors/3_1.jpg', './img/colors/3_2.jpg', './img/colors/3_3.jpg', 'colors-slide__title-element_3')
-            +slide('Nova Navy', './img/colors/4_1.jpg', './img/colors/4_2.jpg', './img/colors/4_3.jpg', 'colors-slide__title-element_4')
-            +slide('Nova Pearl', './img/colors/5_1.jpg', './img/colors/5_2.jpg', './img/colors/5_3.jpg', 'colors-slide__title-element_5')
-            +slide('Nova Blue', './img/colors/6_1.jpg', './img/colors/6_2.jpg', './img/colors/6_3.jpg', 'colors-slide__title-element_6')
-
-
+            +slide('Blue Saphire', './img/colors/1_1.jpg', './img/colors/1_2.jpg', './img/colors/1_3.jpg', 'colors-slide__title-element_1', 'colors-slide__button_style-1')
+            +slide('Smokey Quartz', './img/colors/2_1.jpg', './img/colors/2_2.jpg', './img/colors/2_3.jpg', 'colors-slide__title-element_2', 'colors-slide__button_style-2')
+            +slide('Golden Pebble', './img/colors/3_1.jpg', './img/colors/3_2.jpg', './img/colors/3_3.jpg', 'colors-slide__title-element_3', 'colors-slide__button_style-3')
+            +slide('Nova Navy', './img/colors/4_1.jpg', './img/colors/4_2.jpg', './img/colors/4_3.jpg', 'colors-slide__title-element_4', 'colors-slide__button_style-4')
+            +slide('Nova Pearl', './img/colors/5_1.jpg', './img/colors/5_2.jpg', './img/colors/5_3.jpg', 'colors-slide__title-element_5', 'colors-slide__button_style-5')
+            +slide('Nova Blue', './img/colors/6_1.jpg', './img/colors/6_2.jpg', './img/colors/6_3.jpg', 'colors-slide__title-element_6', 'colors-slide__button_style-6')
 
   section.section.section-video-animation
     .section-video-animation__inner
@@ -248,7 +246,7 @@ block content
         canvas
       .container.section-video-animation__container
         .row
-          h2.h1.section-video-animation__title Построим за 2 недели
+          h2.h1.section-video-animation__title Построим за месяц
           p.section-video-animation__text.offset-xl-7.offset-xxl-8.col-xxl-4.col-xl-5 На всех этапах мы предлагаем сопровождение объекта и взаимодействие наших специалистов, представителей клиента, самого клиента в единой электронной системе, предназначенной для эффективного взаимодействия, скорости обмена данными и актуализации задач.
 
   section.section.section-technologies
@@ -257,7 +255,7 @@ block content
       .background-figure.background-figure_2(data-parallax='0.5')
     .container.section-technologies__container 
       .row
-        mixin block1(image, title, text, link, classes, classes2)
+        mixin block1(image, title, text, link, classes, classes2, type)
           //block
           .technologies-block.col-xl-3(class=classes2)
             .technologies-block__image.mb-3(class=classes)
@@ -266,8 +264,13 @@ block content
             .technologies-block__text.mb-3
               h6.technologies-block__title=title
               p=text
-            a(href=link data-modal='open').btn-link Подробнее 
-        
+            if type==2
+              a(href=link rel='noopener' target='_blank').btn-link Подробнее на сервисном сайте 
+                svg.icon
+                  use(xlink:href='./img/icons/sprite.svg#out')
+            else
+              a(href=link data-modal='open').btn-link Подробнее 
+    
         +block1(
           './img/technologies/1.jpg',
           'Compass Pools Bi-Luminite',
@@ -298,9 +301,10 @@ block content
           './img/technologies/4.jpg',
           'Квалифицированный сервис',
           'Slipstop в отличие от общепринятых антискользящих материалов, покрывает все горизонтальные поверхности.',
-          '#servis',
+          '#',
           'technologies-block__image_4',
-          'technologies-block_4'
+          'technologies-block_4',
+          '2'
         )
         +block1(
           './img/technologies/5.jpg',
@@ -312,7 +316,7 @@ block content
         )
         .col-xl-3
 
-  section.section.section-animated.contact-form.mb-1
+  section.section.section-animated.contact-form
     .figures-container.container
       .background-figure.background-figure_1(data-parallax='0.5')
       .background-figure.background-figure_2(data-parallax='0.5')
@@ -321,9 +325,11 @@ block content
         h5.animated-head__sub-title Контакты
         h2.h1.animated-head__title Давайте знакомиться.
     .section-animated__content.container.contact-form__content
-      h4.contact-form__title Оставьте свои контакты и мы вам перезвоним
+      .row.contact-form__title
+        h4.offset-1.col-10.offset-md-2.col-md-8.offset-xl-1.col-xl-10.contact-form__title-element Оставьте свои контакты и мы вам перезвоним
       form(autocomplete="off").form.contact-form__form.row
-        .col-xl-6 
+        input(type="text" name='subject' value='Форма обратной связи' hidden).form__subject
+        .col-md-8.col-xl-6 
           .form__item
             label.input
               span.input__title Ваше имя  
@@ -356,16 +362,20 @@ block content
               a(href="#politics" data-modal='open') Политики конфиденциальности
 
   section.section.contacts-block 
-    .contacts-block__top.pt-1.pb-1
+    .contacts-block__top
       .container 
         .row 
-          .col-xl-6.contacts-block__contacts
-            .contacts-block__item.mb-3
+          .offset-1.col-10.offset-xl-0.col-xl-6.contacts-block__contacts
+            .contacts-block__item
               a(href="mailto:mail@centr-bassein.ru").link.h3.contacts-block__link mail@centr-bassein.ru
-            .contacts-block__item.mb-3
+            .contacts-block__item
               a(href="tel:+79269659259").h3.contacts-block__phone +7 926 965-9259
-          .offset-xl-1.col-xl-5.contacts-block__text
-            p Россия, Московская область, Красногорский район, Ильинское сельское поселение, Новорижское шоссе, 27-й км (10 км от МКАД), Садовый центр Балтия Гарден,  Центр Бассейнов
+          .offset-1.col-10.offset-md-4.col-md-8.offset-xl-1.col-xl-5.contacts-block__text
+            .contacts-block__text-content
+              p Россия, Московская область, Красногорский район, Ильинское сельское поселение, Новорижское шоссе, 27-й км (10 км от МКАД), Садовый центр Балтия Гарден,  Центр Бассейнов
+            .contacts-block__image.image.image_cover.parallax-image
+              img(data-src="./img/maxresdefault 1.jpg", alt="image").lazyload
+            
     .contacts-block__map
       svg.contacts-block__map-loader(viewBox='0 0 120 30' fill='currentColor')
         circle(cx='15' cy='15' r='15')

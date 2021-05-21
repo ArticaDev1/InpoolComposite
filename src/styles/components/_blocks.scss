@@ -186,9 +186,23 @@
   &__title {
     margin: 0;
   }
+  @include media-breakpoint-down(xl) {
+    &__sub-title {
+      margin-bottom: 10px;
+    }
+  }
+  @include media-breakpoint-down(md) {
+    &__sub-title {
+      margin-bottom: 5px;
+    }
+  }
 }
 
 .contact-form {
+  margin-bottom: 250px;
+  &__title {
+    margin-bottom: 80px;
+  }
   .background-figure {
     &_1 {
       bottom: -800px;
@@ -201,21 +215,54 @@
   }
   &__title {
     text-align: center;
-    color: var(--color-accent);
+    &-element {
+      color: var(--color-accent);
+    }
   }
   &__form {
     justify-content: center;
+  }
+  @include media-breakpoint-down(xxl) {
+    margin-bottom: 220px;
+  }
+  @include media-breakpoint-down(xl) {
+    margin-bottom: 125px;
+    .background-figure {
+      &_1 {
+        bottom: 0;
+        left: -800px;
+      }
+      &_2 {
+        bottom: -800px;
+        right: -800px;
+      }
+    }
+    &__title {
+      margin-bottom: 60px;
+    }
+  }
+  @include media-breakpoint-down(md) {
+    margin-bottom: 100px;
+    &__title {
+      margin-bottom: 40px;
+    }
   }
 }
 
 .contacts-block {
   z-index: 2;
   &__top {
+    padding: 250px 0;
     background-color: var(--color-bg-section-dark);
+    position: relative;
+    z-index: 2;
+    .row {
+      align-items: flex-start;
+    }
   }
   &__item {
-    &:last-child {
-      margin-bottom: 0;
+    &:not(:last-child) {
+      margin-bottom: 30px;
     }
   }
   &__phone {
@@ -224,15 +271,25 @@
       color: var(--color-text);
     }
   }
+  &__image {
+    &::before {
+      content: '';
+      display: block;
+      padding-top: 56.1%;
+    }
+  }
   &__link {
     border-width: 0 0 2px 0;
+    white-space: nowrap;
   }
   &__text {
-    margin-top: 12px;
+    position: relative;
   }
   &__map {
     height: 600px;
     position: relative;
+    background-color: var(--color-background-unloaded);
+    z-index: 1;
     &-loader {
       position: absolute;
       width: 80px;
@@ -249,9 +306,68 @@
       z-index: 2;
     }
   }
+  @include media-breakpoint-up(xl) {
+    &__text {
+      margin-top: 12px;
+    }
+    &__image {
+      position: absolute;
+      top: calc(100% + 50px);
+      width: calc(100% - 24px);
+    }
+  }
   @include media-breakpoint-down(xxl) {
+    &__top {
+      padding: 220px 0;
+    }
     &__map {
       height: 450px;
+    }
+  }
+  @include media-breakpoint-down(xl) {
+    &__top {
+      padding: 120px 0 0 0;
+    }
+    &__image {
+      margin-top: 50px;
+      margin-bottom: -80px;
+    }
+    &__item {
+      &:not(:last-child) {
+        margin-bottom: 25px;
+      }
+    }
+    &__contacts {
+      margin-bottom: 80px;
+    }
+  }
+  @include media-breakpoint-down(md) {
+    &__top {
+      padding: 60px 0 0 0;
+    }
+    &__contacts {
+      margin-bottom: 55px;
+    }
+    &__map {
+      height: 300px;
+      &-loader {
+        width: 60px;
+        height: 60px;
+      }
+    }
+    &__image {
+      margin-top: 30px;
+      margin-bottom: -60px;
+    }
+  }
+  @include media-breakpoint-down(sm) {
+    &__item {
+      &:not(:last-child) {
+        margin-bottom: 15px;
+      }
+    }
+    &__link, &__phone {
+      font-size: 6.8vw;
     }
   }
 }
@@ -946,6 +1062,21 @@
     }
     &_style-1 {
       background-color: #28AAC5;
+    }
+    &_style-2 {
+      background-color: #56B0B6;
+    }
+    &_style-3 {
+      background-color: #76BCAF;
+    }
+    &_style-4 {
+      background-color: #3D9FCB;
+    }
+    &_style-5 {
+      background-color: #5EAEB9;
+    }
+    &_style-6 {
+      background-color: #176DA1;
     }
   }
   &__center {
