@@ -3705,6 +3705,9 @@ img {
   padding: 20px;
   overflow: auto; }
 
+.animated-head {
+  background-color: rgba(0, 0, 0, 0.2); }
+
 /*========== Header ==========*/
 .header {
   flex-shrink: 0;

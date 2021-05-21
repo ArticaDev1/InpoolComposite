@@ -966,7 +966,7 @@ class SectionAnimated {
       pinType: pinType,
       onUpdate: self => {
         this.animation_head.progress(self.progress);
-        $consol.insertAdjacentHTML('beforeend', `<p>${self.progress}</p>`)
+        $consol.insertAdjacentHTML('afterbegin', `<p>${self.progress}</p>`)
       }
     });
 
