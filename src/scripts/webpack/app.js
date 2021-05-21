@@ -1697,6 +1697,7 @@ class ParallaxImage {
       end: "bottom top",
       onUpdate: self => {
         this.animation.progress(self.progress);
+        $consol.insertAdjacentHTML('beforeend', `<p>${self.progress}</p>`)
       }
     });
   }
@@ -1710,5 +1711,4 @@ class ParallaxImage {
 
 window.addEventListener('resize', ()=> {
   ScrollTrigger.Refresh();
-  $consol.insertAdjacentHTML('beforeend', `<p>${$wrapper.getBoundingClientRect().height}</p>`)
 })
