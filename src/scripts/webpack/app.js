@@ -1709,5 +1709,6 @@ class ParallaxImage {
 }
 
 window.addEventListener('resize', ()=> {
+  ScrollTrigger.Refresh();
   $consol.insertAdjacentHTML('beforeend', `<p>${$wrapper.getBoundingClientRect().height}</p>`)
 })
