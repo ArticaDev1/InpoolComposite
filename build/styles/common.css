@@ -2288,11 +2288,6 @@ img {
     -o-object-fit: contain;
        object-fit: contain; }
 
-.parallax-image img {
-  height: 140%;
-  top: initial;
-  bottom: 0; }
-
 @media (min-width: 1024px) {
   .parallax-image img {
     height: 140%;

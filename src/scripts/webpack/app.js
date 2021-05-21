@@ -1667,7 +1667,7 @@ class ParallaxImage {
   }
 
   init() {
-    /* this.check = ()=> {
+    this.check = ()=> {
       if(window.innerWidth >= brakepoints.xl && (!this.initialized || !this.flag)) {
         this.initDesktop();
         this.flag = true;
@@ -1681,9 +1681,7 @@ class ParallaxImage {
     }
     this.check();
     window.addEventListener('resize', this.check);
-    this.initialized = true; */
-
-    this.initDesktop();
+    this.initialized = true;
   }
 
   initDesktop() {
