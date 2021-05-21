@@ -88,6 +88,16 @@
       top: 17px;
     }
   }
+  @include media-breakpoint-down(md) {
+    &__element {
+      padding: 17px 20px;
+    }
+    &__message {
+      font-size: 0.75rem;
+      line-height: 16px;
+      padding: 0 20px;
+    }
+  }
 }
 
 
@@ -111,6 +121,17 @@
     }
     &__submit {
       margin-top: 45px;
+    }
+  }
+  @include media-breakpoint-down(md) {
+    &__item {
+      margin-bottom: 25px;
+    }
+    &__submit {
+      margin-top: 35px;
+    }
+    &__message {
+      font-size: 0.875rem;
     }
   }
 }

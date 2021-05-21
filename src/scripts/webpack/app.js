@@ -77,7 +77,6 @@ function mobile() {
 }
 
 window.onload = function() {
-  console.log('LOAD')
   Resources.init();
   Validation.init();
   inputs();
@@ -88,6 +87,8 @@ window.onload = function() {
   if(!mobile()) {
     Parallax.init();
     Cursor.init();
+  } else {
+    windowSize.init();
   }
 
   const activeFunctions = new ActiveFunctions();
@@ -161,6 +162,19 @@ function inputs() {
   }
   document.addEventListener('focus',  (event)=>{events(event)}, true);
   document.addEventListener('blur',   (event)=>{events(event)}, true);
+}
+
+const windowSize = {
+  init: function() {
+    let $el = document.createElement('div');
+    $el.style.cssText = 'position:fixed;height:100%;';
+    $body.insertAdjacentElement('beforeend', $el);
+    let h = $el.getBoundingClientRect().height;
+
+    document.querySelectorAll('.js-mobile-screen').forEach($this => {
+      $this.style.height = `${h}px`;
+    })
+  }
 }
 
 const Resources = {
@@ -932,24 +946,6 @@ class SectionAnimated {
     this.$parent = $parent;
   }
 
-  /* init() {
-    this.check = ()=> {
-      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
-        this.initDesktop();
-        this.flag = true;
-      } 
-      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
-        if(this.initialized) {
-          this.destroyDesktop();
-        }
-        this.flag = false;
-      }
-    }
-    this.check();
-    window.addEventListener('resize', this.check);
-    this.initialized = true;
-  } */
-
   init() {
     let pinType = Scroll.scrollbar?'transform':'fixed';
 
@@ -964,6 +960,7 @@ class SectionAnimated {
       start: "top top",
       end: "+=1500",
       pin: true,
+      anticipatePin: true,
       pinSpacing: false,
       pinType: pinType,
       onUpdate: self => {
@@ -1670,7 +1667,7 @@ class ParallaxImage {
   }
 
   init() {
-    this.check = ()=> {
+    /* this.check = ()=> {
       if(window.innerWidth >= brakepoints.xl && (!this.initialized || !this.flag)) {
         this.initDesktop();
         this.flag = true;
@@ -1684,7 +1681,9 @@ class ParallaxImage {
     }
     this.check();
     window.addEventListener('resize', this.check);
-    this.initialized = true;
+    this.initialized = true; */
+    
+    this.initDesktop();
   }
 
   initDesktop() {

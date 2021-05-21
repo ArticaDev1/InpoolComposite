@@ -44,6 +44,11 @@ img {
 }
 
 .parallax-image {
+  img {
+    height: 140%;
+    top: initial;
+    bottom: 0;
+  }
   @include media-breakpoint-up(lg) {
     img {
       height: 140%;
