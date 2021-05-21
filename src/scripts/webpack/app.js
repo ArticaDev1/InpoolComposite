@@ -1682,7 +1682,7 @@ class ParallaxImage {
     this.check();
     window.addEventListener('resize', this.check);
     this.initialized = true; */
-    
+
     this.initDesktop();
   }
 
@@ -1708,3 +1708,7 @@ class ParallaxImage {
     gsap.set(this.$img, {clearProps: "all"});
   }
 }
+
+window.on('resize', ()=> {
+  ScrollTrigger.Refresh();
+})
