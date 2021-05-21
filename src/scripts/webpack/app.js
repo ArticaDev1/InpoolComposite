@@ -66,6 +66,7 @@ const brakepoints = {
 const $body = document.body;
 const $wrapper = document.querySelector('.wrapper');
 const $header = document.querySelector('.header');
+const $consol = document.querySelector('.consol');
 
 //check device
 function mobile() {
@@ -1707,6 +1708,6 @@ class ParallaxImage {
   }
 }
 
-window.on('resize', ()=> {
-  ScrollTrigger.Refresh();
+window.addEventListener('resize', ()=> {
+  $consol.insertAdjacentHTML('beforeend', `<p>${$wrapper.getBoundingClientRect().height}</p>`)
 })
