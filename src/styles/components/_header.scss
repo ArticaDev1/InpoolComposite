@@ -5,7 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 40px;
+  padding: 30px 56px;
   z-index: 1000;
   pointer-events: none;
   &__phone {
@@ -32,5 +32,8 @@
     display: block;
     width: 100%;
     height: auto;
+  }
+  @include media-breakpoint-down(xxl) {
+    width: 160px;
   }
 }

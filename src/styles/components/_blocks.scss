@@ -514,7 +514,7 @@
   }
   &__text {
     position: absolute;
-    width: 100%;
+    width: calc(100% - 48px);
     bottom: calc((100% - 410px)/4);
     transform: translateY(50%);
     font-size: 1rem;

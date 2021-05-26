@@ -3189,7 +3189,7 @@ img {
 
 .section-3d-screen-1__text {
   position: absolute;
-  width: 100%;
+  width: calc(100% - 48px);
   bottom: calc((100% - 410px)/4);
   transform: translateY(50%);
   font-size: 1rem;
@@ -3751,7 +3751,7 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 40px;
+  padding: 30px 56px;
   z-index: 1000;
   pointer-events: none; }
   .header__phone {
@@ -3774,6 +3774,9 @@ img {
     display: block;
     width: 100%;
     height: auto; }
+  @media (max-width: 1599.98px) {
+    .logo {
+      width: 160px; } }
 
 /*========== Footer ==========*/
 .footer {
