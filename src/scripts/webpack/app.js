@@ -1,4 +1,4 @@
-const Dev = true;
+const Dev = false;
 
 import 'lazysizes';
 lazySizes.cfg.preloadAfterLoad = true;
@@ -948,6 +948,24 @@ class SectionAnimated {
   }
 
   init() {
+    this.check = ()=> {
+      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+        this.initDesktop();
+        this.flag = true;
+      } 
+      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
+        if(this.initialized) {
+          this.destroyDesktop();
+        }
+        this.flag = false;
+      }
+    }
+    this.check();
+    window.addEventListener('resize', this.check);
+    this.initialized = true;
+  }
+
+  initDesktop() {
     let pinType = Scroll.scrollbar?'transform':'fixed';
 
     this.$head = this.$parent.querySelector('.animated-head');
@@ -965,7 +983,6 @@ class SectionAnimated {
       pinType: pinType,
       onUpdate: self => {
         this.animation_head.progress(self.progress);
-        $consol.insertAdjacentHTML('afterbegin', `<p>${self.progress}</p>`)
       }
     });
 
@@ -980,6 +997,14 @@ class SectionAnimated {
         this.animation_content.progress(self.progress);
       }
     });
+  }
+
+  destroyDesktop() {
+    this.animation_head.kill();
+    this.animation_head_trigger.kill();
+    this.animation_content.kill();
+    this.animation_content_trigger.kill();
+    gsap.set([this.$content, this.$head, this.$head_inner], {clearProps: "all"})
   }
 
 }
@@ -1378,7 +1403,6 @@ class Section3d {
 
         let index = Math.round(Math.max(0, Math.min((y-1200)/1000, 1)*(this.framesCount4-1)));
         this.activeFrame = this.frames4[index];
-
         console.log(index)
         
         //animations
@@ -1707,7 +1731,3 @@ class ParallaxImage {
     gsap.set(this.$img, {clearProps: "all"});
   }
 }
-
-setInterval(() => {
-  ScrollTrigger.refresh();
-}, 1000);

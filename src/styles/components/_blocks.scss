@@ -105,6 +105,7 @@
     margin-bottom: 10px;
   }
   &__image {
+    margin-bottom: 30px;
     position: relative;
     overflow: hidden;
     &::before {
@@ -144,6 +145,12 @@
       }
     }
   }
+  &__button {
+    margin-top: 30px;
+  }
+  &__text {
+    margin-bottom: 15px;
+  }
 
   @include media-breakpoint-down(xxl) {
     &_2 {
@@ -162,18 +169,31 @@
 }
 
 .section-animated {
-  margin-top: -50vh;
-  pointer-events: none;
-  &__content {
+  @include media-breakpoint-up(lg) {
     margin-top: -50vh;
-    pointer-events: all;
+    pointer-events: none;
+    &__head {
+      height: 100vh;
+    }
+    &__content {
+      margin-top: -50vh;
+      pointer-events: all;
+    }
+  }
+  @include media-breakpoint-down(lg) {
+    &__head {
+      margin: 300px 0;
+    }
+  }
+  @include media-breakpoint-down(md) {
+    &__head {
+      margin: 200px 0;
+    }
   }
 }
 
 .animated-head {
   text-align: center;
-  height: 100vh;
-  margin-bottom: 1500px;
   pointer-events: none;
   display: flex;
   &__container {
@@ -185,6 +205,9 @@
   }
   &__title {
     margin: 0;
+  }
+  @include media-breakpoint-up(lg) {
+    margin-bottom: 1500px;
   }
   @include media-breakpoint-down(xl) {
     &__sub-title {
@@ -243,6 +266,17 @@
   }
   @include media-breakpoint-down(md) {
     margin-bottom: 100px;
+    .background-figure {
+      &_1 {
+        bottom: initial;
+        top: 80px;
+        left: -250px;
+      }
+      &_2 {
+        bottom: -250px;
+        right: -250px;
+      }
+    }
     &__title {
       margin-bottom: 40px;
     }
@@ -1199,26 +1233,4 @@
       }
     }
   }
-}
-
-.consol {
-  position: fixed;
-  z-index: 100000;
-  width: 100%;
-  height: 100px;
-  bottom: 0;
-  left: 0;
-  background-color: #000;
-  color: #fff;
-  padding: 20px;
-  overflow: auto;
-}
-
-.section-animated {
-  margin-top: 0;
-}
-
-
-.section-animated {
-  pointer-events: all;
 }

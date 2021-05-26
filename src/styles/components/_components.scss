@@ -216,3 +216,31 @@ img {
     }
   }
 }
+
+
+.consol {
+  position: fixed;
+  z-index: 100000;
+  width: 100%;
+  height: 100px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  color: #fff;
+  padding: 20px;
+  overflow: auto;
+}
+
+.gift-message {
+  padding-left: 55px;
+  position: relative;
+  color: var(--color-accent);
+  font-size: 1rem;
+  .icon {
+    width: 33px;
+    height: 37px;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
