@@ -200,12 +200,6 @@ const Resources = {
         framesCount: 100,
         frames: []
       },
-      3: {
-        src: './img/model/4/',
-        type: 'png',
-        framesCount: 22,
-        frames: []
-      },
       4: {
         src: './img/drone_video/',
         type: 'jpg',
@@ -1199,13 +1193,10 @@ class Section3d {
     this.$screen6_items = this.$screen6.querySelectorAll('.section-3d-dots__item');
     //
     this.$part4 = this.$parent.querySelector('.section-3d-part-4__container');
-    this.frames4 = Resources.sources[3].frames;
-    this.framesCount4 = Resources.sources[3].framesCount;
     this.$screen7 = this.$parent.querySelector('.section-3d-screen-7');
     this.$screen7_content = this.$screen7.querySelector('.container');
     this.$screen8 = this.$parent.querySelector('.section-3d-screen-8');
     this.$screen8_image = this.$screen8.querySelector('.image');
-    this.$screen8_image_element = this.$screen8.querySelector('.image img');
     //
     this.activeFrame = this.frames1[0];
 
@@ -1234,17 +1225,6 @@ class Section3d {
           $this.style.height = `${h}px`;
         })
       }
-
-      //image
-      let res1 = 0.666;
-      if (h / w < res1) {
-        this.$screen8_image.style.width = `${w}px`;
-        this.$screen8_image.style.height = `${w*res1}px`;
-      } else {
-        this.$screen8_image.style.width = `${h/res1}px`;
-        this.$screen8_image.style.height = `${h}px`;
-      }
-
     }
     this.resizeEvent();
     window.addEventListener('resize', this.resizeEvent);
@@ -1290,16 +1270,16 @@ class Section3d {
 
     //ANIMATION 8
     this.animation8 = gsap.timeline({paused:true})
-      .fromTo(this.$screen8_image, {autoAlpha:0}, {autoAlpha:1, duration:0.33})
-      .fromTo(this.$screen8_image_element, {scale:0.65}, {scale:1, ease:'power2.in'})
-      .to(this.$screen8_image, {autoAlpha:0, duration:0.33}, '-=0.33')
+      .fromTo(this.$screen8_image, {autoAlpha:0}, {autoAlpha:1, duration:0.5})
+      .fromTo(this.$screen8_image, {scale:0.7}, {scale:1, duration:1.5, ease:'power2.in'}, '-=0.5')
+      .to(this.$screen8_image, {autoAlpha:0, duration:0.5}, '-=0.5')
       
 
 
     this.sceneTrigger = ScrollTrigger.create({
       trigger: this.$scene,
       start: "top top",
-      end: "+=16500",
+      end: "+=16000",
       pin: true,
       pinType: pinType,
       pinSpacing: false
@@ -1394,26 +1374,18 @@ class Section3d {
     this.trigger4 = ScrollTrigger.create({
       trigger: this.$part4,
       start: "top top",
-      end: "+=3500",
+      end: "+=3000",
       pin: true,
       pinType: pinType,
       pinSpacing: false,
       onUpdate: self => {
         let y = (self.end-self.start)*self.progress;
-
-        let index = Math.round(Math.max(0, Math.min((y-1200)/1000, 1)*(this.framesCount4-1)));
-        this.activeFrame = this.frames4[index];
-        console.log(index)
         
         //animations
         let time1 = Math.max(0, Math.min(y/1500, 1));
         this.animation7.progress(time1);
         //fadeInScene
-        let time2 = Math.max(0, Math.min((y-1200)/1000, 1));
-        if(time2>0 && time2<1) this.animation_fade.progress(1-time2);
-        let time3 = Math.max(0, Math.min((y-2200)/500, 1));
-        if(time3>0 && time3<1) this.animation_fade.progress(time3);
-        let time4 = Math.max(0, Math.min((y-2000)/1500, 1));
+        let time4 = Math.max(0, Math.min((y-1500)/1500, 1));
         this.animation8.progress(time4);
       }
     })
