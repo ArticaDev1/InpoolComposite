@@ -30,6 +30,11 @@
     color: var(--color-accent);
     transition: color $trs1;
     line-height: inherit;
+    &:-webkit-autofill {
+      -webkit-text-fill-color: var(--color-accent);
+      box-shadow: 0 0 0px 1000px transparent inset;
+      transition: background-color 5000s;
+    }
   }
   &__message {
     font-size: 0.875rem;
@@ -58,12 +63,18 @@
     background-color: var(--color-input-bg-error);
     .input__title, .input__element {
       color: var(--color-input-error);
+      &:-webkit-autofill {
+        -webkit-text-fill-color: var(--color-input-error);
+      }
     }
   }
   &.loading {
     pointer-events: none;
     .input__element {
       color: var(--color-text-muted);
+      &:-webkit-autofill {
+        -webkit-text-fill-color: var(--color-text-muted);
+      }
     }
   }
   @include media-breakpoint-down(xxl) {

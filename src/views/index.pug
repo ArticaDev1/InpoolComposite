@@ -241,12 +241,14 @@ block content
 
   section.section.section-video-animation
     .section-video-animation__inner
-      .section-video-animation__scene
+      .section-video-animation__scene.image.image_cover
+        img(data-src="./img/drone_video/020.jpg", alt="image").lazyload
         canvas
+        
       .container.section-video-animation__container
         .row
           h2.h1.section-video-animation__title Построим за месяц
-          p.section-video-animation__text.offset-xl-7.offset-xxl-8.col-xxl-4.col-xl-5 На всех этапах мы предлагаем сопровождение объекта и взаимодействие наших специалистов, представителей клиента, самого клиента в единой электронной системе, предназначенной для эффективного взаимодействия, скорости обмена данными и актуализации задач.
+          p.section-video-animation__text.offset-md-4.offset-lg-6.offset-xl-7.offset-xxl-8.col-xxl-4.col-xl-5.col-lg-6.col-md-8 На всех этапах мы предлагаем сопровождение объекта и взаимодействие наших специалистов, представителей клиента, самого клиента в единой электронной системе, предназначенной для эффективного взаимодействия, скорости обмена данными и актуализации задач.
 
   section.section.section-technologies
     .figures-container.container
@@ -254,22 +256,23 @@ block content
       .background-figure.background-figure_2(data-parallax='0.5')
     .container.section-technologies__container 
       .row
-        mixin block1(image, title, text, link, classes, classes2, type)
+        mixin block1(image, title, text, link, classes, classes2, classes3, type)
           //block
-          .technologies-block.col-xl-3(class=classes2)
-            .technologies-block__image(class=classes)
-              .image.image_cover
-                img(data-src=image, alt="image").lazyload
-            .technologies-block__text
-              h6.technologies-block__title=title
-              p=text
-            if type==2
-              .gift-message
-                svg.icon
-                  use(xlink:href='./img/icons/sprite.svg#gift')
-                span При заключении договора проект в подарок!
-            
-            a(href=link data-modal='open').btn-link.technologies-block__button Подробнее 
+          .technologies-block(class=classes2)
+            .technologies-block__container
+              .technologies-block__image(class=classes)
+                .image.image_cover.parallax-image
+                  img(data-src=image, alt="image").lazyload
+              .technologies-block__content(class=classes3)
+                .technologies-block__text
+                  h6.technologies-block__title=title
+                  p=text
+                if type==2
+                  .gift-message.technologies-block__gift
+                    svg.icon
+                      use(xlink:href='./img/icons/sprite.svg#gift')
+                    span При заключении договора проект в подарок!
+                a(href=link data-modal='open').btn-link.technologies-block__button Подробнее 
     
         +block1(
           './img/technologies/1.jpg',
@@ -277,7 +280,29 @@ block content
           'Специалисты из Compass Pools создали новую цветовую палитру, сконцентрировав свое внимание не на технической поверхности бассейна, а на цвете воды.',
           '#CompassPoolsBiLuminite',
           'technologies-block__image_1',
-          'technologies-block_1'
+          'technologies-block_1 col-md-5 col-lg-3',
+          'technologies-block__content_1'
+        )
+        .d-none.d-lg-block.col-lg-3(style='order:3;')
+        +block1(
+          './img/technologies/3.jpg',
+          'Технология SlipStop®',
+          'Slipstop в отличие от общепринятых антискользящих материалов, покрывает все горизонтальные поверхности.',
+          '#Slipstop',
+          'technologies-block__image_3',
+          'technologies-block_3 col-md-5 col-lg-3',
+          'technologies-block__content_3'
+        )
+        .d-none.d-lg-block.col-lg-12(style='order:4;')
+        +block1(
+          './img/technologies/5.jpg',
+          '3D проектирование бассейна и оборудования',
+          'Создание 3D-модели, которая наглядно демонстрирует, как будет выглядеть готовый объект.',
+          '',
+          'technologies-block__image_5',
+          'technologies-block_5 col-md-5 col-lg-3',
+          'technologies-block__content_5',
+          '2'
         )
         +block1(
           './img/technologies/2.jpg',
@@ -285,36 +310,19 @@ block content
           'Интеллектуальный инструмент удаленного доступа и диспетчеризации позволяет сервисным службам дистанционно наблюдать за системой водоподготовки.',
           '#Vantage',
           'technologies-block__image_2',
-          'technologies-block_2'
+          'technologies-block_2 col-md-5 col-lg-3',
+          'technologies-block__content_2'
         )
-        .col-xl-3
-        +block1(
-          './img/technologies/3.jpg',
-          'Технология SlipStop®',
-          'Slipstop в отличие от общепринятых антискользящих материалов, покрывает все горизонтальные поверхности.',
-          '#Slipstop',
-          'technologies-block__image_3',
-          'technologies-block_3'
-        )
-        .col-xl-12
         +block1(
           './img/technologies/4.jpg',
-          '3D проектирование бассейна и оборудования',
-          'Создание 3D-модели, которая наглядно демонстрирует, как будет выглядеть готовый объект.',
-          '#',
-          'technologies-block__image_4',
-          'technologies-block_4',
-          '2'
-        )
-        +block1(
-          './img/technologies/5.jpg',
           'Жалюзи для бассейна',
           'Закончив строительство бассейна на собственной территории, возникает закономерный вопрос: чем его накрыть?',
           '#jalousie',
-          'technologies-block__image_5',
-          'technologies-block_5'
+          'technologies-block__image_4',
+          'technologies-block_4 col-md-5 col-lg-3',
+          'technologies-block__content_4'
         )
-        .col-xl-3
+        .d-none.d-lg-block.col-lg-3(style='order:7;')
 
   section.section.section-animated.contact-form
     .figures-container.container
@@ -327,7 +335,7 @@ block content
     .section-animated__content.container.contact-form__content
       .row.contact-form__title
         h4.offset-1.col-10.offset-md-2.col-md-8.offset-xl-1.col-xl-10.contact-form__title-element Оставьте свои контакты и мы вам перезвоним
-      form(autocomplete="off").form.contact-form__form.row
+      form.form.contact-form__form.row
         input(type="text" name='subject' value='Форма обратной связи' hidden).form__subject
         .col-md-8.col-xl-6 
           .form__item

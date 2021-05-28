@@ -2,17 +2,13 @@
   flex-shrink: 0;
   background-color: var(--color-bg-section-dark);
   font-size: 1rem;
-  padding: 85px 0 30px 0;
+  padding: var(--margin-2) 0 var(--margin-3) 0;
   &__container {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  @include media-breakpoint-down(xxl) {
-    padding: 75px 0 30px 0;
-  }
   @include media-breakpoint-down(lg) {
-    padding: 60px 0 25px 0;
     font-size: 0.875rem;
     text-align: center;
   }
@@ -21,10 +17,7 @@
       flex-direction: column;
     }
     &__copyright {
-      margin-bottom: 25px;
+      margin-bottom: var(--margin-3);
     }
-  }
-  @include media-breakpoint-down(sm) {
-    padding: 45px 0;
   }
 }

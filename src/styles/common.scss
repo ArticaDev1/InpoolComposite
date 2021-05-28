@@ -1,11 +1,23 @@
+//bootstrap components
+$grid-breakpoints: (xs:0, sm:576px, md:768px, lg:1024px, xl:1280px, xxl:1600px);
+$container-max-widths: (sm:540px, md:720px, lg:960px, xl:1248px, xxl:1440px);
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins/breakpoints";
+@import "../../node_modules/bootstrap/scss/mixins/container";
+@import "../../node_modules/bootstrap/scss/mixins/grid";
+/*========== Variables ==========*/
 @import "./components/variables";
-//normalize.css
+//normalize
 @import "../../node_modules/normalize.css/normalize";
-//bootstrap-grid
-@import "../../node_modules/bootstrap/scss/bootstrap-grid";
+//bootstrap grid
+@import "../../node_modules/bootstrap/scss/containers";
+@import "../../node_modules/bootstrap/scss/grid";
+
 
 //libs
 @import "../../node_modules/swiper/swiper.scss";
+
 
 /*========== Basic ==========*/
 @import "./components/basic";

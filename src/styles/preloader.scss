@@ -1,4 +1,3 @@
-@import "./components/variables";
 body {
   margin: 0;
 }
@@ -16,7 +15,7 @@ body {
   }
   &__item {
     opacity: 0;
-    transition: $trs1;
+    transition: .15s ease-in-out;
   }
 }
 

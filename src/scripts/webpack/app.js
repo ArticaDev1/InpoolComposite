@@ -1,7 +1,7 @@
 const Dev = false;
 
 import 'lazysizes';
-lazySizes.cfg.preloadAfterLoad = true;
+/* lazySizes.cfg.preloadAfterLoad = true; */
 //gsap
 import {gsap} from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -805,7 +805,9 @@ class SectionVideoAnimation {
     this.$inner = this.$parent.querySelector('.section-video-animation__inner');
     this.$scene = this.$parent.querySelector('.section-video-animation__scene');
     this.$canvas = this.$parent.querySelector('.section-video-animation__scene canvas');
-    this.$text = this.$parent.querySelector('.section-video-animation__container');
+    this.$text_content = this.$parent.querySelector('.section-video-animation__container');
+    this.$title = this.$parent.querySelector('.section-video-animation__title');
+    this.$text = this.$parent.querySelector('.section-video-animation__text');
     this.context = this.$canvas.getContext("2d");
     this.$canvas.width=1280;
     this.$canvas.height=720;
@@ -837,16 +839,14 @@ class SectionVideoAnimation {
 
     let $color_title = getComputedStyle(document.documentElement).getPropertyValue('--color-text-accent'),
         $color_text = getComputedStyle(document.documentElement).getPropertyValue('--color-text'),
-        $color_active = getComputedStyle(document.documentElement).getPropertyValue('--color-text-light'),
-        $title = this.$parent.querySelector('.section-video-animation__title'),
-        $text = this.$parent.querySelector('.section-video-animation__text');
-    this.animation_text = gsap.effects.slidingTextSlow(this.$text, this.$text);
+        $color_active = getComputedStyle(document.documentElement).getPropertyValue('--color-text-light');
+    this.animation_text = gsap.effects.slidingTextSlow(this.$text_content, this.$text_content);
     this.animation_fade_scene = gsap.timeline({paused:true})
       .fromTo(this.$scene, {autoAlpha:0}, {autoAlpha:1, duration:0.5})
-      .fromTo($title, {css:{color:$color_title}}, {css:{color:$color_active}, duration:0.5}, '-=0.5')
-      .fromTo($text, {css:{color:$color_text}}, {css:{color:$color_active}, duration:0.5}, '-=0.5')
-      .to($title, {css:{color:$color_title}, duration:0.5})
-      .to($text, {css:{color:$color_text}, duration:0.5}, '-=0.5')
+      .fromTo(this.$title, {css:{color:$color_title}}, {css:{color:$color_active}, duration:0.5}, '-=0.5')
+      .fromTo(this.$text, {css:{color:$color_text}}, {css:{color:$color_active}, duration:0.5}, '-=0.5')
+      .to(this.$title, {css:{color:$color_title}, duration:0.5})
+      .to(this.$text, {css:{color:$color_text}, duration:0.5}, '-=0.5')
       .to(this.$scene, {autoAlpha:0, duration:0.5}, `-=0.5`)
 
 
@@ -869,71 +869,11 @@ class SectionVideoAnimation {
   }
 
   destroyDesktop() {
-    
+    this.trigger.kill();
+    cancelAnimationFrame(this.animationFrame);
+    window.removeEventListener('resize', this.resizeEvent);
+    gsap.set([this.$scene, this.$title, this.$text, this.$text_content], {clearProps: "all"});
   }
-}
-
-class SectionTechnologies {
-  constructor($parent) {
-    this.$parent = $parent;
-  }
-
-  init() {
-    this.check = ()=> {
-      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
-        this.initDesktop();
-        this.flag = true;
-      } 
-      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
-        if(this.initialized) {
-          this.destroyDesktop();
-        }
-        this.flag = false;
-      }
-    }
-    this.check();
-    window.addEventListener('resize', this.check);
-    this.initialized = true;
-  }
-
-  initDesktop() {
-    this.$content = this.$parent.querySelector('.section-technologies__container');
-    this.$blocks = this.$parent.querySelectorAll('.technologies-block');
-
-    this.animations_parallax = []
-    this.triggers_parallax = [];
-    this.$blocks.forEach(($block, index) => {
-      //parallax
-      let $image_container = $block.querySelector('.technologies-block__image'),
-          $image = $image_container.querySelector('img');
-      this.animations_parallax[index] = gsap.timeline({paused:true}) 
-        .to($image, {yPercent:40, ease:'none'})
-
-      this.triggers_parallax[index] = ScrollTrigger.create({
-        trigger: $image_container,
-        start: "top bottom",
-        end: "bottom top",
-        onUpdate: self => {
-          this.animations_parallax[index].progress(self.progress);
-        }
-      });
-    })
-
-    this.animation_fade = gsap.timeline({paused:true}) 
-      .fromTo(this.$content, {autoAlpha:0}, {autoAlpha:1, ease:'power2.in'})
-
-    this.trigger_fade = ScrollTrigger.create({
-      trigger: this.$content,
-      start: 'top bottom',
-      end: '+=300',
-      onUpdate: self => {
-        this.animation_fade.progress(self.progress);
-      }
-    });
-    
-  }
-
-
 }
 
 class SectionAnimated {
@@ -1658,6 +1598,52 @@ class ModelsSlider {
   }
 }
 
+class SectionTechnologies {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
+
+  init() {
+    this.check = ()=> {
+      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+        this.initDesktop();
+        this.flag = true;
+      } 
+      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
+        if(this.initialized) {
+          this.destroyDesktop();
+        }
+        this.flag = false;
+      }
+    }
+    this.check();
+    window.addEventListener('resize', this.check);
+    this.initialized = true;
+  }
+
+  initDesktop() {
+    this.$content = this.$parent.querySelector('.section-technologies__container');
+    this.$blocks = this.$parent.querySelectorAll('.technologies-block');
+
+    this.animation_fade = gsap.timeline({paused:true}) 
+      .fromTo(this.$content, {autoAlpha:0}, {autoAlpha:1, ease:'power2.in'})
+
+    this.trigger_fade = ScrollTrigger.create({
+      trigger: this.$content,
+      start: 'top bottom',
+      end: '+=300',
+      onUpdate: self => {
+        this.animation_fade.progress(self.progress);
+      }
+    });
+  }
+
+  destroyDesktop() {
+    this.trigger_fade.kill();
+    gsap.set(this.$content, {clearProps: "all"});
+  }
+ }
+
 class ParallaxImage {
   constructor($parent) {
     this.$parent = $parent;
@@ -1665,11 +1651,11 @@ class ParallaxImage {
 
   init() {
     this.check = ()=> {
-      if(window.innerWidth >= brakepoints.xl && (!this.initialized || !this.flag)) {
+      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
         this.initDesktop();
         this.flag = true;
       } 
-      else if(window.innerWidth < brakepoints.xl && (!this.initialized || this.flag)) {
+      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
         if(this.initialized) {
           this.destroyDesktop();
         }

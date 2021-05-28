@@ -232,15 +232,26 @@ img {
 }
 
 .gift-message {
-  padding-left: 55px;
+  padding-left: 50px;
   position: relative;
   color: var(--color-accent);
   font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  min-height: 37px;
   .icon {
     width: 33px;
     height: 37px;
     position: absolute;
     left: 0;
     top: 0;
+  }
+  @include media-breakpoint-down(xxl) {
+    font-size: 0.875rem;
+    padding-left: 45px;
+    .icon {
+      width: 29px;
+      height: 34px;
+    }
   }
 }

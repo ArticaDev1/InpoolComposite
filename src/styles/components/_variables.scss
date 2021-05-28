@@ -1,40 +1,40 @@
-$grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 1024px,
-  xl: 1280px,
-  xxl: 1600px
-);
-$container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 960px,
-  xl: 1248px,
-  xxl: 1440px
-);
+:root {
+  --content-width: #{map-get($container-max-widths, xxl)};
+  --container-gutter-x: 24px;
+  --margin-1: 250px;
+  --margin-2: 85px;
+  --margin-3: 30px;
+  @include media-breakpoint-down(xxl) {
+    --content-width: #{map-get($container-max-widths, xl)};
+    --margin-1: 220px;
+    --margin-2: 75px;
+  }
+  @include media-breakpoint-down(xl) {
+    --content-width: #{map-get($container-max-widths, lg)};
+    --margin-2: 60px;
+    --margin-3: 25px;
+  }
+  @include media-breakpoint-down(lg) {
+    --content-width: #{map-get($container-max-widths, md)};
+  }
+  @include media-breakpoint-down(md) {
+    --content-width: #{map-get($container-max-widths, sm)};
+    --container-gutter-x: 16px;
+    --margin-1: 140px;
+    --margin-2: 45px;
+  }
+}
 
-$container-padding-x:        24px;
-$grid-gutter-width:          24px;
-$mobile-container-padding-x: 16px;
-$mobile-grid-gutter-width:   16px;
+* {
+  @include media-breakpoint-up(md) {
+    --bs-gutter-x: 24px !important;
+  }
+  @include media-breakpoint-down(md) {
+    --bs-gutter-x: 16px !important;
+  }
+}
 
-$xxl-field: calc((100vw - #{map-get($container-max-widths, xxl) - $container-padding-x * 2})/2);
-$xxl-field-negative: calc((-100vw + #{map-get($container-max-widths, xxl) - $container-padding-x * 2})/2);
-
-$xl-field: calc((100vw - #{map-get($container-max-widths, xl) - $container-padding-x * 2})/2);
-$xl-field-negative: calc((-100vw + #{map-get($container-max-widths, xl) - $container-padding-x * 2})/2);
-
-$lg-field: calc((100vw - #{map-get($container-max-widths, lg) - $container-padding-x * 2})/2);
-$lg-field-negative: calc((-100vw + #{map-get($container-max-widths, lg) - $container-padding-x * 2})/2);
-
-$md-field: calc((100vw - #{map-get($container-max-widths, md) - $container-padding-x * 2})/2);
-$md-field-negative: calc((-100vw + #{map-get($container-max-widths, md) - $container-padding-x * 2})/2);
-
-$sm-field: calc((100vw - #{map-get($container-max-widths, sm) - $container-padding-x * 2})/2);
-$sm-field-negative: calc((-100vw + #{map-get($container-max-widths, sm) - $container-padding-x * 2})/2);
-
-
+$field: calc((100vw - #{var(--content-width)} + #{var(--bs-gutter-x)} * 2)/2);
 
 $trs1: .15s ease-in-out;
 $trs2: .3s ease-in-out;
