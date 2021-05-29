@@ -1,4 +1,4 @@
-const Dev = false;
+const Dev = true;
 
 import 'lazysizes';
 /* lazySizes.cfg.preloadAfterLoad = true; */
