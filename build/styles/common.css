@@ -3238,9 +3238,9 @@ img {
       .colors-slide__text {
         width: 100vw;
         padding: 0 var(--bs-gutter-x);
-        margin-top: var(--margin-3); }
+        margin-top: var(--margin-2); }
       .colors-slide__button {
-        margin-top: var(--margin-3);
+        margin-top: var(--margin-2);
         width: auto; }
       .colors-slide__title-element {
         font-size: 2rem; } }
