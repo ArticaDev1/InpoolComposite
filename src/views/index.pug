@@ -189,19 +189,19 @@ block content
         h2.h1.animated-head__title Пляжи лучших курортов.
     .section-animated__content
       .colors-slider 
-        .colors-slider__head.container.mb-2
-          .colors-slider__navigation
-            button.colors-slider__navigation-trigger Гавайи
-            button.colors-slider__navigation-trigger о. Маврикий
-            button.colors-slider__navigation-trigger о. Таити
-            button.colors-slider__navigation-trigger Мальдивы
-            button.colors-slider__navigation-trigger о. Занзибар
-            button.colors-slider__navigation-trigger о. Мадагаскар
-            button.colors-slider__navigation-trigger Сейшелы
-          .colors-slider__line
-            .image.image_cover 
-              img(data-src="./img/texture.jpg", alt="image").lazyload.colors-slider__texture
-            .colors-slider__slider-element
+        .colors-slider__head
+          .colors-slider__head-inner
+            .container.colors-slider__head-container
+              .colors-slider__navigation
+                button.colors-slider__navigation-trigger Гавайи
+                button.colors-slider__navigation-trigger о. Маврикий
+                button.colors-slider__navigation-trigger о. Таити
+                button.colors-slider__navigation-trigger Мальдивы
+                button.colors-slider__navigation-trigger о. Занзибар
+                button.colors-slider__navigation-trigger о. Мадагаскар
+                button.colors-slider__navigation-trigger Сейшелы
+              .colors-slider__line
+                .colors-slider__slider-element
 
         .colors-slider__container.container
           .colors-slider__wrapper
@@ -230,7 +230,8 @@ block content
                     img(data-src=image3, alt="image").lazyload
                 .colors-slide__text.colors-slide__element
                   .colors-slide__element-inner
-                    p.mb-3 Приятный глубокий голубой цвет, напоминающий живописный тропический пляж
+                    .colors-slide__element-text
+                      p Приятный глубокий голубой цвет, напоминающий живописный тропический пляж
                     a(href="#modal-form" data-modal='open' class=classes2).button.colors-slide__button Выбрать этот цвет
             
             +slide('Blue Saphire', './img/colors/1_1.jpg', './img/colors/1_2.jpg', './img/colors/1_3.jpg', 'colors-slide__title-element_1', 'colors-slide__button_style-1')
@@ -278,8 +279,8 @@ block content
     
         +block1(
           './img/technologies/1.jpg',
-          'Compass Pools Bi-Luminite',
-          'Специалисты из Compass Pools создали новую цветовую палитру, сконцентрировав свое внимание не на технической поверхности бассейна, а на цвете воды.',
+          'Compass Pools Bi-Luminite & Nova',
+          'Специалисты из Compass Pools создали новую цветовую палитру, сконцентрировав свое внимание не на технической поверхности бассейна, а на цвете воды, взятом из естественных тропических курортных зон.',
           '#CompassPoolsBiLuminite',
           'technologies-block__image_1',
           'technologies-block_1 col-md-5 col-lg-3',

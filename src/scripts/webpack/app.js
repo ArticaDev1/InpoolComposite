@@ -1,11 +1,13 @@
-const Dev = true;
+const Dev = false;
 
 import 'lazysizes';
 /* lazySizes.cfg.preloadAfterLoad = true; */
 //gsap
 import {gsap} from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
 gsap.defaults({
   ease: "power2.inOut", 
   duration: 1
@@ -1456,28 +1458,33 @@ class ColorsSlider {
   }
 
   init() {
-    this.check = ()=> {
-      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
-        this.initDesktop();
-        this.flag = true;
-      } 
-      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
-        if(this.initialized) {
-          this.destroyDesktop();
-        }
-        this.flag = false;
-      }
-    }
-    this.check();
-    window.addEventListener('resize', this.check);
-    this.initialized = true;
-  }
-
-  initDesktop() {
-    this.$container = this.$parent.querySelector('.colors-slider__container')
+    this.$container = this.$parent.querySelector('.colors-slider__container');
+    this.$wrapper = this.$parent.querySelector('.colors-slider__wrapper');
+    this.$head_inner = this.$parent.querySelector('.colors-slider__head-inner');
+    this.$navigation = this.$parent.querySelector('.colors-slider__navigation');
     this.$slide = this.$parent.querySelectorAll('.colors-slide');
     this.$triggers = this.$parent.querySelectorAll('.colors-slider__navigation-trigger');
     this.$slide_element = this.$parent.querySelector('.colors-slider__slider-element');
+
+    this.resizeEvent = (event)=> {
+      let h = this.$slide[this.index].getBoundingClientRect().height;
+      if(event) {
+        if(window.innerWidth >= brakepoints.sm) {
+          gsap.set(this.$wrapper, {clearProps: "all"});
+        } else {
+          gsap.set(this.$wrapper, {css:{height:h}});
+        }
+      } else {
+        if(window.innerWidth < brakepoints.sm) {
+          gsap.to(this.$wrapper, {css:{height:h}});
+        }
+      }
+    }
+
+    this.scrollNav = (index) => {
+      let x = this.$triggers[index].getBoundingClientRect().left - this.$navigation.getBoundingClientRect().left;
+      gsap.to(this.$head_inner, {scrollTo:{x:x}});
+    }
 
     this.animations_enter = [];
     this.animations_exit = [];
@@ -1521,15 +1528,16 @@ class ColorsSlider {
           this.animations_exit[index].pause().progress(0);
           this.animations_enter[index].play(0);
         });
-
       } 
-      
       else {
         this.animations_enter[index].play(0);
       }
-
+      if(window.innerWidth < brakepoints.lg) {
+        this.scrollNav(index); 
+      }
       this.$triggers[index].classList.add('active');
       this.index = index;
+      this.resizeEvent();
     }
 
     this.change(0)
@@ -1540,8 +1548,6 @@ class ColorsSlider {
       })
     })  
     
-    
-
     this.swipes = SwipeListener(this.$container);
     this.$container.addEventListener('swipe', (event)=> {
       let dir = event.detail.directions;
@@ -1549,8 +1555,7 @@ class ColorsSlider {
       else if(dir.right) this.change(this.getPrev(this.index));
     });
 
-
-
+    window.addEventListener('resize', this.resizeEvent);
   }
 }
 

@@ -26,6 +26,6 @@
 }
 .container {
   position: relative;
-  padding-left: var(--container-gutter-x) !important;
-  padding-right: var(--container-gutter-x) !important;
+  padding-left: var(--container-gutter-x);
+  padding-right: var(--container-gutter-x);
 }

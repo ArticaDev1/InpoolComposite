@@ -17,6 +17,10 @@ body {
   }
 }
 
+button {
+  text-rendering: inherit;
+}
+
 strong {
   font-weight: 600;
   color: var(--color-text-accent);
