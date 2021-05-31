@@ -22,7 +22,36 @@
   </head>
   <body style="overflow:hidden;position:fixed;height:100%;width:100%;">
     <!--PRELOADER START-->
-    <link rel="stylesheet" href="./styles/preloader.css">
+    <style>
+      body {
+      margin: 0; }
+      .preloader {
+      position: fixed;
+      z-index: 10000;
+      width: 100%;
+      height: 100%;
+      background-color: var(--color-main-background);
+      display: flex; }
+      .preloader__icon {
+      width: 60px;
+      margin: auto;
+      -webkit-animation: 0.5s ease-in fadeIn;
+      animation: 0.5s ease-in fadeIn; }
+      .preloader__item {
+      opacity: 0;
+      transition: .15s ease-in-out; }
+      @-webkit-keyframes fadeIn {
+      from {
+      opacity: 0; }
+      to {
+      opacity: 1; } }
+      @keyframes fadeIn {
+      from {
+      opacity: 0; }
+      to {
+      opacity: 1; } }
+      
+    </style>
     <div class="preloader">
       <svg class="preloader__icon" viewBox="0 0 90 134" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -46,9 +75,7 @@
         <rect class="preloader__item" x="0" y="100%" width="100%" height="100%" fill="url(#preloader_icon_gradient2)" mask="url(#preloader-mask)"></rect>
       </svg>
     </div>
-    <div class="cursor">
-      <div class="cursor__element"></div>
-    </div>
+    <!--PRELOADER END-->
     <div class="wrapper" style="opacity:0;visibility:hidden;">
       <header class="header"><a class="logo" href="./"><img src="./img/logos/logo.svg" alt="image"></a>
         <div class="header__right"><a class="header__phone" href="tel:+79269659259">+7 926 965-92-59</a><a class="button button_style-2" href="#modal-form" data-modal="open">Заказать звонок </a></div>
@@ -204,17 +231,29 @@
               </div>
             </div>
           </div>
-          <!--4-->
-          <div class="section-3d-part section-3d-part-4">
-            <div class="section-3d-part__container section-3d-part-4__container">
-              <div class="section-3d-screen section-3d-screen-7 animated-head">
-                <div class="container animated-head__container">
-                  <h5 class="animated-head__sub-title">А в жизни как?</h5>
-                  <h2 class="h1 animated-head__title">Представьте.</h2>
+        </section>
+        <section class="section section-animated section-preview">
+          <div class="animated-head section-animated__head">
+            <div class="container animated-head__container">
+              <h5 class="animated-head__sub-title">А в жизни как?</h5>
+              <h2 class="h1 animated-head__title">Представьте.</h2>
+            </div>
+          </div>
+          <div class="section-animated__content">
+            <div class="section-preview__full-screen-image">
+              <div class="image image_cover"> <img class="lazyload lazypreload" src="./img/final.jpg" alt="image"></div>
+            </div>
+            <div class="section-preview__small-images-container container">
+              <div class="row">
+                <div class="section-preview__small-image section-preview__small-image_1 offset-4 offset-sm-1 offset-lg-0 col-7 col-sm-4 col-lg-3">
+                  <div class="image image_cover parallax-image"><img class="lazyload" src="./img/small1.jpg" alt="image"></div>
                 </div>
-              </div>
-              <div class="section-3d-screen section-3d-screen-8">
-                <div class="image image_cover"> <img class="lazyload" src="./img/final.jpg" alt="image"></div>
+                <div class="section-preview__small-image section-preview__small-image_2 offset-6 offset-sm-4 offset-lg-0 col-6 col-sm-4 col-lg-3">
+                  <div class="image image_cover parallax-image"><img class="lazyload" src="./img/small2.jpg" alt="image"></div>
+                </div>
+                <div class="section-preview__small-image section-preview__small-image_3 offset-sm-2 offset-lg-0 col-10 col-sm-4 col-lg-3">
+                  <div class="image image_cover parallax-image"><img class="lazyload" src="./img/small3.jpg" alt="image"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -226,11 +265,11 @@
           <div class="animated-head section-animated__head">
             <div class="container animated-head__container">
               <h5 class="animated-head__sub-title">Выберите модель </h5>
-              <h2 class="h1 animated-head__title">Ценим индивидуальность.</h2>
+              <h2 class="h1 animated-head__title">Ценим индивидуаль­ность.</h2>
             </div>
           </div>
-          <div class="section-animated__content container">
-            <div class="desktop-models-list">
+          <div class="section-animated__content">
+            <div class="desktop-models-list container">
               <div class="desktop-models-list__images">
                 <div class="desktop-models-list__image">
                   <div class="image image_cover"><img class="lazyload" data-src="./img/desktop-models/1.jpg" alt="image"></div>
@@ -240,29 +279,92 @@
                   <div class="image image_cover"><img class="lazyload" data-src="./img/desktop-models/5.jpg" alt="image"></div>
                 </div>
               </div>
-              <div class="desktop-models-list__items"><a class="pool-model-item" href="#aqua" data-modal="open" data-cursor="light">
-                  <div class="row pool-model-item__container">
-                    <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">Aqua</h2>
-                    <p class="col-lg-6 pool-model-item__description">прямоугольная модель со ступенями, расположенными в угловой части</p>
-                  </div></a><a class="pool-model-item" href="#x-trainer" data-modal="open" data-cursor="light">
-                  <div class="row pool-model-item__container">
-                    <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">X-trainer</h2>
-                    <p class="col-lg-6 pool-model-item__description">прямоугольная модель со ступенями, расположенными зеркально вдоль длинных бортов</p>
-                  </div></a><a class="pool-model-item" href="#riverina" data-modal="open" data-cursor="light">
-                  <div class="row pool-model-item__container">
-                    <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">Riverina</h2>
-                    <p class="col-lg-6 pool-model-item__description">бассейн красивой формы, плавно изогнутая линия борта придает неповторимое изящество</p>
-                  </div></a><a class="pool-model-item" href="#java" data-modal="open" data-cursor="light">
-                  <div class="row pool-model-item__container">
-                    <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">Java</h2>
-                    <p class="col-lg-6 pool-model-item__description">прямоугольная модель с римской лестницей и двумя зонами отдыха</p>
-                  </div></a><a class="pool-model-item" href="#briliant" data-modal="open" data-cursor="light">
-                  <div class="row pool-model-item__container">
-                    <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">Briliant</h2>
-                    <p class="col-lg-6 pool-model-item__description">прямоугольная модель со стильной угловой лестницей</p>
-                  </div></a></div>
+              <div class="desktop-models-list__items">
+                                <!--block--><a class="pool-model-item" href="#aqua" data-modal="open" data-cursor="light">
+                                  <div class="row pool-model-item__container">
+                                    <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">Aqua</h2>
+                                    <p class="col-lg-6 pool-model-item__description">прямоугольная модель со ступенями, расположенными в угловой части</p>
+                                  </div></a>
+                                <!--block--><a class="pool-model-item" href="#x-trainer" data-modal="open" data-cursor="light">
+                                  <div class="row pool-model-item__container">
+                                    <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">X-trainer</h2>
+                                    <p class="col-lg-6 pool-model-item__description">прямоугольная модель со ступенями, расположенными зеркально вдоль длинных бортов</p>
+                                  </div></a>
+                                <!--block--><a class="pool-model-item" href="#riverina" data-modal="open" data-cursor="light">
+                                  <div class="row pool-model-item__container">
+                                    <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">Riverina</h2>
+                                    <p class="col-lg-6 pool-model-item__description">бассейн красивой формы, плавно изогнутая линия борта придает неповторимое изящество</p>
+                                  </div></a>
+                                <!--block--><a class="pool-model-item" href="#java" data-modal="open" data-cursor="light">
+                                  <div class="row pool-model-item__container">
+                                    <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">Java</h2>
+                                    <p class="col-lg-6 pool-model-item__description">прямоугольная модель с римской лестницей и двумя зонами отдыха</p>
+                                  </div></a>
+                                <!--block--><a class="pool-model-item" href="#briliant" data-modal="open" data-cursor="light">
+                                  <div class="row pool-model-item__container">
+                                    <h2 class="offset-lg-1 col-lg-4 pool-model-item__title">Briliant</h2>
+                                    <p class="col-lg-6 pool-model-item__description">прямоугольная модель со стильной угловой лестницей</p>
+                                  </div></a>
+              </div>
             </div>
-            <div class="section-choose-models__more mt-2"><a class="btn-link" href="#modal-shema" data-modal="open">Посмотреть таблицу сравнения моделей </a></div>
+            <div class="mobile-models-slider swiper">
+              <div class="swiper-container">
+                <div class="swiper-wrapper">
+                                    <!--slide-->
+                                    <div class="swiper-slide mobile-models-slider__slide">
+                                      <div class="image image_cover mobile-models-slider__slide-image"><img class="swiper-lazy" data-src="./img/desktop-models/1.jpg" alt="image"></div>
+                                      <div class="container">
+                                        <h2 class="mobile-models-slider__slide-title">Aqua</h2>
+                                        <div class="row mobile-models-slider__slide-text">
+                                          <p class="offset-md-1 col-md-10">прямоугольная модель со ступенями, расположенными в угловой части</p>
+                                        </div><a class="button button_style-2" href="#aqua" data-modal="open">Подробнее о модели</a>
+                                      </div>
+                                    </div>
+                                    <!--slide-->
+                                    <div class="swiper-slide mobile-models-slider__slide">
+                                      <div class="image image_cover mobile-models-slider__slide-image"><img class="swiper-lazy" data-src="./img/desktop-models/2.jpg" alt="image"></div>
+                                      <div class="container">
+                                        <h2 class="mobile-models-slider__slide-title">X-trainer</h2>
+                                        <div class="row mobile-models-slider__slide-text">
+                                          <p class="offset-md-1 col-md-10">прямоугольная модель со ступенями, расположенными зеркально вдоль длинных бортов</p>
+                                        </div><a class="button button_style-2" href="#x-trainer" data-modal="open">Подробнее о модели</a>
+                                      </div>
+                                    </div>
+                                    <!--slide-->
+                                    <div class="swiper-slide mobile-models-slider__slide">
+                                      <div class="image image_cover mobile-models-slider__slide-image"><img class="swiper-lazy" data-src="./img/desktop-models/3.jpg" alt="image"></div>
+                                      <div class="container">
+                                        <h2 class="mobile-models-slider__slide-title">Riverina</h2>
+                                        <div class="row mobile-models-slider__slide-text">
+                                          <p class="offset-md-1 col-md-10">бассейн красивой формы, плавно изогнутая линия борта придает неповторимое изящество</p>
+                                        </div><a class="button button_style-2" href="#riverina" data-modal="open">Подробнее о модели</a>
+                                      </div>
+                                    </div>
+                                    <!--slide-->
+                                    <div class="swiper-slide mobile-models-slider__slide">
+                                      <div class="image image_cover mobile-models-slider__slide-image"><img class="swiper-lazy" data-src="./img/desktop-models/4.jpg" alt="image"></div>
+                                      <div class="container">
+                                        <h2 class="mobile-models-slider__slide-title">Java</h2>
+                                        <div class="row mobile-models-slider__slide-text">
+                                          <p class="offset-md-1 col-md-10">прямоугольная модель с римской лестницей и двумя зонами отдыха</p>
+                                        </div><a class="button button_style-2" href="#java" data-modal="open">Подробнее о модели</a>
+                                      </div>
+                                    </div>
+                                    <!--slide-->
+                                    <div class="swiper-slide mobile-models-slider__slide">
+                                      <div class="image image_cover mobile-models-slider__slide-image"><img class="swiper-lazy" data-src="./img/desktop-models/5.jpg" alt="image"></div>
+                                      <div class="container">
+                                        <h2 class="mobile-models-slider__slide-title">Briliant</h2>
+                                        <div class="row mobile-models-slider__slide-text">
+                                          <p class="offset-md-1 col-md-10">прямоугольная модель со стильной угловой лестницей</p>
+                                        </div><a class="button button_style-2" href="#briliant" data-modal="open">Подробнее о модели</a>
+                                      </div>
+                                    </div>
+                </div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="section-choose-models__more"><a class="btn-link section-choose-models__btn" href="#modal-shema" data-modal="open"><span class="d-none d-xl-block">Посмотреть таблицу сравнения моделей </span><span class="d-xl-none">Таблица сравнения моделей</span></a></div>
           </div>
         </section>
         <section class="section section-colors section-animated">
@@ -324,7 +426,7 @@
                                         <div class="colors-slide__element-inner">
                                           <div class="colors-slide__element-text">
                                             <p>Приятный глубокий голубой цвет, напоминающий живописный тропический пляж</p>
-                                          </div><a class="colors-slide__button_style-1 button colors-slide__button" href="#modal-form" data-modal="open">Выбрать этот цвет</a>
+                                          </div><a class="colors-slide__button_style-1 button colors-slide__button" href="#modal-form" data-modal="open" data-modal-subject="Цвет Blue Saphire">Выбрать этот цвет</a>
                                         </div>
                                       </div>
                                     </div>
@@ -358,7 +460,7 @@
                                         <div class="colors-slide__element-inner">
                                           <div class="colors-slide__element-text">
                                             <p>Приятный глубокий голубой цвет, напоминающий живописный тропический пляж</p>
-                                          </div><a class="colors-slide__button_style-2 button colors-slide__button" href="#modal-form" data-modal="open">Выбрать этот цвет</a>
+                                          </div><a class="colors-slide__button_style-2 button colors-slide__button" href="#modal-form" data-modal="open" data-modal-subject="Цвет Smokey Quartz">Выбрать этот цвет</a>
                                         </div>
                                       </div>
                                     </div>
@@ -392,7 +494,7 @@
                                         <div class="colors-slide__element-inner">
                                           <div class="colors-slide__element-text">
                                             <p>Приятный глубокий голубой цвет, напоминающий живописный тропический пляж</p>
-                                          </div><a class="colors-slide__button_style-3 button colors-slide__button" href="#modal-form" data-modal="open">Выбрать этот цвет</a>
+                                          </div><a class="colors-slide__button_style-3 button colors-slide__button" href="#modal-form" data-modal="open" data-modal-subject="Цвет Golden Pebble">Выбрать этот цвет</a>
                                         </div>
                                       </div>
                                     </div>
@@ -426,7 +528,7 @@
                                         <div class="colors-slide__element-inner">
                                           <div class="colors-slide__element-text">
                                             <p>Приятный глубокий голубой цвет, напоминающий живописный тропический пляж</p>
-                                          </div><a class="colors-slide__button_style-4 button colors-slide__button" href="#modal-form" data-modal="open">Выбрать этот цвет</a>
+                                          </div><a class="colors-slide__button_style-4 button colors-slide__button" href="#modal-form" data-modal="open" data-modal-subject="Цвет Nova Navy">Выбрать этот цвет</a>
                                         </div>
                                       </div>
                                     </div>
@@ -460,7 +562,7 @@
                                         <div class="colors-slide__element-inner">
                                           <div class="colors-slide__element-text">
                                             <p>Приятный глубокий голубой цвет, напоминающий живописный тропический пляж</p>
-                                          </div><a class="colors-slide__button_style-5 button colors-slide__button" href="#modal-form" data-modal="open">Выбрать этот цвет</a>
+                                          </div><a class="colors-slide__button_style-5 button colors-slide__button" href="#modal-form" data-modal="open" data-modal-subject="Цвет Nova Pearl">Выбрать этот цвет</a>
                                         </div>
                                       </div>
                                     </div>
@@ -494,7 +596,7 @@
                                         <div class="colors-slide__element-inner">
                                           <div class="colors-slide__element-text">
                                             <p>Приятный глубокий голубой цвет, напоминающий живописный тропический пляж</p>
-                                          </div><a class="colors-slide__button_style-6 button colors-slide__button" href="#modal-form" data-modal="open">Выбрать этот цвет</a>
+                                          </div><a class="colors-slide__button_style-6 button colors-slide__button" href="#modal-form" data-modal="open" data-modal-subject="Цвет Nova Blue">Выбрать этот цвет</a>
                                         </div>
                                       </div>
                                     </div>
@@ -528,7 +630,7 @@
                                         <div class="colors-slide__element-inner">
                                           <div class="colors-slide__element-text">
                                             <p>Приятный глубокий голубой цвет, напоминающий живописный тропический пляж</p>
-                                          </div><a class="colors-slide__button_style-7 button colors-slide__button" href="#modal-form" data-modal="open">Выбрать этот цвет</a>
+                                          </div><a class="colors-slide__button_style-7 button colors-slide__button" href="#modal-form" data-modal="open" data-modal-subject="Цвет Nova Graphite">Выбрать этот цвет</a>
                                         </div>
                                       </div>
                                     </div>
@@ -602,7 +704,7 @@
                                     <svg class="icon">
                                       <use xlink:href="./img/icons/sprite.svg#gift"></use>
                                     </svg><span>При заключении договора проект в подарок!</span>
-                                  </div><a class="btn-link technologies-block__button" href="" data-modal="open">Подробнее </a>
+                                  </div><a class="btn-link technologies-block__button" href="#service3d" data-modal="open">Подробнее </a>
                                 </div>
                               </div>
                             </div>
@@ -747,15 +849,16 @@
     </div>
     <!--modals-->
     <div class="modal" id="modal-form" style="opacity:0;visibility:hidden;">
-      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+      <div class="modal__wrapper" data-scroll-lock-scrollable>
         <div class="modal__container container">
           <div class="row">
             <div class="col-xl-12">
-              <div class="modal-block pt-2 pb-2">
+              <div class="modal-block">
                 <button class="modal-close" aria-label="close" data-modal="close"></button>
                 <div class="row">
-                  <h4 class="contact-form__title offset-xl-1 col-xl-10">Оставьте свои контакты и мы вам перезвоним</h4>
-                  <form class="form offset-xl-3 col-xl-6" autocomplete="off">
+                  <h4 class="contact-form__title offset-1 col-10 offset-md-2 col-md-8 offset-xl-1 col-xl-10">Оставьте свои контакты и мы вам перезвоним</h4>
+                  <form class="form offset-md-2 offset-xl-3 col-md-8 col-xl-6">
+                    <input class="form__subject" type="text" name="subject" value="" hidden>
                     <div class="form__item">
                       <label class="input"><span class="input__title">Ваше имя
                           <mark>*</mark></span>
@@ -801,11 +904,12 @@
       </div>
     </div>
     <div class="modal modal-succes" id="modal-succes" style="opacity:0;visibility:hidden;">
-      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+      <div class="modal__wrapper" data-scroll-lock-scrollable>
         <div class="modal__container container">
           <div class="row">
-            <div class="col-xl-6">
-              <div class="modal-block modal-succes__block pt-2 pb-2">
+            <div class="col-lg-6">
+              <div class="modal-block modal-succes__block">
+                <button class="modal-close" aria-label="close" data-modal="close"></button>
                 <h3 class="modal-succes__title">Спасибо!</h3>
                 <p class="modal-succes__text">Ваша заявка успешно отправлена</p>
               </div>
@@ -815,16 +919,14 @@
       </div>
     </div>
     <div class="modal modal-shema" id="modal-shema" style="opacity:0;visibility:hidden;">
-      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+      <div class="modal__wrapper" data-scroll-lock-scrollable>
         <div class="modal__container container">
           <div class="row">
-            <div class="col-xl-12">
+            <div class="col-xl-10">
               <div class="modal-block">
                 <button class="modal-close" aria-label="close" data-modal="close"></button>
                 <div class="row">
-                  <div class="offset-xl-1 col-xl-10">
-                    <div class="modal-shema__image image image_cover"> <img class="lazyload" data-src="./img/shema.svg" alt="image"></div>
-                  </div>
+                  <div class="offset-md-1 col-md-10"><a class="modal-shema__image image image_cover" href="./img/content/shema.svg" data-fancybox data-cursor="magnifier2"> <img class="lazyload" data-src="./img/content/shema.svg" alt="image"></a></div>
                 </div>
               </div>
             </div>
@@ -834,30 +936,26 @@
     </div>
     <!--модели-->
     <div class="modal modal-model" id="aqua" style="opacity:0;visibility:hidden;">
-      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+      <div class="modal__wrapper" data-scroll-lock-scrollable>
         <div class="modal__container container">
           <div class="row">
             <div class="col-xl-12">
-              <div class="modal-block pt-2 pb-2">
+              <div class="modal-block">
                 <button class="modal-close" aria-label="close" data-modal="close"></button>
                 <div class="modal-model__head row">
-                  <h3 class="modal-model__title offset-xl-1 col-xl-4">Aqua</h3>
-                  <p class="modal-model__head-text col-xl-6">прямоугольная модель со ступенями, расположенными в угловой части</p>
+                  <h3 class="modal-model__title offset-1 offset-lg-1 col-10 col-lg-4">Aqua</h3>
+                  <p class="modal-model__head-text offset-1 offset-lg-0 col-10 col-md-7 col-lg-6">прямоугольная модель со ступенями, расположенными в угловой части</p>
                 </div>
                 <div class="modal-model__content row">
                   <!--models-slider-->
-                  <div class="models-slider offset-xl-1 col-xl-4">
+                  <div class="models-slider modal-model__slider offset-md-1 col-md-10 col-lg-4">
                     <div class="swiper models-slider__top">
                       <div class="swiper-container">
                         <div class="swiper-wrapper">
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/1_1.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/1_2.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/1_3.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/1_4.jpg" alt="image"></div>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/1_1.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/1_1.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/1_2.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/1_2.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/1_3.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/1_3.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/1_4.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/1_4.jpg" alt="image"></a>
                         </div>
                       </div>
                     </div>
@@ -873,7 +971,7 @@
                     </div>
                   </div>
                   <!--description-->
-                  <div class="modal-model__description col-xl-6">
+                  <div class="modal-model__description col-lg-6">
                     <div class="table modal-model__table">
                       <table>
                         <tr>
@@ -926,7 +1024,7 @@
                         </tr>
                       </table>
                     </div>
-                    <div class="modal-model__button"> <a class="button button_style-1" href="#modal-form" data-modal="open">Заказать звонок</a></div>
+                    <div class="modal-model__button"> <a class="button button_style-1" href="#modal-form" data-modal="open" data-modal-subject="Модель Aqua">Заказать звонок</a></div>
                   </div>
                 </div>
               </div>
@@ -936,32 +1034,27 @@
       </div>
     </div>
     <div class="modal modal-model" id="x-trainer" style="opacity:0;visibility:hidden;">
-      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+      <div class="modal__wrapper" data-scroll-lock-scrollable>
         <div class="modal__container container">
           <div class="row">
             <div class="col-xl-12">
-              <div class="modal-block pt-2 pb-2">
+              <div class="modal-block">
                 <button class="modal-close" aria-label="close" data-modal="close"></button>
                 <div class="modal-model__head row">
-                  <h3 class="modal-model__title offset-xl-1 col-xl-4">X-trainer</h3>
-                  <p class="modal-model__head-text col-xl-6">прямоугольная модель со ступенями, расположенными зеркально вдоль длинных бортов</p>
+                  <h3 class="modal-model__title offset-1 offset-lg-1 col-10 col-lg-4">X-trainer</h3>
+                  <p class="modal-model__head-text offset-1 offset-lg-0 col-10 col-md-7 col-lg-6">прямоугольная модель со ступенями, расположенными зеркально вдоль длинных бортов</p>
                 </div>
                 <div class="modal-model__content row">
                   <!--models-slider-->
-                  <div class="models-slider offset-xl-1 col-xl-4">
+                  <div class="models-slider modal-model__slider offset-md-1 col-md-10 col-lg-4">
                     <div class="swiper models-slider__top">
                       <div class="swiper-container">
                         <div class="swiper-wrapper">
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/2_1.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/2_2.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/2_3.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/2_4.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/2_5.jpg" alt="image"></div>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/2_1.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/2_1.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/2_2.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/2_2.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/2_3.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/2_3.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/2_4.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/2_4.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/2_5.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/2_5.jpg" alt="image"></a>
                         </div>
                       </div>
                     </div>
@@ -1020,7 +1113,7 @@
                         </tr>
                       </table>
                     </div>
-                    <div class="modal-model__button"> <a class="button button_style-1" href="#modal-form" data-modal="open">Заказать звонок</a></div>
+                    <div class="modal-model__button"> <a class="button button_style-1" href="#modal-form" data-modal="open" data-modal-subject="Модель X-trainer">Заказать звонок</a></div>
                   </div>
                 </div>
               </div>
@@ -1030,32 +1123,27 @@
       </div>
     </div>
     <div class="modal modal-model" id="riverina" style="opacity:0;visibility:hidden;">
-      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+      <div class="modal__wrapper" data-scroll-lock-scrollable>
         <div class="modal__container container">
           <div class="row">
             <div class="col-xl-12">
-              <div class="modal-block pt-2 pb-2">
+              <div class="modal-block">
                 <button class="modal-close" aria-label="close" data-modal="close"></button>
                 <div class="modal-model__head row">
-                  <h3 class="modal-model__title offset-xl-1 col-xl-4">Riverina</h3>
-                  <p class="modal-model__head-text col-xl-6">бассейн красивой формы, плавно изогнутая линия борта придает неповторимое изящество</p>
+                  <h3 class="modal-model__title offset-1 offset-lg-1 col-10 col-lg-4">Riverina</h3>
+                  <p class="modal-model__head-text offset-1 offset-lg-0 col-10 col-md-7 col-lg-6">бассейн красивой формы, плавно изогнутая линия борта придает неповторимое изящество</p>
                 </div>
                 <div class="modal-model__content row">
                   <!--models-slider-->
-                  <div class="models-slider offset-xl-1 col-xl-4">
+                  <div class="models-slider modal-model__slider offset-md-1 col-md-10 col-lg-4">
                     <div class="swiper models-slider__top">
                       <div class="swiper-container">
                         <div class="swiper-wrapper">
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/3_1.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/3_2.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/3_3.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/3_4.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/3_5.jpg" alt="image"></div>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/3_1.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/3_1.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/3_2.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/3_2.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/3_3.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/3_3.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/3_4.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/3_4.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/3_5.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/3_5.jpg" alt="image"></a>
                         </div>
                       </div>
                     </div>
@@ -1108,7 +1196,7 @@
                         </tr>
                       </table>
                     </div>
-                    <div class="modal-model__button"> <a class="button button_style-1" href="#modal-form" data-modal="open">Заказать звонок</a></div>
+                    <div class="modal-model__button"> <a class="button button_style-1" href="#modal-form" data-modal="open" data-modal-subject="Модель Riverina">Заказать звонок</a></div>
                   </div>
                 </div>
               </div>
@@ -1118,30 +1206,27 @@
       </div>
     </div>
     <div class="modal modal-model" id="java" style="opacity:0;visibility:hidden;">
-      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+      <div class="modal__wrapper" data-scroll-lock-scrollable>
         <div class="modal__container container">
           <div class="row">
             <div class="col-xl-12">
-              <div class="modal-block pt-2 pb-2">
+              <div class="modal-block">
                 <button class="modal-close" aria-label="close" data-modal="close"></button>
                 <div class="modal-model__head row">
-                  <h3 class="modal-model__title offset-xl-1 col-xl-4">Java</h3>
-                  <p class="modal-model__head-text col-xl-6">прямоугольная модель с римской лестницей и двумя зонами отдыха</p>
+                  <h3 class="modal-model__title offset-1 offset-lg-1 col-10 col-lg-4">Java</h3>
+                  <p class="modal-model__head-text offset-1 offset-lg-0 col-10 col-md-7 col-lg-6">прямоугольная модель с римской лестницей и двумя зонами отдыха</p>
                 </div>
                 <div class="modal-model__content row">
                   <!--models-slider-->
-                  <div class="models-slider offset-xl-1 col-xl-4">
+                  <div class="models-slider modal-model__slider offset-md-1 col-md-10 col-lg-4">
                     <div class="swiper models-slider__top">
                       <div class="swiper-container">
                         <div class="swiper-wrapper">
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/4_1.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/4_2.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/4_3.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/4_4.jpg" alt="image"></div>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/4_1.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/4_1.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/4_2.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/4_2.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/4_3.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/4_3.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/4_4.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/4_4.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/4_5.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/4_5.jpg" alt="image"></a>
                         </div>
                       </div>
                     </div>
@@ -1154,6 +1239,8 @@
                       <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/4_3.jpg" alt="image"></div>
                       <!--slide-->
                       <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/4_4.jpg" alt="image"></div>
+                      <!--slide-->
+                      <div class="models-slider__bottom-image image image_cover"><img class="lazyload" data-src="./img/models-sliders/4_5.jpg" alt="image"></div>
                     </div>
                   </div>
                   <!--description-->
@@ -1180,7 +1267,7 @@
                         </tr>
                       </table>
                     </div>
-                    <div class="modal-model__button"> <a class="button button_style-1" href="#modal-form" data-modal="open">Заказать звонок</a></div>
+                    <div class="modal-model__button"> <a class="button button_style-1" href="#modal-form" data-modal="open" data-modal-subject="Модель Java">Заказать звонок</a></div>
                   </div>
                 </div>
               </div>
@@ -1190,32 +1277,27 @@
       </div>
     </div>
     <div class="modal modal-model" id="briliant" style="opacity:0;visibility:hidden;">
-      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+      <div class="modal__wrapper" data-scroll-lock-scrollable>
         <div class="modal__container container">
           <div class="row">
             <div class="col-xl-12">
-              <div class="modal-block pt-2 pb-2">
+              <div class="modal-block">
                 <button class="modal-close" aria-label="close" data-modal="close"></button>
                 <div class="modal-model__head row">
-                  <h3 class="modal-model__title offset-xl-1 col-xl-4">Briliant</h3>
-                  <p class="modal-model__head-text col-xl-6">прямоугольная модель со стильной угловой лестницей</p>
+                  <h3 class="modal-model__title offset-1 offset-lg-1 col-10 col-lg-4">Briliant</h3>
+                  <p class="modal-model__head-text offset-1 offset-lg-0 col-10 col-md-7 col-lg-6">прямоугольная модель со стильной угловой лестницей</p>
                 </div>
                 <div class="modal-model__content row">
                   <!--models-slider-->
-                  <div class="models-slider offset-xl-1 col-xl-4">
+                  <div class="models-slider modal-model__slider offset-md-1 col-md-10 col-lg-4">
                     <div class="swiper models-slider__top">
                       <div class="swiper-container">
                         <div class="swiper-wrapper">
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/5_1.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/5_2.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/5_3.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/5_4.jpg" alt="image"></div>
-                          <!--slide-->
-                          <div class="swiper-slide image image_cover models-slider__top-slide"> <img class="lazyload" data-src="./img/models-sliders/5_5.jpg" alt="image"></div>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/5_1.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/5_1.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/5_2.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/5_2.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/5_3.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/5_3.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/5_4.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/5_4.jpg" alt="image"></a>
+                          <!--slide--><a class="swiper-slide image image_cover models-slider__top-slide" href="./img/models-sliders/5_5.jpg" data-fancybox data-cursor="magnifier"> <img class="swiper-lazy" data-src="./img/models-sliders/5_5.jpg" alt="image"></a>
                         </div>
                       </div>
                     </div>
@@ -1268,7 +1350,7 @@
                         </tr>
                       </table>
                     </div>
-                    <div class="modal-model__button"> <a class="button button_style-1" href="#modal-form" data-modal="open">Заказать звонок</a></div>
+                    <div class="modal-model__button"> <a class="button button_style-1" href="#modal-form" data-modal="open" data-modal-subject="Модель Briliant">Заказать звонок</a></div>
                   </div>
                 </div>
               </div>
@@ -1278,17 +1360,43 @@
       </div>
     </div>
     <div class="modal modal-text" id="politics" style="opacity:0;visibility:hidden;">
-      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+      <div class="modal__wrapper" data-scroll-lock-scrollable>
         <div class="modal__container container">
           <div class="row">
             <div class="col-xl-10">
-              <div class="modal-block pt-2 pb-2">
+              <div class="modal-block">
                 <button class="modal-close" aria-label="close" data-modal="close"></button>
                 <div class="row">
-                  <div class="offset-xl-1 col-xl-10">
-                    <h5>Политика конфиденциальности</h5>
-                    <h6>1. Общие положения</h6>
-                    <p>Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006. № 152-ФЗ «О персональных данных» (далее — Закон о персональных данных) и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных…</p>
+                  <div class="offset-md-1 col-md-10">
+                    <h1>h1 Расписной овсянковый кардинал</h1>
+                    <p>Расписной овсянковый кардинал — это небольшая птица с длиной тела 12—13 см и массой 13—19 г[3] (у Е. А. Коблика указана длина тела 13—14 см[2]). Самцы немного крупнее и тяжелее самок, а птицы с западной части ареала крупнее птиц с восточной части, но и те и другие различия находятся в пределах статистической погрешности. У самца в восточной части ареала длина крыла в среднем составляет 69,1 мм, в западной — 71,1 мм; у самок — 65,0 мм и 66,8 мм соответственно. Длина хвоста самцов и самок в восточной части ареала — 55,5 мм и 52,9 мм, в западной — 56,5 мм и 53,4 мм; масса самцов и самок — 15,6 г и 15,2 г в восточной части, 16,6 г и 14,6 г — в западной[3].</p>
+                    <p>Прежде чем приобрести взрослую раскраску у птенцов и молодых птиц происходит многократная смена оперения[3]. В апреле–июне пуховой наряд птенцов в гнезде светлый, желтовато-серый. К лету птенцы приобретают ювенильное оперение, которое остаётся с мая по август: сверху они в основном коричневато-оливковые с желтовато-коричневым затылком и надхвостьем и более светлыми крыльями, у которых лишь внешние края перьев окрашены в коричневато-оливковый, а кроющие перья[en] имеют тусклый розовато-бурый цвет, по сторонам головы цвет оперения коричневый, а оперение снизу — кремово-жёлтое с редкими пятнами и полосами. Из-за низкой плотности крючочков, перья ювенильного наряда нитевидные, особенно перья подхвостья. Со временем цвета становятся ярче, в июле–сентябре перья сверху в основном оливково-зелёные, а снизу — жёлто-зелёные. Оперение молодых птиц с октября по март почти не меняет расцветку, но общее количество перьев становится больше, из-за чего повышается яркость. Рулевые перья становятся более широкими и короткими, окрашенными в более яркий зелёный цвет. В то же время перья крыла сменяются не полностью: многие птицы обновляют второстепенные кроющие перья, внешние 3—7 первостепенных маховых, внешние 1—4 первостепенных кроющих, внутренние 2—5 второстепенных маховых перьев. Именно неполная смена перьев крыла позволяет отличать молодых птиц от взрослых самок[3].</p>
+                    <h2>h2 Описание</h2>
+                    <p>Расписной овсянковый кардинал — одна из самых разноцветных птиц Северной Америки[4]. Оперение взрослых самцов и самок существенно различается между собой, но почти не меняется на протяжении года. Молодые самцы и самки обладают очень схожим оперением[3]. Яркое оперение птицы легло в основу её названия на испанском и французском языках[2].</p>
+                    <h3>h3 Общие сведения</h3>
+                    <p>Крыло расписного овсянкового кардинала состоит из 9 первостепенных маховых перьев, 9 второстепенных и 3 третьестепенных. Хвост включает 12 рулевых перьев. Учёные отмечают, что в западной части ареала с продвижением от юго-востока (Миссисипи) на северо-запад (Канзас) у птиц увеличивается длина крыльев, кроме того, разница между длиной крыла летом и зимой составляет 0,4 мм (летом крыло короче). Согласно исследованию в Северной Каролине средняя длина крыла взрослого самца составляет 68,5 мм, самца второго года, который ещё не приобрёл взрослое оперение, — 66,0 мм, самки — 64,0 мм; у восьми самцов, которые были измерены в разные годы в зелёном и цветном оперении длина крыла возросла в среднем на 2,4 мм[3].</p>
+                    <h4>h4 Оперение</h4>
+                    <p>У взрослого самца расписного овсянкового кардинала яркое красочное оперение: голова и затылок окрашены в голубой цвет (у Коблика — сине-фиолетовый[2]), спина — в бронзово-зелёный (у Коблика — золотисто-зелёный[2]), оперение снизу красное, крылья и хвост — тёмные. Самка окрашена в тёмный зеленоватый цвет сверху и желтовато-зелёный — снизу. У первогодок оперение схоже с оперением самок. Самцы приобретают свою яркую окраску довольно поздно, второй осенью, а до этого их оперение схоже с оперением самок[3]. Согласно описанию Роберта Сторера[en], молодые самцы ярче взрослых самок, которые в свою очередь ярче молодых самок[5]. Ранее исследователи довольно часто некорректно идентифицировали пол птиц, не подозревая, что самцы поздно приобретают характерное оперение[5][6], различия начинают проявляться лишь по прошествии 12—17 месяцев[6].</p>
+                    <h5>h5 Клюв</h5>
+                    <p>Клюв тёмно-коричневый или черноватый с серебристым отливом, радужка глаза тёмно-коричневая или ореховая, вокруг глаз красные ободки. Лапы тускло-коричневые[3][2].</p>
+                    <h6>h6 Лапы</h6>
+                    <p>Лапы тускло-коричневые[3][2].</p>
+                    <p>У взрослого самца расписного овсянкового кардинала яркое красочное оперение: голова и затылок окрашены в голубой цвет (у Коблика — сине-фиолетовый[2]), спина — в бронзово-зелёный (у Коблика — золотисто-зелёный[2]), оперение снизу красное, крылья и хвост — тёмные. Самка окрашена в тёмный зеленоватый цвет сверху и желтовато-зелёный — снизу. У первогодок оперение схоже с оперением самок. Самцы приобретают свою яркую окраску довольно поздно, второй осенью, а до этого их оперение схоже с оперением самок[3]. Согласно описанию Роберта Сторера[en], молодые самцы ярче взрослых самок, которые в свою очередь ярче молодых самок[5]. Ранее исследователи довольно часто некорректно идентифицировали пол птиц, не подозревая, что самцы поздно приобретают характерное оперение[5][6], различия начинают проявляться лишь по прошествии 12—17 месяцев[6].</p>
+                    <h5>h5 Знаете ли вы?</h5>
+                    <ul>
+                      <li>Самолёт Stipa-Caproni</li>
+                      <li>Деревянная «летающая труба» (на илл.) была предтечей турбовентиляторных двигателей.</li>
+                      <li>Самолёт Stipa-Caproni</li>
+                      <li>Деревянная «летающая труба» (на илл.) была предтечей турбовентиляторных двигателей.</li>
+                    </ul>
+                    <p>У взрослого самца расписного овсянкового кардинала яркое красочное оперение: голова и затылок окрашены в голубой цвет (у Коблика — сине-фиолетовый[2]), спина — в бронзово-зелёный (у Коблика — золотисто-зелёный[2]), оперение снизу красное, крылья и хвост — тёмные. Самка окрашена в тёмный зеленоватый цвет сверху и желтовато-зелёный — снизу. У первогодок оперение схоже с оперением самок. Самцы приобретают свою яркую окраску довольно поздно, второй осенью, а до этого их оперение схоже с оперением самок[3]. Согласно описанию Роберта Сторера[en], молодые самцы ярче взрослых самок, которые в свою очередь ярче молодых самок[5]. Ранее исследователи довольно часто некорректно идентифицировали пол птиц, не подозревая, что самцы поздно приобретают характерное оперение[5][6], различия начинают проявляться лишь по прошествии 12—17 месяцев[6].</p>
+                    <ol>
+                      <li>Самолёт Stipa-Caproni</li>
+                      <li>Деревянная «летающая труба» (на илл.) была предтечей турбовентиляторных двигателей.</li>
+                      <li>Самолёт Stipa-Caproni</li>
+                      <li>Деревянная «летающая труба» (на илл.) была предтечей турбовентиляторных двигателей.</li>
+                    </ol>
+                    <p>У взрослого самца расписного овсянкового кардинала яркое красочное оперение: голова и затылок окрашены в голубой цвет (у Коблика — сине-фиолетовый[2]), спина — в бронзово-зелёный (у Коблика — золотисто-зелёный[2]), оперение снизу красное, крылья и хвост — тёмные. Самка окрашена в тёмный зеленоватый цвет сверху и желтовато-зелёный — снизу. У первогодок оперение схоже с оперением самок. Самцы приобретают свою яркую окраску довольно поздно, второй осенью, а до этого их оперение схоже с оперением самок[3]. Согласно описанию Роберта Сторера[en], молодые самцы ярче взрослых самок, которые в свою очередь ярче молодых самок[5]. Ранее исследователи довольно часто некорректно идентифицировали пол птиц, не подозревая, что самцы поздно приобретают характерное оперение[5][6], различия начинают проявляться лишь по прошествии 12—17 месяцев[6].</p>
                   </div>
                 </div>
               </div>
@@ -1298,26 +1406,31 @@
       </div>
     </div>
     <div class="modal modal-text" id="CompassPoolsBiLuminite" style="opacity:0;visibility:hidden;">
-      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+      <div class="modal__wrapper" data-scroll-lock-scrollable>
         <div class="modal__container container">
           <div class="row">
             <div class="col-xl-10">
-              <div class="modal-block pt-2 pb-2">
+              <div class="modal-block">
                 <button class="modal-close" aria-label="close" data-modal="close"></button>
                 <div class="row">
-                  <div class="offset-xl-1 col-xl-10">
+                  <div class="offset-md-1 col-md-10">
                     <h5>Compass Pools Bi-Luminite</h5>
                     <p>Когда мы говорим о технологической прочности и надежности бассейна, то в большинстве композитных конструкций самым слабым местом является верхняя оболочка чаши. В это же время она выступает и основой, которая придает бассейну внешний вид и оттенок. Поэтому создание стойкого покрытия с прочной структурой, способного передать глубину цвета воды, является основной задачей производителя.</p>
                     <h5>Проблемы существующих решения на рынке</h5>
                     <p>«Узким горлышком» в поверхности традиционных композитных бассейнов является осмос, который проявляет себя в виде пор и микротрещин на поверхности. Эти микроскопические «прорехи» пропускают споры грибов, микроводоросли, молекулы воды и окислители. В результате на поверхности чаши бассейна появляются пузырьки, подтеки и пятна, которые приобретают бурый или фиолетовый оттенок.</p>
                     <p>Такие пятна образуются как результат реакции кобальта и кислорода, сопровождающимися прорастанием грибковых спор. Такие явления и наличие трещин является прямым свидетельством нарушения технологии изготовления верхнего покрытия бассейна.</p>
                     <p>Микротрещины могут также появляться на поверхности в связи с некачественным монтажом и нарушениями требований производителя при транспортировке. Эксплуатация бассейна предполагает циклические нагрузки при воздействии грунта и воды. При повышении температуры в бассейне до 30 градусов и выше существенно увеличивает вероятность появления осмоса на композитной поверхности.</p>
-                    <figure class="image image_cover full-size-image"> <img class="lazyload" data-src="./img/shapeimage_2 3.jpg" alt="image"></figure>
+                    <picture>
+                      <source data-srcset="./img/content/dsd.png"><img class="lazyload" data-src="./img/content/dsd.png" alt="img">
+                    </picture>
                     <h5>Технология Bi-luminite</h5>
                     <p>После того как на рынке появилась технология Bi-luminite, все вышеуказанные проблемы удалось раз и навсегда упразднить. В некоторых странах с тропическим климатом очень сложно контролировать температуру бассейна в пределах 30 градусов. Это поспособствовало созданию новой технологии, которая позволяет создавать композитную поверхность с уровнем непроницаемости на голову выше, чем у конкурентов. Защита от осмоса позволила избавиться от размножения микроорганизмов.</p>
                     <p>Австралийская компания Compass Pools использует новые технологии, которые исключают образование мелких трещин и пор на поверхности чаши бассейна. Технологические разработки под названием SBR и Ceramic Core обеспечивают настолько высокий уровень защиты, что позволило продлить срок гарантии на изделия до 10 лет. Поверхность имеет глубокий перецвет, что позволяет скрыть любые изъяны на поверхности бассейна, что не было возможным при однотонном окрашивании чаши.</p>
                     <p>Бассейны Bi-luminite можно ремонтировать. Даже в случае сильных повреждений они полностью устраняются после ремонта, который стоит во много раз дешевле, чем покупка нового бассейна.</p>
-                    <figure><img class="lazyload" data-src="./img/tsveta_chash_0 1.jpg" alt="image"></figure>
+                    <picture>
+                      <source data-srcset="./img/content/Group639.png" media="--small">
+                      <source data-srcset="./img/content/dsddd.jpg"><img class="lazyload" data-src="./img/content/dsddd.jpg" alt="img">
+                    </picture>
                     <h6>Большой выбор цветов</h6>
                     <p>Композитные бассейны удивляют огромным богатством цветовых решений. Главным вдохновением при создании столь широкой цветовой палитры является вода, которая заряжает своей энергией. Производитель хотел передать это же чувство и своим клиентам. Поэтому есть множество вариантов цвета для бассейнов разной глубины, ведь оттенок воспринимается по-разному при разной толще воды.</p>
                     <p>Существующие решения на рынке по окраске поверхности бассейна, к сожалению, могут испортить внешний вид из-за потери глубины и красивого внешнего вида воды. </p>
@@ -1332,22 +1445,24 @@
       </div>
     </div>
     <div class="modal modal-text" id="Vantage" style="opacity:0;visibility:hidden;">
-      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+      <div class="modal__wrapper" data-scroll-lock-scrollable>
         <div class="modal__container container">
           <div class="row">
             <div class="col-xl-10">
-              <div class="modal-block pt-2 pb-2">
+              <div class="modal-block">
                 <button class="modal-close" aria-label="close" data-modal="close"></button>
                 <div class="row">
-                  <div class="offset-xl-1 col-xl-10">
+                  <div class="offset-md-1 col-md-10">
                     <h5>Система очистки Compass Pools Vantage</h5>
                     <p>Во время эксплуатации на дне бассейна постоянно (особенно в уличном исполнении) скапливается мусор, листья и прочее. Обычно для уборки используется ручной пылесос или робот пылесос. Ручная уборка требует времени и усилий, что часто не помогает за один раз идеально очистить дно бассейна. Робот же, особенно в бассейнах с множеством элементов (ступени, ребра жесткости, выступы, ниши), не способен добраться до всех мест. Отдел разработок компании Compass Pools решил упростить задачу, создав вместе со специалистами компании Paramount® 1993 году систему автоматической очистки Vantage®, которая поставляется только для бассейнов Compass. Разработка получила несколько патентов в сфере композитных бассейнов.</p>
-                    <figure class="image image_cover full-size-image"> <img class="lazyload" data-src="./img/ddsee.jpg" alt="image"></figure>
+                    <picture>
+                      <source data-srcset="./img/content/kkk.png"><img class="lazyload" data-src="./img/content/kkk.png" alt="img">
+                    </picture>
                     <h5>Как устроена система очистки Vantage</h5>
                     <p>Оборудование включает в себя инновационные решения. Конструкция состоит из устройства с часовым механизмом и многокамерным клапаном, который направляет воду к ротационным форсункам, расположенным в ступенях, сидениях и дне чаши. После срабатывания каждой камеры, вода поступает в соответствующую форсунку, которая поднимаясь поворачивается на несколько градусов и позволяет потоку вдоль дна бассейна перемещать мусор к всасывающему стройству Vantage MDX® и далее в фильтр.</p>
-                    <figure class="row">
-                      <div class="offset-lg-2 col-lg-8"><img class="lazyload" data-src="./img/aqua.gif" alt="image"></div>
-                    </figure>
+                    <picture>
+                      <source data-srcset="./img/aqua.gif"><img class="lazyload" data-src="./img/aqua.gif" alt="img">
+                    </picture>
                     <h5>Преимущества использования Compass Pools Vantage</h5>
                     <ul>
                       <li>Не тратит лишнюю электроэнергию. Разделительный клапан срабатывает за счет часового механизма, приводимого в действие потоком воды.</li>
@@ -1358,15 +1473,13 @@
                       <li>Предотвращает потерю тепла, экономит энергию (в следствии активного перемешивания воды).</li>
                     </ul>
                     <p>К дополнительным плюсам новой самоочищающей системы можно отнести механическую работу устройства. Это влияет на долговечность и надежность оборудования. Помимо поддержания чистоты в бассейне, Compass Pools Vantage сохраняет и равномерно распределяет тепло, дезинфекторы, устраняет застойные зоны. Система работает вместе с фильтрующими элементами, поэтому не нуждается в дополнительном управлении.</p>
-                    <figure class="image image_cover full-size-image"> <img class="lazyload" data-src="./img/dsdd.jpg" alt="image"></figure>
+                    <picture>
+                      <source data-srcset="./img/content/vfv.png"><img class="lazyload" data-src="./img/content/vfv.png" alt="img">
+                    </picture>
                     <h5>Преимущества использования Compass Pools Vantage</h5>
                     <p>Прогретая вода естественным образом поднимается в верхнюю часть, а более прохладная устремляется вниз, но непрерывная циркуляция воды поддерживает одинаковую температуру в чаще, перемешивая все слои. Теперь не нужно ждать, пока вода в бассейне станет оптимальной, плавать можно сколько захочется.</p>
-                    <div class="iframe row">
-                      <div class="offset-lg-2 col-lg-8">
-                        <div class="iframe__element">
-                          <iframe src="https://www.youtube.com/embed/My3dNv5BCkA" title="YouTube video player"></iframe>
-                        </div>
-                      </div>
+                    <div class="iframe">
+                      <iframe class="lazyload" data-src="https://www.youtube.com/embed/My3dNv5BCkA" title="YouTube video player"></iframe>
                     </div>
                     <h5>Уменьшается потребление воды и дезинфекторов</h5>
                     <p>Под прямыми лучами солнца вода испаряется быстрее, химические вещества расходуются интенсивнее. Однако благодаря равномерному перемешиванию воды системой Compass Pools Vantage, траты на реагенты снижаются до 50%, а испарение происходит менее интенсивно.</p>
@@ -1378,7 +1491,9 @@
                     <p>Во время работы системы самоочистки можно спокойно пользоваться бассейном, не волнуясь о безопасности и удобстве, если наступить ногой на подающий элемент, он легко вдавливается, не причиняя дискомфорта.</p>
                     <h5>Красивый дизайн, высокое качество</h5>
                     <p>Техника Vantage почти не заметна. Она состоит из форсунок, которые легко подобрать под цвет чаши.</p>
-                    <figure class="image image_cover full-size-image"> <img class="lazyload" data-src="./img/shapeimage_2 5.jpg" alt="image"></figure>
+                    <picture>
+                      <source data-srcset="./img/content/dsd.jpg"><img class="lazyload" data-src="./img/content/dsd.jpg" alt="img">
+                    </picture>
                     <h5>Отсутствие аналогов</h5>
                     <p>Запатентованные форсунки, благодаря своей форме и размерам, способны охватывать в 4 раза больше площади, чем стандартные элементы. При этом они эффективнее справляются с мусором. Разработчики Compass Pools и Paramount® также запатентовали водный клапан WaterValve, водную завесу WaterCurtain и MDX, мусоросборник Debris Containment Canister, зону для сбора грязи Debris Collection Zone.</p>
                     <p>Монтировать эффективную систему очистки Compass Pools Vantage можно на новых композитных бассейнах, распределив подающие форсунки определенным образом. Инсталляцию оборудования должны выполнять специалисты- это залог того, что пользователи и владелец техники смогут насладиться плаванием в чистом, современном и безопасном бассейне долгое время.</p>
@@ -1391,19 +1506,21 @@
       </div>
     </div>
     <div class="modal modal-text" id="Slipstop" style="opacity:0;visibility:hidden;">
-      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+      <div class="modal__wrapper" data-scroll-lock-scrollable>
         <div class="modal__container container">
           <div class="row">
             <div class="col-xl-10">
-              <div class="modal-block pt-2 pb-2">
+              <div class="modal-block">
                 <button class="modal-close" aria-label="close" data-modal="close"></button>
                 <div class="row">
-                  <div class="offset-xl-1 col-xl-10">
+                  <div class="offset-md-1 col-md-10">
                     <h5>Технология SlipStop® — внимание к деталям</h5>
                     <p>Технология Slipstop® — это уникальный подход к антискользящим поверхностям внутри чаши бассейна.</p>
                     <p>Зачастую, только кромки ступеней имеют противоскользящую поверхность. Однако, если бассейном пользуются дети, то такой защиты явно недостаточно, поскольку их ступня намного меньше чем у взрослых. Также большинство защитных покрытий напоминают наждачную бумагу и имеют шероховатую поверхность, что приводит к быстрому их загрязнению.</p>
                     <p>Технология Slipstop® в отличие от общепринятых антискользящих материалов, покрывает все горизонтальные поверхности — дно, ступени и сидения в бассейне. При этом покрытие абсолютно незаметно под толщей воды, даже не близком расстоянии.</p>
-                    <figure class="image image_cover full-size-image"> <img class="lazyload" data-src="./img/fdfff.jpg" alt="image"></figure>
+                    <picture>
+                      <source data-srcset="./img/content/fffff.png"><img class="lazyload" data-src="./img/content/fffff.png" alt="img">
+                    </picture>
                     <p>Микрочастицы Slipstop® идеально гладкие, не вызывают дискомфорт и не загрязняются, обеспечивают устойчивость и безопасность людей независимо от возраста.</p>
                   </div>
                 </div>
@@ -1414,14 +1531,14 @@
       </div>
     </div>
     <div class="modal modal-text" id="jalousie" style="opacity:0;visibility:hidden;">
-      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+      <div class="modal__wrapper" data-scroll-lock-scrollable>
         <div class="modal__container container">
           <div class="row">
             <div class="col-xl-10">
-              <div class="modal-block pt-2 pb-2">
+              <div class="modal-block">
                 <button class="modal-close" aria-label="close" data-modal="close"></button>
                 <div class="row">
-                  <div class="offset-xl-1 col-xl-10">
+                  <div class="offset-md-1 col-md-10">
                     <h5>Жалюзи — эффективное решение для обслуживания бассейнов</h5>
                     <p>Для эффективного решения всех выше перечисленных проблем используют жалюзи для бассейнов. Легкие, прочные конструкции — настоящая находка для владельцев крытых и уличных бассейнов. Они обладают следующими преимуществами:</p>
                     <h6>Безопасность </h6>
@@ -1436,16 +1553,22 @@
                     <p>Закрытый бассейн на холодный период выглядит презентабельно. А оборудование и чаша полностью защищены от пагубного влияния погоды.</p>
                     <h6>Практичность, долговечность</h6>
                     <p>Элементы жалюзи и обслуживающее оборудование изготавливаются из прочных, коррозиестойких материалов. Поэтому все комплектующие имеют большой эксплуатационный запас.</p>
-                    <figure class="image image_cover full-size-image"> <img class="lazyload" data-src="./img/fff.jpg" alt="image"></figure>
+                    <picture>
+                      <source data-srcset="./img/content/3_1.png"><img class="lazyload" data-src="./img/content/3_1.png" alt="img">
+                    </picture>
                     <h5>В чем разница между разными покрытиями для бассейнов?</h5>
                     <p>На выбор потребителей рынок предлагает несколько видов защитных покрытий для бассейнов — плавающие пузырьковые, мягкие зимние и защитные жалюзи.</p>
                     <p>Первый вид выполняет следующие функции: предотвращает попадание мусора в чашу, предупреждает испарение и поддерживают оптимальный температурный режим воды.</p>
                     <p>Второй — предназначен для зимнего укрытия бассейнов. Жалюзи для бассейнов, кроме перечисленного, еще и отвечают за безопасность. При случайном падении животного или человека они не дают им уйти под воду.</p>
-                    <figure class="image image_cover full-size-image"> <img class="lazyload" data-src="./img/aaa.jpg" alt="image"></figure>
+                    <picture>
+                      <source data-srcset="./img/content/3_2.png"><img class="lazyload" data-src="./img/content/3_2.png" alt="img">
+                    </picture>
                     <h5>Защитные жалюзи для бассейнов и механизмы управления</h5>
                     <p>Защитные жалюзи для бассейнов изготавливаются из водостойких прочных материалов. При сборке они наматываются на ролик. Могут работать в ручном режиме и подключаться к автоматике, оснащаться таймером для выбора режима работы системы, пультом ДУ. По желанию заказчика система управления может быть подключена к системе «умный дом», контролироваться на расстоянии с помощью приложения, установленного на смартфон.</p>
                     <p>Подбираются жалюзи по типу использования — для закрытых помещений или открытых площадок. Наиболее востребованным материалом для их изготовления является нержавеющая сталь. Она отлично держит форму, отличается долговечностью, надежностью в эксплуатации. Жалюзи производятся по индивидуальным замерам заказчика в разных цветовых решениях. Они повторяют контуры чаши и полностью перекрывают е</p>
-                    <figure class="image image_cover full-size-image"> <img class="lazyload" data-src="./img/ccc.jpg" alt="image"></figure>
+                    <picture>
+                      <source data-srcset="./img/content/3_3.png"><img class="lazyload" data-src="./img/content/3_3.png" alt="img">
+                    </picture>
                   </div>
                 </div>
               </div>
@@ -1454,32 +1577,60 @@
         </div>
       </div>
     </div>
-    <div class="modal modal-text" id="servis" style="opacity:0;visibility:hidden;">
-      <div class="modal__wrapper pt-2 pb-2" data-scroll-lock-scrollable>
+    <div class="modal modal-text" id="service3d" style="opacity:0;visibility:hidden;">
+      <div class="modal__wrapper" data-scroll-lock-scrollable>
         <div class="modal__container container">
           <div class="row">
             <div class="col-xl-10">
-              <div class="modal-block pt-2 pb-2">
+              <div class="modal-block">
                 <button class="modal-close" aria-label="close" data-modal="close"></button>
                 <div class="row">
-                  <div class="offset-xl-1 col-xl-10">
-                    <h5>Квалифицированный сервис</h5>
+                  <div class="offset-md-1 col-md-10">
+                    <h5>3D проектирование бассейна и оборудования</h5>
+                    <p>На бассейн цена складывается из множества факторов, в числе которых размеры и формы конструкции, стоимость используемого оборудования, тип отделки. На этапе проектирования необходимо определиться с размерами, формой и местом расположения водоема. Участок должен быть полностью подготовлен и при необходимости укреплен, заранее согласовываются точки разграничения инженерных коммуникаций (электричество, водоснабжение, отопление, канализация).</p>
+                    <p>Глубина бассейна рассчитывается из пожеланий клиента и задач поставленных им исходя из того как предполагается пользоваться.</p>
+                    <picture>
+                      <source data-srcset="./img/content/5_1.png"><img class="lazyload" data-src="./img/content/5_1.png" alt="img">
+                    </picture>
+                    <h5>Архитектурное проектирование</h5>
+                    <p>Разработка концепции бассейна: создание 3D-модели, которая наглядно демонстрирует, как будет выглядеть готовый объект. Уточнение размеров и формы чаши бассейна. Поиск оптимальных решений, согласующихся не только с современными строительными технологиями, но и эксплуатацией сооружения в будущем. Цель проектировщиков — создать проект бассейна, который будет отвечать требованиям заказчика, и учитывать действующие нормативы.</p>
+                    <h5>Инженерное проектирование водоподготовки</h5>
+                    <p>Вода для бассейнов должна соответствовать требованиям ГОСТ Р 53491.2-2012. Для подготовки воды используется современное высокотехнологичное оборудование. Работу системы водоподготовки и водоочистки регулирует интеллектуальная электроника. Внимание уделяется не только качеству воду, но и экономии ресурсов.</p>
+                    <picture>
+                      <source data-srcset="./img/content/5_2.png"><img class="lazyload" data-src="./img/content/5_2.png" alt="img">
+                    </picture>
+                    <h5>Подготовка площадки</h5>
+                    <p>Подготовительные работы включают планировку по СНиП 30-02-97 и устройство котлована под будущий бассейн. К котловану подводятся трубы водоснабжения. На дне выполняется монтаж донного слива и боковых форсунок. На дне котлована отсыпается «подушка» из гравия и щебня, которая тщательно утрамбовывается. Для бассейна большой площади перед отсыпкой «подушки» заливается подбетонка. Укладывается гидроизоляция, защищающая бетонную чашу бассейна от грунтовых вод.</p>
+                    <picture>
+                      <source data-srcset="./img/content/5_3.png"><img class="lazyload" data-src="./img/content/5_3.png" alt="img">
+                    </picture>
+                    <h5>Бетонирование чаши бассейна</h5>
+                    <p>Для заливки основания и боковых стен чаши монтируется опалубка, на дно которой укладывается армокаркас. Под бассейн заливается фундамент ленточного или плитного11 типа. Бетонирование выполняется послойно путем порционной подачи бетонной смеси марки не ниже М300. После окончания набора проектно прочности бетонируются боковые стенки чаши. Конструкции предварительно армируются, а затем заливаются бетоном с водонепроницаемостью не ниже W8. По окончании бетонирования и набора прочности опалубка демонтируется.</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <!--cursor-->
+    <div class="cursor" style="opacity:0;visibility:hidden;">
+      <div class="cursor__element">
+        <svg class="icon cursor__magnifier">
+          <use xlink:href="./img/icons/sprite.svg#magnifier"></use>
+        </svg>
       </div>
     </div>
     <!--fonts-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
     <!--styles-->
+    <link rel="stylesheet" href="./scripts/libs/jquery.fancybox/jquery.fancybox.css">
     <link rel="stylesheet" href="./styles/common.css">
-    <!--jquery-->
+    <!--js-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!--webpack-->
+    <script src="./scripts/libs/jquery.fancybox/jquery.fancybox.min.js"></script>
     <script src="./scripts/app.js"></script>
   </body>
 </html>

@@ -73,8 +73,6 @@ block content
             .section-3d-info__item.section-3d-info__item_7
               span Слой полиэфирной смолы усиленный стекловолокном
 
-
-
     //3
     .section-3d-part.section-3d-part-3
       .section-3d-part__container.section-3d-part-3__container
@@ -121,66 +119,94 @@ block content
               .section-3d-dots__item-message 
                 .section-3d-dots__item-message-container Жалюзийное покрытие
 
-    //4
-    .section-3d-part.section-3d-part-4
-      .section-3d-part__container.section-3d-part-4__container
-        
-        .section-3d-screen.section-3d-screen-7.animated-head
-          .container.animated-head__container
-            h5.animated-head__sub-title А в жизни как?
-            h2.h1.animated-head__title Представьте.
+  section.section.section-animated.section-preview
+    .animated-head.section-animated__head
+      .container.animated-head__container
+        h5.animated-head__sub-title А в жизни как?
+        h2.h1.animated-head__title Представьте.
+    .section-animated__content
+      .section-preview__full-screen-image
+        .image.image_cover 
+          img(src="./img/final.jpg", alt="image").lazyload.lazypreload
 
-        .section-3d-screen.section-3d-screen-8
-          .image.image_cover 
-            img(src="./img/final.jpg", alt="image").lazyload
-
+      .section-preview__small-images-container.container 
+        .row 
+          .section-preview__small-image.section-preview__small-image_1.offset-4.offset-sm-1.offset-lg-0.col-7.col-sm-4.col-lg-3
+            .image.image_cover.parallax-image
+              img(src="./img/small1.jpg", alt="image").lazyload
+          .section-preview__small-image.section-preview__small-image_2.offset-6.offset-sm-4.offset-lg-0.col-6.col-sm-4.col-lg-3
+            .image.image_cover.parallax-image
+              img(src="./img/small2.jpg", alt="image").lazyload
+          .section-preview__small-image.section-preview__small-image_3.offset-sm-2.offset-lg-0.col-10.col-sm-4.col-lg-3
+            .image.image_cover.parallax-image
+              img(src="./img/small3.jpg", alt="image").lazyload
 
   section.section.section-choose-models.section-animated
+    -var block1 = ['Aqua', 'прямоугольная модель со ступенями, расположенными в угловой части', './img/desktop-models/1.jpg', '#aqua']
+    -var block2 = ['X-trainer', 'прямоугольная модель со ступенями, расположенными зеркально вдоль длинных бортов', './img/desktop-models/2.jpg', '#x-trainer']
+    -var block3 = ['Riverina', 'бассейн красивой формы, плавно изогнутая линия борта придает неповторимое изящество', './img/desktop-models/3.jpg', '#riverina']
+    -var block4 = ['Java', 'прямоугольная модель с римской лестницей и двумя зонами отдыха', './img/desktop-models/4.jpg', '#java']
+    -var block5 = ['Briliant', 'прямоугольная модель со стильной угловой лестницей', './img/desktop-models/5.jpg', '#briliant']
     .figures-container.container
       .background-figure.background-figure_1(data-parallax='0.5')
     .animated-head.section-animated__head
       .container.animated-head__container
         h5.animated-head__sub-title Выберите модель 
-        h2.h1.animated-head__title Ценим индивидуальность.
-    .section-animated__content.container
-      .desktop-models-list
+        h2.h1.animated-head__title Ценим индивидуаль&shy;ность.
+    .section-animated__content
+      .desktop-models-list.container
         .desktop-models-list__images 
           .desktop-models-list__image
             .image.image_cover
-              img(data-src="./img/desktop-models/1.jpg", alt="image").lazyload
+              img(data-src=block1[2], alt="image").lazyload
             .image.image_cover
-              img(data-src="./img/desktop-models/2.jpg", alt="image").lazyload
+              img(data-src=block2[2], alt="image").lazyload
             .image.image_cover
-              img(data-src="./img/desktop-models/3.jpg", alt="image").lazyload
+              img(data-src=block3[2], alt="image").lazyload
             .image.image_cover
-              img(data-src="./img/desktop-models/4.jpg", alt="image").lazyload
+              img(data-src=block4[2], alt="image").lazyload
             .image.image_cover
-              img(data-src="./img/desktop-models/5.jpg", alt="image").lazyload
+              img(data-src=block5[2], alt="image").lazyload
 
         .desktop-models-list__items
-          a(href="#aqua" data-modal='open' data-cursor='light').pool-model-item
-            .row.pool-model-item__container 
-              h2.offset-lg-1.col-lg-4.pool-model-item__title Aqua
-              p.col-lg-6.pool-model-item__description прямоугольная модель со ступенями, расположенными в угловой части
-          a(href="#x-trainer" data-modal='open' data-cursor='light').pool-model-item
-            .row.pool-model-item__container 
-              h2.offset-lg-1.col-lg-4.pool-model-item__title X-trainer
-              p.col-lg-6.pool-model-item__description прямоугольная модель со ступенями, расположенными зеркально вдоль длинных бортов
-          a(href="#riverina" data-modal='open' data-cursor='light').pool-model-item
-            .row.pool-model-item__container 
-              h2.offset-lg-1.col-lg-4.pool-model-item__title Riverina
-              p.col-lg-6.pool-model-item__description бассейн красивой формы, плавно изогнутая линия борта придает неповторимое изящество
-          a(href="#java" data-modal='open' data-cursor='light').pool-model-item
-            .row.pool-model-item__container 
-              h2.offset-lg-1.col-lg-4.pool-model-item__title Java
-              p.col-lg-6.pool-model-item__description прямоугольная модель с римской лестницей и двумя зонами отдыха
-          a(href="#briliant" data-modal='open' data-cursor='light').pool-model-item
-            .row.pool-model-item__container 
-              h2.offset-lg-1.col-lg-4.pool-model-item__title Briliant
-              p.col-lg-6.pool-model-item__description прямоугольная модель со стильной угловой лестницей
-      .section-choose-models__more.mt-2
-        a(href="#modal-shema" data-modal='open').btn-link Посмотреть таблицу сравнения моделей 
+          mixin block(title, text, modal)
+            //block
+            a(href=modal data-modal='open' data-cursor='light').pool-model-item
+              .row.pool-model-item__container 
+                h2.offset-lg-1.col-lg-4.pool-model-item__title=title
+                p.col-lg-6.pool-model-item__description=text
+          +block(block1[0], block1[1], block1[3])
+          +block(block2[0], block2[1], block2[3])
+          +block(block3[0], block3[1], block3[3])
+          +block(block4[0], block4[1], block4[3])
+          +block(block5[0], block5[1], block5[3])
 
+      .mobile-models-slider.swiper
+        .swiper-container
+          .swiper-wrapper
+            mixin slide(title, text, img, modal)
+              //slide
+              .swiper-slide.mobile-models-slider__slide 
+                .image.image_cover.mobile-models-slider__slide-image
+                  img(data-src=img, alt="image").swiper-lazy
+                .container
+                  h2.mobile-models-slider__slide-title=title
+                  .row.mobile-models-slider__slide-text
+                    p.offset-md-1.col-md-10=text
+                  a(href=modal data-modal='open').button.button_style-2 Подробнее о модели
+            +slide(block1[0], block1[1], block1[2], block1[3])
+            +slide(block2[0], block2[1], block2[2], block2[3])
+            +slide(block3[0], block3[1], block3[2], block3[3])
+            +slide(block4[0], block4[1], block4[2], block4[3])
+            +slide(block5[0], block5[1], block5[2], block5[3])
+
+        .swiper-pagination
+
+      
+      .section-choose-models__more
+        a(href="#modal-shema" data-modal='open').btn-link.section-choose-models__btn
+          span.d-none.d-xl-block Посмотреть таблицу сравнения моделей 
+          span.d-xl-none Таблица сравнения моделей
 
   section.section.section-colors.section-animated
     .animated-head.section-animated__head
@@ -205,7 +231,7 @@ block content
 
         .colors-slider__container.container
           .colors-slider__wrapper
-            mixin slide(title, image1, image2, image3, classes, classes2)
+            mixin slide(title, image1, image2, image3, classes, classes2, tema)
               //slide
               .colors-slide
                 .colors-slide__left.colors-slide__element
@@ -232,7 +258,7 @@ block content
                   .colors-slide__element-inner
                     .colors-slide__element-text
                       p Приятный глубокий голубой цвет, напоминающий живописный тропический пляж
-                    a(href="#modal-form" data-modal='open' class=classes2).button.colors-slide__button Выбрать этот цвет
+                    a(href="#modal-form" data-modal='open' data-modal-subject='Цвет '+title class=classes2).button.colors-slide__button Выбрать этот цвет
             
             +slide('Blue Saphire', './img/colors/1_1.jpg', './img/colors/1_2.jpg', './img/colors/1_3.jpg', 'colors-slide__title-element_1', 'colors-slide__button_style-1')
             +slide('Smokey Quartz', './img/colors/2_1.jpg', './img/colors/2_2.jpg', './img/colors/2_3.jpg', 'colors-slide__title-element_2', 'colors-slide__button_style-2')
@@ -301,7 +327,7 @@ block content
           './img/technologies/5.jpg',
           '3D проектирование бассейна и оборудования',
           'Создание 3D-модели, которая наглядно демонстрирует, как будет выглядеть готовый объект.',
-          '',
+          '#service3d',
           'technologies-block__image_5',
           'technologies-block_5 col-md-5 col-lg-3',
           'technologies-block__content_5',

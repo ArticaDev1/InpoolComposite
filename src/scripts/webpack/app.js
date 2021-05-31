@@ -1,7 +1,12 @@
 const Dev = false;
 
 import 'lazysizes';
-/* lazySizes.cfg.preloadAfterLoad = true; */
+lazySizes.cfg.loadHidden = false;
+lazySizes.cfg.customMedia = {
+  '--small': '(max-width: 575px)',
+  '--medium': '(max-width: 1023px)',
+  '--large': '(max-width: 1279px)',
+};
 //gsap
 import {gsap} from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -55,8 +60,8 @@ import SwipeListener from 'swipe-listener';
 import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 import Inputmask from "inputmask";
 import autosize from 'autosize';
-import Swiper, {Pagination, Lazy, EffectFade} from 'swiper/core';
-Swiper.use([Pagination, Lazy, EffectFade]);
+import Swiper, {Pagination, Lazy} from 'swiper/core';
+Swiper.use([Pagination, Lazy]);
 
 const brakepoints = {
   sm: 576,
@@ -94,14 +99,16 @@ window.onload = function() {
     windowSize.init();
   }
 
+
   const activeFunctions = new ActiveFunctions();
   activeFunctions.create();
   activeFunctions.add(Section3d, '.section-3d');
   activeFunctions.add(SectionAnimated, '.section-animated');
   activeFunctions.add(DesktopModelsList, '.desktop-models-list');
+  activeFunctions.add(MobileModelsSlider, '.mobile-models-slider');
   activeFunctions.add(ColorsSlider, '.colors-slider');
+  activeFunctions.add(PreviewSection, '.section-preview');
   activeFunctions.add(SectionVideoAnimation, '.section-video-animation');
-  activeFunctions.add(SectionTechnologies, '.section-technologies');
   activeFunctions.add(ModelsSlider, '.models-slider');
   activeFunctions.add(Map, '.contacts-block__map');
   activeFunctions.add(ParallaxImage, '.parallax-image');
@@ -113,23 +120,23 @@ window.onload = function() {
 
 //effects
 gsap.registerEffect({
-  name: "slidingText", //1500px
+  name: "slidingText", //1000px
   effect: ($outer, $inner) => {
     let anim = gsap.timeline({paused: true})
       .fromTo($outer, {autoAlpha:0}, {autoAlpha:1, duration:0.33, ease:'power2.in'})
       .fromTo($inner, {y:50}, {y:-50, ease:'none'}, `-=0.33`)
-      .to($outer, {autoAlpha:0, duration:0.3, ease:'power2.out'}, `-=0.33`)
+      .to($outer, {autoAlpha:0, duration:0.33, ease:'power2.out'}, `-=0.33`)
     return anim;
   },
   extendTimeline: true
 });
 gsap.registerEffect({
-  name: "slidingTextSlow", //2500px
+  name: "slidingTextSlow", //2000px
   effect: ($outer, $inner) => {
     let anim = gsap.timeline({paused: true})
-      .fromTo($outer, {autoAlpha:0}, {autoAlpha:1, duration:0.2, ease:'power2.in'})
-      .fromTo($inner, {y:83}, {y:-83, ease:'none'}, `-=0.2`)
-      .to($outer, {autoAlpha:0, duration:0.2, ease:'power2.out'}, `-=0.2`)
+      .fromTo($outer, {autoAlpha:0}, {autoAlpha:1, duration:0.165, ease:'power2.in'})
+      .fromTo($inner, {y:50}, {y:-50, ease:'none'}, `-=0.165`)
+      .to($outer, {autoAlpha:0, duration:0.165, ease:'power2.out'}, `-=0.165`)
     return anim;
   },
   extendTimeline: true
@@ -212,6 +219,7 @@ const Resources = {
 
     this.load = () => {
       //load first scene
+      console.log('load')
       for(let i = 0; i < this.sources[0].framesCount; i++) {
         this.sources[0].frames[i] = new Image();
         this.sources[0].frames[i].onload = ()=> {
@@ -678,6 +686,7 @@ const Preloader = {
       if(!Dev) {
         gsap.timeline({onComplete:()=>{
           window.dispatchEvent(new Event("start"));
+          this.finished = true;
           this.$element.remove();
         }})
           .to(this.$element, {autoAlpha:0, duration:0.5})
@@ -685,6 +694,7 @@ const Preloader = {
       } 
       else {
         window.dispatchEvent(new Event("start"));
+        this.finished = true;
         this.$element.remove();
         gsap.set($wrapper, {autoAlpha:1});
       }
@@ -732,6 +742,12 @@ const Cursor = {
   init: function() {
     this.$parent = document.querySelector('.cursor');
     this.$element = this.$parent.querySelector('.cursor__element');
+
+    //show
+    window.addEventListener('start', () => {
+      gsap.fromTo(this.$parent, {autoAlpha:0}, {autoAlpha:1})
+    })
+
     document.addEventListener('mousemove', (event)=>{
       let x = event.clientX,
           y = event.clientY;
@@ -745,9 +761,14 @@ const Cursor = {
     })
 
     window.addEventListener('cursorMouseenter', (event)=> {
+      if(this.hoverTimer) clearTimeout(this.hoverTimer)
       Cursor.$element.classList.add('hover');
       if(event.detail.target.getAttribute('data-cursor')=='light') {
         Cursor.$element.classList.add('light');
+      } else if(event.detail.target.getAttribute('data-cursor')=='magnifier') {
+        Cursor.$element.classList.add('magnifier');
+      } else if(event.detail.target.getAttribute('data-cursor')=='magnifier2') {
+        Cursor.$element.classList.add('magnifier2');
       }
     })
 
@@ -761,8 +782,13 @@ const Cursor = {
       } else {
         Cursor.$element.classList.remove('hover');
       }
+
       if(event.detail.target.getAttribute('data-cursor')=='light') {
         Cursor.$element.classList.remove('light');
+      } else if(event.detail.target.getAttribute('data-cursor')=='magnifier') {
+        Cursor.$element.classList.remove('magnifier');
+      } else if(event.detail.target.getAttribute('data-cursor')=='magnifier2') {
+        Cursor.$element.classList.remove('magnifier2');
       }
     })
 
@@ -855,13 +881,13 @@ class SectionVideoAnimation {
     this.trigger = ScrollTrigger.create({
       trigger: this.$inner,
       start: "top top",
-      end: "+=2500",
+      end: "+=2000",
       pinSpacing: false,
       pin: true,
       pinType: pinType,
       onUpdate: self => {
-        let y = 2500*self.progress;
-        let progress2 = Math.max(0, Math.min((y-500)/1500, 1));
+        let y = 2000*self.progress;
+        let progress2 = Math.max(0, Math.min((y-330)/1340, 1));
         let index = Math.round(progress2*(this.framesCount-1));
         this.activeFrame = this.frames[index];
         this.animation_fade_scene.progress(progress2);
@@ -913,7 +939,7 @@ class SectionAnimated {
     this.animation_head_trigger = ScrollTrigger.create({
       trigger: this.$head,
       start: "top top",
-      end: "+=1500",
+      end: "+=1000",
       pin: true,
       pinSpacing: false,
       pinType: pinType,
@@ -921,26 +947,12 @@ class SectionAnimated {
         this.animation_head.progress(self.progress);
       }
     });
-
-    this.animation_content = gsap.timeline({paused:true})
-      .fromTo(this.$content, {autoAlpha:0}, {autoAlpha:1, ease:'power2.in'})
-
-    this.animation_content_trigger = ScrollTrigger.create({
-      trigger: this.$content,
-      start: "top bottom",
-      end: "+=300",
-      onUpdate: self => {
-        this.animation_content.progress(self.progress);
-      }
-    });
   }
 
   destroyDesktop() {
     this.animation_head.kill();
     this.animation_head_trigger.kill();
-    this.animation_content.kill();
-    this.animation_content_trigger.kill();
-    gsap.set([this.$content, this.$head, this.$head_inner], {clearProps: "all"})
+    gsap.set([this.$head, this.$head_inner], {clearProps: "all"})
   }
 
 }
@@ -1008,7 +1020,8 @@ const Modal = {
     gsap.registerEffect({
       name: "modal",
       effect: ($modal, $content) => {
-        let anim = gsap.timeline({paused: true}).fromTo($modal, {autoAlpha: 0}, {autoAlpha:1, duration:0.5, ease: 'power2.inOut'})
+        let anim = gsap.timeline({paused: true})
+          .fromTo($modal, {autoAlpha: 0}, {autoAlpha:1, duration:0.5})
           .fromTo($content, {y: 20}, {y:0, duration:1, ease:'power2.out'}, `-=0.5`)
         return anim;
       },
@@ -1024,8 +1037,9 @@ const Modal = {
       //open
       if ($open) {
         event.preventDefault();
-        let $modal = document.querySelector(`${$open.getAttribute('href')}`);
-        this.open($modal);
+        let $modal = document.querySelector(`${$open.getAttribute('href')}`),
+            modalSubject = $open.getAttribute('data-modal-subject');
+        this.open($modal, modalSubject);
       }
       //close 
       else if ($close || (!$block && $wrap)) {
@@ -1033,8 +1047,12 @@ const Modal = {
       }
     })
 
+    /* setTimeout(() => {
+      this.open(document.querySelector('#modal-succes'));
+    }, 500); */
+
   },
-  open: function ($modal) {
+  open: function ($modal, modalSubject) {
     let open = ()=> {
       disablePageScroll();
       $modal.classList.add('active');
@@ -1057,6 +1075,12 @@ const Modal = {
     if($modal) {
       if(this.$active) this.close(open);
       else open();
+    }
+
+    //значение формы
+    let $input = $modal.querySelector('.form__subject');
+    if(modalSubject && $input) {
+      $input.setAttribute('value', modalSubject);
     }
   },
   close: function (callback) {
@@ -1133,13 +1157,7 @@ class Section3d {
     this.$screen5_content = this.$screen5.querySelector('.container');
     this.$screen6 = this.$parent.querySelector('.section-3d-dots');
     this.$screen6_items = this.$screen6.querySelectorAll('.section-3d-dots__item');
-    //
-    this.$part4 = this.$parent.querySelector('.section-3d-part-4__container');
-    this.$screen7 = this.$parent.querySelector('.section-3d-screen-7');
-    this.$screen7_content = this.$screen7.querySelector('.container');
-    this.$screen8 = this.$parent.querySelector('.section-3d-screen-8');
-    this.$screen8_image = this.$screen8.querySelector('.image');
-    //
+
     this.activeFrame = this.frames1[0];
 
     this.sceneRender = ()=> {
@@ -1174,10 +1192,16 @@ class Section3d {
     //START ANIMATION 
     let animation_start = gsap.timeline({paused:true})
       .fromTo(this.$scene_canvas, {scale:0.9, autoAlpha:0}, {scale:1, autoAlpha:1, ease:'power2.out'})
-      .fromTo(this.$screen1_items, {autoAlpha:0, y:20}, {autoAlpha:1, y:0, duration:0.75, ease:'power2.out', stagger:{amount:0.25}}, `-=0.75`)
-    window.addEventListener('start', () => {
+      .fromTo(this.$screen1_items, {autoAlpha:0, y:20}, {autoAlpha:1, y:0, duration:0.75, ease:'power2.out', stagger:{amount:0.25}}, `-=0.75`) 
+    
+      if(!Preloader.finished) {
+      window.addEventListener('start', () => {
+        animation_start.play();
+      })
+    } else {
       animation_start.play();
-    })
+    }
+
     //animation fade scene
     this.animation_fade = gsap.timeline({paused:true})
       .to(this.$scene, {autoAlpha:0})
@@ -1207,21 +1231,11 @@ class Section3d {
       .fromTo(this.$screen6_items, {autoAlpha:0}, {autoAlpha:1, duration:0.6, stagger:{amount:0.4}})
       .to(this.$screen6, {autoAlpha:0, duration:0.5}, '+=0.5')
 
-    //ANIMATION 7
-    this.animation7 = gsap.effects.slidingText(this.$screen7, this.$screen7_content);
-
-    //ANIMATION 8
-    this.animation8 = gsap.timeline({paused:true})
-      .fromTo(this.$screen8_image, {autoAlpha:0}, {autoAlpha:1, duration:0.5})
-      .fromTo(this.$screen8_image, {scale:0.7}, {scale:1, duration:1.5, ease:'power2.in'}, '-=0.5')
-      .to(this.$screen8_image, {autoAlpha:0, duration:0.5}, '-=0.5')
-      
-
 
     this.sceneTrigger = ScrollTrigger.create({
       trigger: this.$scene,
       start: "top top",
-      end: "+=16000",
+      end: "+=13000",
       pin: true,
       pinType: pinType,
       pinSpacing: false
@@ -1310,25 +1324,6 @@ class Section3d {
         //dots
         let time4 = Math.max(0, Math.min((y-2300)/1200, 1));
         this.animation6.progress(time4);
-      }
-    })
-
-    this.trigger4 = ScrollTrigger.create({
-      trigger: this.$part4,
-      start: "top top",
-      end: "+=3000",
-      pin: true,
-      pinType: pinType,
-      pinSpacing: false,
-      onUpdate: self => {
-        let y = (self.end-self.start)*self.progress;
-        
-        //animations
-        let time1 = Math.max(0, Math.min(y/1500, 1));
-        this.animation7.progress(time1);
-        //fadeInScene
-        let time4 = Math.max(0, Math.min((y-1500)/1500, 1));
-        this.animation8.progress(time4);
       }
     })
 
@@ -1452,6 +1447,58 @@ class DesktopModelsList {
   }
 }
 
+class MobileModelsSlider {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
+
+  init() {
+    this.check = ()=> {
+      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+        if(this.initialized) {
+          this.destroyMobile();
+        }
+        this.flag = true;
+      } 
+      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
+        this.initMobile();
+        this.flag = false;
+      }
+    }
+    this.check();
+    window.addEventListener('resize', this.check);
+    this.initialized = true;
+  }
+
+  initMobile() {
+    this.$slider = this.$parent.querySelector('.swiper-container');
+    this.$pagination = this.$parent.querySelector('.swiper-pagination');
+
+    this.slider = new Swiper(this.$slider, {
+      touchStartPreventDefault: false,
+      longSwipesRatio: 0.1,
+      loop: true,
+      speed: 500,
+      autoHeight: true,
+      lazy: {
+        loadOnTransitionStart: true,
+        loadPrevNext: true
+      },
+      pagination: {
+        el: this.$pagination,
+        clickable: true,
+        bulletElement: 'button'
+      }
+    });
+  }
+
+  destroyMobile() {
+    this.slider.destroy();
+  }
+
+
+}
+
 class ColorsSlider {
   constructor($parent) {
     this.$parent = $parent;
@@ -1461,6 +1508,7 @@ class ColorsSlider {
     this.$container = this.$parent.querySelector('.colors-slider__container');
     this.$wrapper = this.$parent.querySelector('.colors-slider__wrapper');
     this.$head_inner = this.$parent.querySelector('.colors-slider__head-inner');
+    this.$head_container = this.$parent.querySelector('.colors-slider__head-container');
     this.$navigation = this.$parent.querySelector('.colors-slider__navigation');
     this.$slide = this.$parent.querySelectorAll('.colors-slide');
     this.$triggers = this.$parent.querySelectorAll('.colors-slider__navigation-trigger');
@@ -1482,8 +1530,10 @@ class ColorsSlider {
     }
 
     this.scrollNav = (index) => {
-      let x = this.$triggers[index].getBoundingClientRect().left - this.$navigation.getBoundingClientRect().left;
-      gsap.to(this.$head_inner, {scrollTo:{x:x}});
+      let x1 = this.$triggers[index].getBoundingClientRect().left - this.$head_container.getBoundingClientRect().left,
+          x2 = x1 - (window.innerWidth - this.$triggers[index].getBoundingClientRect().width)/2;
+      
+      gsap.to(this.$head_inner, {scrollTo:{x:x2}});
     }
 
     this.animations_enter = [];
@@ -1559,51 +1609,7 @@ class ColorsSlider {
   }
 }
 
-class ModelsSlider {
-  constructor($parent) {
-    this.$parent = $parent;
-  }
-
-  init() {
-    this.$slider = this.$parent.querySelector('.swiper-container');
-    this.$bottom_images = this.$parent.querySelectorAll('.models-slider__bottom-image');
-
-    this.slider = new Swiper(this.$slider, {
-      effect: 'fade',
-      touchStartPreventDefault: false,
-      longSwipesRatio: 0.1,
-      speed: 500,
-      lazy: {
-        loadOnTransitionStart: true,
-        loadPrevNext: true
-      }
-    });
-  
-    if(this.$bottom_images.length>1) {
-
-      this.$bottom_images[0].classList.add('is-active');
-      this.slider.on('slideChange', (event)=> {
-        this.$bottom_images.forEach($this => {
-          $this.classList.remove('is-active')
-        })
-        this.$bottom_images[event.realIndex].classList.add('is-active');
-      })
-
-      this.$bottom_images.forEach(($this, index)=>{
-        $this.addEventListener('mouseenter', ()=> {
-          this.slider.slideTo(index);
-        })
-        $this.addEventListener('click', ()=> {
-          this.slider.slideTo(index);
-        })
-      })
-      
-    }
-
-  }
-}
-
-class SectionTechnologies {
+class PreviewSection {
   constructor($parent) {
     this.$parent = $parent;
   }
@@ -1627,27 +1633,80 @@ class SectionTechnologies {
   }
 
   initDesktop() {
-    this.$content = this.$parent.querySelector('.section-technologies__container');
-    this.$blocks = this.$parent.querySelectorAll('.technologies-block');
+    this.$image_parent = this.$parent.querySelector('.section-preview__full-screen-image');
+    this.$image = this.$image_parent.querySelector('.image');
 
-    this.animation_fade = gsap.timeline({paused:true}) 
-      .fromTo(this.$content, {autoAlpha:0}, {autoAlpha:1, ease:'power2.in'})
+    this.animation = gsap.timeline({paused:true})
+      .fromTo(this.$image, {scale:0.7, yPercent:-15}, {scale:1, yPercent:0, ease:'power2.out'})
 
-    this.trigger_fade = ScrollTrigger.create({
-      trigger: this.$content,
-      start: 'top bottom',
-      end: '+=300',
+    this.trigger = ScrollTrigger.create({
+      trigger: this.$image_parent,
+      start: "top bottom",
+      end: "bottom center",
       onUpdate: self => {
-        this.animation_fade.progress(self.progress);
+        this.animation.progress(self.progress);
       }
     });
   }
 
   destroyDesktop() {
-    this.trigger_fade.kill();
-    gsap.set(this.$content, {clearProps: "all"});
+    this.animation.kill();
+    this.trigger.kill();
+    gsap.set(this.$image, {clearProps: "all"});
   }
- }
+
+}
+
+class ModelsSlider {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
+
+  init() {
+    this.$slider = this.$parent.querySelector('.swiper-container');
+    this.$bottom_images = this.$parent.querySelectorAll('.models-slider__bottom-image');
+
+    this.slider = new Swiper(this.$slider, {
+      touchStartPreventDefault: false,
+      longSwipesRatio: 0.1,
+      speed: 500,
+      observer: true,
+      observeParents: true,
+      spaceBetween: 16,
+      lazy: {
+        loadOnTransitionStart: true,
+        loadPrevNext: true
+      },
+      breakpoints: {
+        768: {
+          spaceBetween: 24
+        }
+      }
+    });
+
+    if(this.$bottom_images.length>1) {
+
+      this.$bottom_images[0].classList.add('is-active');
+      this.slider.on('slideChange', (event)=> {
+        this.$bottom_images.forEach($this => {
+          $this.classList.remove('is-active')
+        })
+        this.$bottom_images[event.realIndex].classList.add('is-active');
+      })
+
+      this.$bottom_images.forEach(($this, index)=>{
+        $this.addEventListener('mouseenter', ()=> {
+          this.slider.slideTo(index);
+        })
+        $this.addEventListener('click', ()=> {
+          this.slider.slideTo(index);
+        })
+      })
+      
+    }
+
+  }
+}
 
 class ParallaxImage {
   constructor($parent) {

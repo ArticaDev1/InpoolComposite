@@ -35,6 +35,8 @@
   --color-dots-bg: rgba(79, 166, 166, 0.5);
   --color-dots-bg-hover: #4FA6A6;
   --color-dots-dot-bg: #fff;
-  --color-dots-message-bg: rgba(245, 245, 245, 0.8); }
+  --color-dots-message-bg: rgba(245, 245, 245, 0.8);
+  --color-pagination: #C7C7C7;
+  --color-pagination-active: #4FA6A6; }
 
 /*# sourceMappingURL=maps/theme.css.map */

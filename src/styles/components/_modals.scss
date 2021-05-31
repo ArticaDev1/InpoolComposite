@@ -1,12 +1,14 @@
 .modal {
   position: fixed;
+  z-index: 3000;
   height: 100%;
   width: 100%;
   top: 0;
   left: 0;
   background: var(--color-modal-back-background);
+  display: none;
   &.active {
-    z-index: 3000;
+    display: block;
   }
   .scroll-content {
     min-height: 100%;
@@ -22,15 +24,10 @@
     width: 100%;
     height: 100%;
     display: flex;
+    padding: var(--margin-2) 0;
   }
   &__container {
     display: flex;
-    margin: auto;
-    & > .row {
-      width: calc(100% + 24px);
-      justify-content: center;
-      align-items: center;
-    }
   }
   &-close {
     position: absolute;
@@ -69,13 +66,72 @@
   }
   &-block {
     position: relative;
-    margin: auto;
     z-index: 2;
-    border-radius: 10px;
     width: 100%;
+    padding: var(--margin-2) var(--container-gutter-x);
     background-color: var(--color-modal-background);
-    padding-right: 24px;
-    padding-left: 24px;
+  }
+  @include media-breakpoint-up(lg) {
+    &-block {
+      border-radius: 10px;
+    }
+    &__container {
+      display: flex;
+      margin: auto;
+      & > .row {
+        width: calc(100% + var(--container-gutter-x));
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+  @include media-breakpoint-down(lg) {
+    &-block {
+      background-color: transparent;
+      padding: 106px $field var(--margin-2) $field;
+      position: initial;
+      transform: translate(0) !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      & > .row {
+        width: calc(100% + var(--container-gutter-x));
+      }
+    }
+    &-close {
+      right: $field;
+      top: 28px;
+    }
+    &__wrapper {
+      padding: 0;
+      background-color: var(--color-modal-background);
+    }
+    &__container {
+      padding: 0;
+      max-width: 100%;
+      & > .row {
+        margin: 0;
+        width: 100%;
+        & > * {
+          padding: 0;
+          display: flex;
+        }
+      }
+    }
+  }
+  @include media-breakpoint-down(md) {
+    &-block {
+      padding: 84px $field var(--margin-2) $field;
+    }
+    &-close {
+      right: 24px;
+      top: 17px;
+    }
+  }
+  @include media-breakpoint-down(sm) {
+    &-block {
+      padding: 84px var(--container-gutter-x) var(--margin-2) var(--container-gutter-x);
+    }
   }
 }
 
@@ -90,6 +146,7 @@
   }
   &__title {
     color: var(--color-accent);
+    margin-top: 0;
   }
   @include media-breakpoint-down(xxl) {
     &__block {
@@ -98,11 +155,7 @@
   }
 }
 
-
 .modal-model {
-  &__title {
-    margin-bottom: 0;
-  }
   &__head {
     align-items: center;
     margin-bottom: 56px;
@@ -116,9 +169,42 @@
   &__description {
     padding-left: 36px;
   }
+  @include media-breakpoint-up(lg) {
+    &__title {
+      margin-bottom: 0;
+    }
+  }
   @include media-breakpoint-down(xxl) {
     &__button {
       margin-top: 60px;
+    }
+  }
+  @include media-breakpoint-down(xl) {
+    &__description, &__head-text {
+      padding-left: 24px;
+    }
+  }
+  @include media-breakpoint-down(lg) {
+    &__head {
+      margin-bottom: var(--margin-2);
+    }
+    &__head-text, &__description {
+      padding-left: calc(var(--bs-gutter-x) / 2);
+    }
+    &__slider {
+      margin-bottom: var(--margin-2);
+    }
+    &__button {
+      margin-top: var(--margin-2);
+      text-align: center;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    &__table {
+      table {
+        min-width: 620px;
+      }
     }
   }
 }
@@ -128,7 +214,7 @@
     &::before {
       content: '';
       display: block;
-      padding-top: 65.7%;
+      padding-top: 54%;
     }
   }
 }

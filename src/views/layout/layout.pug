@@ -24,25 +24,31 @@ html(lang='ru')
 
   body(style='overflow:hidden;position:fixed;height:100%;width:100%;')
     include ../blocks/preloader
-    .cursor
-      .cursor__element
+
     .wrapper(style='opacity:0;visibility:hidden;')
       include ../blocks/header
       main.main
         block content
       include ../blocks/footer
+
+
     //modals
     include ../blocks/modals
+
+    //cursor
+    .cursor(style='opacity:0;visibility:hidden;')
+      .cursor__element
+        svg.icon.cursor__magnifier
+          use(xlink:href='./img/icons/sprite.svg#magnifier')
     
-
-
-
+    
     //fonts
     link(rel='preconnect' href='https://fonts.gstatic.com')
     link(href='https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap' rel='stylesheet')
     //styles
+    link(rel="stylesheet" href="./scripts/libs/jquery.fancybox/jquery.fancybox.css")
     link(rel="stylesheet" href="./styles/common.css")
-    //jquery
+    //js
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
-    //webpack
+    script(src='./scripts/libs/jquery.fancybox/jquery.fancybox.min.js')
     script(src="./scripts/app.js")
