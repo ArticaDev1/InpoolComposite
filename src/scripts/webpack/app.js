@@ -112,6 +112,8 @@ window.onload = function() {
   activeFunctions.add(ModelsSlider, '.models-slider');
   activeFunctions.add(MobileFadeInBlocks, '.mobile-fade-in');
   activeFunctions.add(Map, '.contacts-block__map');
+  activeFunctions.add(HomeScreenAnimation, '.home-screen');
+  activeFunctions.add(MobilePoolAnimation, '.section-form__image');
   activeFunctions.add(ParallaxImage, '.parallax-image');
   activeFunctions.init();
 
@@ -182,8 +184,8 @@ const windowSize = {
     $body.insertAdjacentElement('beforeend', $el);
     let h = $el.getBoundingClientRect().height;
 
-    document.querySelectorAll('.js-mobile-screen').forEach($this => {
-      $this.style.height = `${h}px`;
+    document.querySelectorAll('.screen').forEach($this => {
+      $this.style.minHeight = `${h}px`;
     })
   }
 }
@@ -684,18 +686,19 @@ const Preloader = {
     this.$item = document.querySelector('.preloader__item');
     
     this.finish = () => {
+      this.finished = true;
+
       if(!Dev) {
         gsap.timeline({onComplete:()=>{
-          window.dispatchEvent(new Event("start"));
-          this.finished = true;
           this.$element.remove();
         }})
-          .to(this.$element, {autoAlpha:0, duration:0.5})
+          .to(this.$element, {autoAlpha:0, duration:0.5, onComplete:()=>{
+            window.dispatchEvent(new Event("start"));
+          }})
           .to($wrapper, {autoAlpha:1}, '-=0.5')
       } 
       else {
         window.dispatchEvent(new Event("start"));
-        this.finished = true;
         this.$element.remove();
         gsap.set($wrapper, {autoAlpha:1});
       }
@@ -961,13 +964,13 @@ class SectionAnimated {
     this.$items = this.$head.querySelectorAll('.animated-head__title, .animated-head__sub-title');
 
     this.animation = gsap.timeline({paused:true})
-      .fromTo(this.$items, {autoAlpha:0}, {autoAlpha:1, stagger:{amount:0.15}})
-      .fromTo(this.$items, {y:50}, {y:0, ease:'power2.out', stagger:{amount:0.15}}, '-=1.15')
+      .fromTo(this.$items, {autoAlpha:0}, {autoAlpha:1, duration:0.85, ease:'power2.out', stagger:{amount:0.1}})
+      .fromTo(this.$items, {y:50}, {y:0, duration:0.85, ease:'power2.out', stagger:{amount:0.1}}, '-=1')
 
     this.trigger = ScrollTrigger.create({
       trigger: this.$head,
-      start: "top bottom",
-      end: "bottom bottom",
+      start: "top+=50 bottom",
+      end: "bottom+=50 bottom",
       once: true,
       onEnter: () => {
         this.animation.play();
@@ -1817,12 +1820,12 @@ class MobileFadeInBlocks {
     this.$content = this.$parent.querySelector('.mobile-fade-in__content')
 
     this.animation = gsap.timeline({paused:true})
-      .fromTo(this.$content, {autoAlpha:0}, {autoAlpha:1})
-      .fromTo(this.$content, {y:100}, {y:0, ease:'power2.out'}, '-=1')
+      .fromTo(this.$content, {autoAlpha:0}, {autoAlpha:1, ease:'power2.out'})
+      .fromTo(this.$content, {y:50}, {y:0, ease:'power2.out'}, '-=1')
 
     this.trigger = ScrollTrigger.create({
       trigger: this.$parent,
-      start: "top bottom",
+      start: "top+=50 bottom",
       end: "bottom bottom",
       once: true,
       onEnter: () => {
@@ -1835,5 +1838,100 @@ class MobileFadeInBlocks {
     this.animation.kill();
     this.trigger.kill();
     gsap.set(this.$parent, {clearProps: "all"});
+  }
+}
+
+class MobilePoolAnimation {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
+
+  init() {
+    this.check = ()=> {
+      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+        if(this.initialized) {
+          this.destroyMobile();
+        }
+        this.flag = true;
+      } 
+      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
+        this.initMobile();
+        this.flag = false;
+      }
+    }
+    this.check();
+    window.addEventListener('resize', this.check);
+    this.initialized = true;
+  }
+
+  initMobile() {
+    this.$img = this.$parent.querySelector('img');
+
+    this.animation = gsap.timeline({paused:true})
+      .fromTo(this.$parent, {autoAlpha:0}, {autoAlpha:1, ease:'power2.out'})
+      .fromTo(this.$img, {scale:0.75, rotate:-30}, {scale:1, rotate:0, duration:1.5, ease:'power2.out'}, '-=1')
+
+    this.trigger = ScrollTrigger.create({
+      trigger: this.$parent,
+      start: "top+=50 bottom",
+      end: "bottom bottom",
+      once: true,
+      onEnter: () => {
+        this.animation.play();
+      }
+    });
+  }
+
+  destroyMobile() {
+    this.animation.kill();
+    this.trigger.kill();
+    gsap.set([this.$parent, this.$img], {clearProps: "all"});
+  }
+}
+
+class HomeScreenAnimation {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
+
+  init() {
+    this.check = ()=> {
+      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+        if(this.initialized) {
+          this.destroyMobile();
+        }
+        this.flag = true;
+      } 
+      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
+        this.initMobile();
+        this.flag = false;
+      }
+    }
+    this.check();
+    window.addEventListener('resize', this.check);
+    this.initialized = true;
+  }
+
+  initMobile() {
+    this.$items = this.$parent.querySelectorAll('.home-screen__image, .home-screen__label, .home-screen__title')
+
+    this.animation = gsap.timeline({paused:true})
+      .fromTo(this.$items, {autoAlpha:0}, {autoAlpha:1, duration:0.85, stagger:{amount:0.15}})
+      .fromTo(this.$items, {x:100}, {x:0, duration:0.85, ease:'power2.out', stagger:{amount:0.15}}, '-=1')
+
+    this.play = ()=> {
+      this.animation.play();
+    }
+    if(!Preloader.finished) {
+      window.addEventListener('start', this.play);
+    } else {
+      this.play();
+    }
+  }
+
+  destroyMobile() {
+    this.animation.kill();
+    gsap.set(this.$items, {clearProps: "all"});
+    window.removeEventListener('start', this.play);
   }
 }

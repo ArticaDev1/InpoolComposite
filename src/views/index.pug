@@ -24,13 +24,15 @@ block content
                     br 
                     mark премиум качества
             .section-3d-screen-1__text
-              .row
+              .row.section-3d-screen-1__row
                 .offset-xxl-1.offset-xl-2.col-xl-2.section-3d-screen-1__item
                   .section-3d-screen-1__item-inner Бассейны<br> Сompass pools
-                .offset-xxl-2.offset-xl-1.col-xl-2.section-3d-screen-1__item
-                  .section-3d-screen-1__item-inner Улучшаем<br> ценное
-                .offset-xxl-2.offset-xl-1.col-xl-3.section-3d-screen-1__item
-                  .section-3d-screen-1__item-inner INPOOL CONCEPT – технологии строительства бассейнов
+                .section-3d-screen-1__item.section-3d-screen-1__link-container.offset-xl-2.offset-xxl-4.col-xl-4  
+                  a(href="https://inpoolconcept.ru/" target='_blank' rel='noopener').section-3d-screen-1__link.section-3d-screen-1__item-inner
+                    img(src="./img/inpool.svg", alt="inpool").icon
+                    .item-message
+                      .item-message__container INPOOL Concept® — технологии<br> строительства бассейнов
+
         //
         .section-3d-screen.section-3d-screen-2.animated-head
           .container.animated-head__container
@@ -119,6 +121,42 @@ block content
               .section-3d-dots__item-message 
                 .section-3d-dots__item-message-container Жалюзийное покрытие
 
+  section.section.home-screen.screen
+    .figures-container.container
+      .background-figure.background-figure_1(data-parallax='0.5')
+      .background-figure.background-figure_2(data-parallax='0.5')
+    .container.home-screen__container
+      .home-screen__center.row 
+        .offset-1.col-11.home-screen__image 
+          img(src="./img/home.jpg", alt="image")
+
+        .home-screen__text.offset-1.col-11
+          span.home-screen__label Бассейны Сompass pools
+          h3.home-screen__title Композитные бассейны 
+            mark премиум качества
+
+      .home-screen__bottom.row 
+        span.home-screen__bottom-label.col-auto.offset-1 Бассейны<br> Сompass pools
+        .home-screen__link.col-auto
+          a(href="https://inpoolconcept.ru/" target='_blank' rel='noopener').home-screen__link-element
+            img(src="./img/inpool.svg", alt="inpool").icon
+  
+  section.section.section-form.section-animated
+    .figures-container.container
+      .background-figure.background-figure_1(data-parallax='0.5')
+    .animated-head.section-animated__head
+      .container.animated-head__container
+        h5.animated-head__sub-title Compass pools
+        h2.h1.animated-head__title Совершенство формы.
+    .section-animated__content.container 
+      .section-form__image
+        img(src="./img/pool_form.png", alt="image").lazyload
+      .section-form__text.mobile-fade-in.row 
+        p.offset-sm-6.col-sm-6.mobile-fade-in__content
+          strong Строим со знанием того, зачем бассейны нужны вам, 
+          | как оптимизировать их конфигурацию под ваши потребности, нужды и как ими пользоваться с максимальной пользой и удовлетворением.
+        
+
   section.section.section-animated.section-preview
     .animated-head.section-animated__head
       .container.animated-head__container
@@ -127,19 +165,19 @@ block content
     .section-animated__content
       .section-preview__full-screen-image.mobile-fade-in
         .image.image_cover.mobile-fade-in__content
-          img(src="./img/final.jpg", alt="image").lazyload
+          img(src="./img/final.jpg", alt="image").lazyload.lazypreload
 
       .section-preview__small-images-container.container 
         .row 
           .section-preview__small-image.section-preview__small-image_1.mobile-fade-in.offset-4.offset-sm-1.offset-lg-0.col-7.col-sm-4.col-lg-3
             .image.image_cover.parallax-image.mobile-fade-in__content
-              img(src="./img/small1.jpg", alt="image").lazyload
+              img(src="./img/small1.jpg", alt="image").lazyload.lazypreload
           .section-preview__small-image.section-preview__small-image_2.mobile-fade-in.offset-6.offset-sm-4.offset-lg-0.col-6.col-sm-4.col-lg-3
             .image.image_cover.parallax-image.mobile-fade-in__content
-              img(src="./img/small2.jpg", alt="image").lazyload
+              img(src="./img/small2.jpg", alt="image").lazyload.lazypreload
           .section-preview__small-image.section-preview__small-image_3.mobile-fade-in.offset-sm-2.offset-lg-0.col-10.col-sm-4.col-lg-3
             .image.image_cover.parallax-image.mobile-fade-in__content
-              img(src="./img/small3.jpg", alt="image").lazyload
+              img(src="./img/small3.jpg", alt="image").lazyload.lazypreload
 
   section.section.section-choose-models.section-animated
     -var block1 = ['Aqua', 'прямоугольная модель со ступенями, расположенными в угловой части', './img/desktop-models/1.jpg', '#aqua']
@@ -158,15 +196,15 @@ block content
         .desktop-models-list__images 
           .desktop-models-list__image
             .image.image_cover
-              img(data-src=block1[2], alt="image").lazyload
+              img(data-src=block1[2], alt="image").lazyload.lazypreload
             .image.image_cover
-              img(data-src=block2[2], alt="image").lazyload
+              img(data-src=block2[2], alt="image").lazyload.lazypreload
             .image.image_cover
-              img(data-src=block3[2], alt="image").lazyload
+              img(data-src=block3[2], alt="image").lazyload.lazypreload
             .image.image_cover
-              img(data-src=block4[2], alt="image").lazyload
+              img(data-src=block4[2], alt="image").lazyload.lazypreload
             .image.image_cover
-              img(data-src=block5[2], alt="image").lazyload
+              img(data-src=block5[2], alt="image").lazyload.lazypreload
 
         .desktop-models-list__items
           mixin block(title, text, modal)
@@ -291,7 +329,7 @@ block content
             .technologies-block__container.mobile-fade-in__content
               .technologies-block__image(class=classes)
                 .image.image_cover.parallax-image
-                  img(data-src=image, alt="image").lazyload
+                  img(data-src=image, alt="image").lazyload.lazypreload
               .technologies-block__content(class=classes3)
                 .technologies-block__text
                   h6.technologies-block__title=title
