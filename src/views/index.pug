@@ -125,20 +125,20 @@ block content
         h5.animated-head__sub-title А в жизни как?
         h2.h1.animated-head__title Представьте.
     .section-animated__content
-      .section-preview__full-screen-image
-        .image.image_cover 
-          img(src="./img/final.jpg", alt="image").lazyload.lazypreload
+      .section-preview__full-screen-image.mobile-fade-in
+        .image.image_cover.mobile-fade-in__content
+          img(src="./img/final.jpg", alt="image").lazyload
 
       .section-preview__small-images-container.container 
         .row 
-          .section-preview__small-image.section-preview__small-image_1.offset-4.offset-sm-1.offset-lg-0.col-7.col-sm-4.col-lg-3
-            .image.image_cover.parallax-image
+          .section-preview__small-image.section-preview__small-image_1.mobile-fade-in.offset-4.offset-sm-1.offset-lg-0.col-7.col-sm-4.col-lg-3
+            .image.image_cover.parallax-image.mobile-fade-in__content
               img(src="./img/small1.jpg", alt="image").lazyload
-          .section-preview__small-image.section-preview__small-image_2.offset-6.offset-sm-4.offset-lg-0.col-6.col-sm-4.col-lg-3
-            .image.image_cover.parallax-image
+          .section-preview__small-image.section-preview__small-image_2.mobile-fade-in.offset-6.offset-sm-4.offset-lg-0.col-6.col-sm-4.col-lg-3
+            .image.image_cover.parallax-image.mobile-fade-in__content
               img(src="./img/small2.jpg", alt="image").lazyload
-          .section-preview__small-image.section-preview__small-image_3.offset-sm-2.offset-lg-0.col-10.col-sm-4.col-lg-3
-            .image.image_cover.parallax-image
+          .section-preview__small-image.section-preview__small-image_3.mobile-fade-in.offset-sm-2.offset-lg-0.col-10.col-sm-4.col-lg-3
+            .image.image_cover.parallax-image.mobile-fade-in__content
               img(src="./img/small3.jpg", alt="image").lazyload
 
   section.section.section-choose-models.section-animated
@@ -287,8 +287,8 @@ block content
       .row
         mixin block1(image, title, text, link, classes, classes2, classes3, type)
           //block
-          .technologies-block(class=classes2)
-            .technologies-block__container
+          .technologies-block.mobile-fade-in(class=classes2)
+            .technologies-block__container.mobile-fade-in__content
               .technologies-block__image(class=classes)
                 .image.image_cover.parallax-image
                   img(data-src=image, alt="image").lazyload

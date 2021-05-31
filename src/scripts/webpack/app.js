@@ -110,6 +110,7 @@ window.onload = function() {
   activeFunctions.add(PreviewSection, '.section-preview');
   activeFunctions.add(SectionVideoAnimation, '.section-video-animation');
   activeFunctions.add(ModelsSlider, '.models-slider');
+  activeFunctions.add(MobileFadeInBlocks, '.mobile-fade-in');
   activeFunctions.add(Map, '.contacts-block__map');
   activeFunctions.add(ParallaxImage, '.parallax-image');
   activeFunctions.init();
@@ -728,7 +729,9 @@ const Preloader = {
         this.$item.style.transition = 'initial';
         this.$item.setAttribute('y', '0');
         gsap.to(this.$item, {autoAlpha:1, duration:0.5, onComplete:()=>{
-          this.finish();
+          setTimeout(() => {
+            this.finish();
+          }, 500);
         }})
       }
     } 
@@ -912,6 +915,9 @@ class SectionAnimated {
   init() {
     this.check = ()=> {
       if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+        if(this.initialized) {
+          this.destroyMobile();
+        }
         this.initDesktop();
         this.flag = true;
       } 
@@ -919,6 +925,7 @@ class SectionAnimated {
         if(this.initialized) {
           this.destroyDesktop();
         }
+        this.initMobile();
         this.flag = false;
       }
     }
@@ -948,6 +955,32 @@ class SectionAnimated {
       }
     });
   }
+
+  initMobile() {
+    this.$head = this.$parent.querySelector('.animated-head');
+    this.$items = this.$head.querySelectorAll('.animated-head__title, .animated-head__sub-title');
+
+    this.animation = gsap.timeline({paused:true})
+      .fromTo(this.$items, {autoAlpha:0}, {autoAlpha:1, stagger:{amount:0.15}})
+      .fromTo(this.$items, {y:50}, {y:0, ease:'power2.out', stagger:{amount:0.15}}, '-=1.15')
+
+    this.trigger = ScrollTrigger.create({
+      trigger: this.$head,
+      start: "top bottom",
+      end: "bottom bottom",
+      once: true,
+      onEnter: () => {
+        this.animation.play();
+      }
+    });
+  }
+
+  destroyMobile() {
+    this.animation.kill();
+    this.trigger.kill();
+    gsap.set(this.$items, {clearProps: "all"});
+  }
+  
 
   destroyDesktop() {
     this.animation_head.kill();
@@ -1521,10 +1554,13 @@ class ColorsSlider {
           gsap.set(this.$wrapper, {clearProps: "all"});
         } else {
           gsap.set(this.$wrapper, {css:{height:h}});
+          ScrollTrigger.refresh();
         }
       } else {
         if(window.innerWidth < brakepoints.sm) {
-          gsap.to(this.$wrapper, {css:{height:h}});
+          gsap.to(this.$wrapper, {css:{height:h}, onComplete:()=>{
+            ScrollTrigger.refresh();
+          }});
         }
       }
     }
@@ -1751,5 +1787,53 @@ class ParallaxImage {
     this.animation.kill();
     this.trigger.kill();
     gsap.set(this.$img, {clearProps: "all"});
+  }
+}
+
+class MobileFadeInBlocks {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
+
+  init() {
+    this.check = ()=> {
+      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+        if(this.initialized) {
+          this.destroyMobile();
+        }
+        this.flag = true;
+      } 
+      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
+        this.initMobile();
+        this.flag = false;
+      }
+    }
+    this.check();
+    window.addEventListener('resize', this.check);
+    this.initialized = true;
+  }
+
+  initMobile() {
+    this.$content = this.$parent.querySelector('.mobile-fade-in__content')
+
+    this.animation = gsap.timeline({paused:true})
+      .fromTo(this.$content, {autoAlpha:0}, {autoAlpha:1})
+      .fromTo(this.$content, {y:100}, {y:0, ease:'power2.out'}, '-=1')
+
+    this.trigger = ScrollTrigger.create({
+      trigger: this.$parent,
+      start: "top bottom",
+      end: "bottom bottom",
+      once: true,
+      onEnter: () => {
+        this.animation.play();
+      }
+    });
+  }
+
+  destroyMobile() {
+    this.animation.kill();
+    this.trigger.kill();
+    gsap.set(this.$parent, {clearProps: "all"});
   }
 }

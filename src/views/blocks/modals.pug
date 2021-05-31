@@ -1,3 +1,16 @@
+.modal#modal-nav.modal-nav(style='opacity:0;visibility:hidden;')
+  .modal__wrapper(data-scroll-lock-scrollable)
+    .modal__container.container 
+      .row
+        .col-xl-12
+          .modal-block
+            a(href="tel:+79269659259").header-phone.modal-nav__phone +7 926 965 92 59
+            button.modal-close(aria-label='close' data-modal='close')
+            .modal-nav__content 
+              a(href="tel:+79269659259").button.button_style-1.modal-nav__button Позвонить
+              button(href="#modal-form" data-modal='open' data-modal-subject="Заказать звонок").button.button_style-2.modal-nav__button Заказать звонок
+
+
 .modal#modal-form(style='opacity:0;visibility:hidden;')
   .modal__wrapper(data-scroll-lock-scrollable)
     .modal__container.container 

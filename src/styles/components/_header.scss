@@ -8,8 +8,7 @@
   padding: 30px 56px;
   z-index: 1000;
   pointer-events: none;
-  &__phone {
-    margin-right: 27px;
+  &-phone {
     color: var(--color-text-accent);
     font-size: 1rem;
     transition: color $trs1;
@@ -18,11 +17,51 @@
       color: var(--color-text);
     }
   }
+  &__phone {
+    margin-right: 27px;
+  }
   .logo, .button {
     pointer-events: all;
   }
+  @include media-breakpoint-up(sm) {
+    &__mobile-trigger {
+      display: none;
+    }
+  }
   @include media-breakpoint-down(xxl) {
     padding: 24px;
+  }
+  @include media-breakpoint-down(lg) {
+    padding: 28px $field;
+  }
+  @include media-breakpoint-down(md) {
+    padding: 17px 24px;
+  }
+  @include media-breakpoint-down(sm) {
+    &__right {
+      display: none;
+    }
+    &__mobile-trigger {
+      pointer-events: all;
+      display: flex;
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      cursor: pointer;
+      background-color: var(--color-modal-close-bg);
+      color: var(--color-modal-close);
+      transition: background-color $trs1, color $trs1;
+      .icon {
+        margin: auto;
+        width: 22px;
+        height: 22px;
+        display: block;
+      }
+      &[data-touch], &[data-hover] {
+        background-color: var(--color-modal-hover-close-bg);
+        color: var(--color-modal-hover-close);
+      }
+    }
   }
 }
 
@@ -35,5 +74,27 @@
   }
   @include media-breakpoint-down(xxl) {
     width: 160px;
+  }
+  @include media-breakpoint-down(sm) {
+    width: 150px;
+  }
+}
+
+.modal-nav {
+  &__phone {
+    position: absolute;
+    left: 24px;
+    top: 32px;
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__button {
+    min-width: 194px;
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
   }
 }
