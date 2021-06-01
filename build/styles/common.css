@@ -4513,11 +4513,17 @@ img {
         color: var(--color-modal-hover-close); } }
 
 .logo {
-  width: 230px; }
+  width: 230px;
+  filter: grayscale(1);
+  opacity: 0.85;
+  transition: filter 0.15s ease-in-out, opacity 0.15s ease-in-out; }
   .logo img {
     display: block;
     width: 100%;
     height: auto; }
+  .logo[data-touch], .logo[data-hover] {
+    opacity: 1;
+    filter: grayscale(0); }
   @media (max-width: 1599.98px) {
     .logo {
       width: 160px; } }

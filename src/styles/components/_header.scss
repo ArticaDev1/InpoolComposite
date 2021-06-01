@@ -67,10 +67,17 @@
 
 .logo {
   width: 230px;
+  filter: grayscale(1);
+  opacity: 0.85;
+  transition: filter $trs1, opacity $trs1;
   img {
     display: block;
     width: 100%;
     height: auto;
+  }
+  &[data-touch], &[data-hover] {
+    opacity: 1;
+    filter: grayscale(0);
   }
   @include media-breakpoint-down(xxl) {
     width: 160px;
