@@ -197,18 +197,12 @@ const Resources = {
       0: {
         src: './img/model/1/',
         type: 'png',
-        framesCount: 98,
+        framesCount: 227,
         frames: []
       },
       1: {
         src: './img/model/2/',
-        type: 'png',
-        framesCount: 84,
-        frames: []
-      },
-      2: {
-        src: './img/model/3/',
-        type: 'jpg',
+        type: 'jpeg',
         framesCount: 100,
         frames: []
       },
@@ -222,12 +216,11 @@ const Resources = {
 
     this.load = () => {
       //load first scene
-      console.log('load')
       for(let i = 0; i < this.sources[0].framesCount; i++) {
         this.sources[0].frames[i] = new Image();
         this.sources[0].frames[i].onload = ()=> {
           this.framesLoaded++;
-          //dirst loaded
+          //first loaded
           if(this.framesLoaded==this.sources[0].framesCount) {
             //load else
             for(let source in this.sources) {
@@ -1159,6 +1152,7 @@ class Section3d {
 
   initDesktop() {
     let pinType = Scroll.scrollbar?'transform':'fixed';
+    this.$container = this.$parent.querySelector('.section-3d__container');
     this.$scene = this.$parent.querySelector('.section-3d__scene');
     this.$scene_inner = this.$parent.querySelector('.section-3d__scene-inner');
     this.$scene_canvas = this.$parent.querySelector('.section-3d__scene-canvas');
@@ -1168,12 +1162,11 @@ class Section3d {
     this.$canvas.height=1080;
 
     this.$scene_size_element = this.$parent.querySelectorAll('[data-scene-size-element]');
-    //1
-    this.$part1 = this.$parent.querySelector('.section-3d-part-1__container');
-    this.$screen1 = this.$parent.querySelector('.section-3d-screen-1');
-    this.$screen1_items = this.$screen1.querySelectorAll('.section-3d-screen-1__item');
-    this.$screen1_items_inner = this.$screen1.querySelectorAll('.section-3d-screen-1__item-inner');
-    this.$screen2 = this.$parent.querySelector('.section-3d-screen-2');
+    
+    this.frames_1 = Resources.sources[0].frames;
+    this.frames_1_count = Resources.sources[0].framesCount;
+
+    /* this.$screen2 = this.$parent.querySelector('.section-3d-screen-2');
     this.$screen2_content = this.$screen2.querySelector('.animated-head__container');
     this.$screen3 = this.$parent.querySelector('.section-3d-screen-3');
     this.$screen3_content = this.$screen3.querySelector('.container');
@@ -1192,9 +1185,7 @@ class Section3d {
     this.$screen5 = this.$parent.querySelector('.section-3d-screen-5');
     this.$screen5_content = this.$screen5.querySelector('.container');
     this.$screen6 = this.$parent.querySelector('.section-3d-dots');
-    this.$screen6_items = this.$screen6.querySelectorAll('.section-3d-dots__item');
-
-    this.activeFrame = this.frames1[0];
+    this.$screen6_items = this.$screen6.querySelectorAll('.section-3d-dots__item'); */
 
     this.sceneRender = ()=> {
       this.context.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
@@ -1204,6 +1195,7 @@ class Section3d {
       this.animationFrame = requestAnimationFrame(this.sceneRender);
     }
     this.sceneRender();
+    
     this.resizeEvent = () => {
       let h = this.$scene_inner.getBoundingClientRect().height,
           w = this.$scene_inner.getBoundingClientRect().width,
@@ -1222,32 +1214,32 @@ class Section3d {
         })
       }
     }
+
     this.resizeEvent();
     window.addEventListener('resize', this.resizeEvent);
 
-    //START ANIMATION 
-    let animation_start = gsap.timeline({paused:true})
-      .fromTo(this.$scene_canvas, {scale:0.9, autoAlpha:0}, {scale:1, autoAlpha:1, ease:'power2.out'})
-      .fromTo(this.$screen1_items, {autoAlpha:0, y:20}, {autoAlpha:1, y:0, duration:0.75, ease:'power2.out', stagger:{amount:0.25}}, `-=0.75`) 
-    
-      if(!Preloader.finished) {
-      window.addEventListener('start', () => {
-        animation_start.play();
-      })
-    } else {
-      animation_start.play();
-    }
 
-    //animation fade scene
     this.animation_fade = gsap.timeline({paused:true})
       .to(this.$scene, {autoAlpha:0})
 
-    //ANIMATION 1
-    this.animation1 = gsap.timeline({paused:true})
-      .to(this.$screen1, {y:-50, ease:'none'})
-      .to(this.$screen1_items_inner, {autoAlpha:0, duration:0.75, ease:'power2.out', stagger:{amount:0.25}}, `-=1`)
-      .set(this.$screen1, {autoAlpha:0})
-    //ANIMATION 2
+    this.$screen_1 = this.$parent.querySelector('.section-3d-screen-1'),
+    this.$screen_1_items = this.$parent.querySelectorAll('.section-3d-screen-1__item');
+    this.$screen_1_items_inner = this.$parent.querySelectorAll('.section-3d-screen-1__item-inner');
+    
+    this.animation_start = gsap.timeline({paused:true})
+      .fromTo(this.$scene_canvas, {scale:0.9, autoAlpha:0}, {scale:1, autoAlpha:1, ease:'power2.out'})
+      .fromTo(this.$screen_1_items, {autoAlpha:0, y:20}, {autoAlpha:1, y:0, duration:0.75, ease:'power2.out', stagger:{amount:0.25}}, `-=0.75`) 
+
+    this.animation_1 = gsap.timeline({paused:true})
+      .to(this.$screen_1, {y:-50, ease:'none'})
+      .to(this.$screen_1_items_inner, {autoAlpha:0, duration:0.75, ease:'power2.out', stagger:{amount:0.25}}, `-=1`)
+      .set(this.$screen_1, {autoAlpha:0})
+
+
+    
+    
+    
+    /* //ANIMATION 2
     this.animation2 = gsap.effects.slidingText(this.$screen2, this.$screen2_content);
     //ANIMATION 3
     this.animation3 = gsap.effects.slidingText(this.$screen3, this.$screen3_content);
@@ -1265,19 +1257,40 @@ class Section3d {
     this.animation6 = gsap.timeline({paused:true})
       .set(this.$screen6, {autoAlpha:1})
       .fromTo(this.$screen6_items, {autoAlpha:0}, {autoAlpha:1, duration:0.6, stagger:{amount:0.4}})
-      .to(this.$screen6, {autoAlpha:0, duration:0.5}, '+=0.5')
+      .to(this.$screen6, {autoAlpha:0, duration:0.5}, '+=0.5') */
 
 
     this.sceneTrigger = ScrollTrigger.create({
-      trigger: this.$scene,
+      trigger: this.$container,
       start: "top top",
       end: "+=13000",
       pin: true,
       pinType: pinType,
-      pinSpacing: false
+      pinSpacing: false,
+      onUpdate: self => {
+        let y = self.end*self.progress;
+
+        let progress_3d_1 = Math.max(0, Math.min(y/8500, 1));
+        if(progress_3d_1 > 0 && progress_3d_1 < 1) {
+          this.activeFrame = this.frames_1[Math.round(progress_3d_1*(this.frames_1_count-1))];
+        }
+
+
+        let progress_1 = Math.max(0, Math.min(y/750, 1));
+        this.animation_1.progress(progress_1);
+
+
+
+      }
     })
 
-    this.trigger1 = ScrollTrigger.create({
+    if(!Preloader.finished) {
+      window.addEventListener('start', () => {
+        this.animation_start.play();
+      })
+    } else this.animation_start.play();
+
+    /* this.trigger1 = ScrollTrigger.create({
       trigger: this.$part1,
       start: "top top",
       end: "+=4500",
@@ -1304,9 +1317,9 @@ class Section3d {
         this.$scene_inner.classList.remove('wide');
         this.resizeEvent();
       }
-    })
+    }) */
 
-    this.trigger2 = ScrollTrigger.create({
+    /* this.trigger2 = ScrollTrigger.create({
       trigger: this.$part2,
       start: "top top",
       end: "+=4000",
@@ -1333,9 +1346,9 @@ class Section3d {
         this.$scene_inner.classList.add('wide');
         this.resizeEvent();
       }
-    })
+    }) */
 
-    this.trigger3 = ScrollTrigger.create({
+    /* this.trigger3 = ScrollTrigger.create({
       trigger: this.$part3,
       start: "top top",
       end: "+=4500",
@@ -1361,7 +1374,7 @@ class Section3d {
         let time4 = Math.max(0, Math.min((y-2300)/1200, 1));
         this.animation6.progress(time4);
       }
-    })
+    }) */
 
   }
 }
