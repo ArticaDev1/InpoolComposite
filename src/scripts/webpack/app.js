@@ -197,7 +197,7 @@ const Resources = {
       0: {
         src: './img/model/1/',
         type: 'png',
-        framesCount: 227,
+        framesCount: 224,
         frames: []
       },
       1: {
@@ -1273,6 +1273,7 @@ class Section3d {
         let progress_3d_1 = Math.max(0, Math.min(y/8500, 1));
         if(progress_3d_1 > 0 && progress_3d_1 < 1) {
           this.activeFrame = this.frames_1[Math.round(progress_3d_1*(this.frames_1_count-1))];
+          console.log(this.activeFrame)
         }
 
 
