@@ -3558,16 +3558,16 @@ img {
     left: 0;
     overflow: hidden; }
     .section-3d__scene-inner {
+      --width: 1500px;
+      --height: 842px;
+      --left: 50.5%;
+      --top: 52%;
       position: absolute;
-      top: 51%;
-      left: 50%;
+      top: var(--top);
+      left: var(--left);
       transform: translate(-50%, -50%);
-      width: 1500px;
-      height: 842px; }
-      .section-3d__scene-inner.wide {
-        width: 100% !important;
-        height: 100% !important;
-        top: 50% !important; }
+      width: var(--width);
+      height: var(--height); }
     .section-3d__scene-canvas {
       position: absolute;
       width: 100%;
@@ -3584,8 +3584,8 @@ img {
       transform: translate(-50%, -50%); }
   @media (max-width: 1599.98px) {
     .section-3d__scene-inner {
-      width: 1018px;
-      height: 570px; } }
+      --width: 1018px;
+      --height: 570px; } }
   @media (max-width: 1023.98px) {
     .section-3d {
       display: none; } }
@@ -3652,6 +3652,15 @@ img {
   .section-3d-screen-1__link {
     width: 300px; } }
 
+.section-3d-screen-2 {
+  background-color: rgba(255, 255, 255, 0.7); }
+
+.section-3d-screen-layout__container {
+  height: 100%; }
+  .section-3d-screen-layout__container .row {
+    height: 100%;
+    align-items: center; }
+
 .section-3d-part__container {
   height: 100vh;
   width: 100%;
@@ -3667,9 +3676,6 @@ img {
 .section-3d-part-3 {
   padding-bottom: 4500px;
   margin-top: -100vh; }
-
-.section-3d-screen-2 {
-  background-color: rgba(255, 255, 255, 0.7); }
 
 .section-3d-screen-3 .container {
   height: 100%; }

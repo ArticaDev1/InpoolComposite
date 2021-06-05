@@ -1,7 +1,7 @@
 const Dev = false;
 
 import 'lazysizes';
-lazySizes.cfg.loadHidden = false;
+lazySizes.cfg.preloadAfterLoad = true;
 lazySizes.cfg.customMedia = {
   '--small': '(max-width: 575px)',
   '--medium': '(max-width: 1023px)',
@@ -126,9 +126,9 @@ gsap.registerEffect({
   name: "slidingText", //1000px
   effect: ($outer, $inner) => {
     let anim = gsap.timeline({paused: true})
-      .fromTo($outer, {autoAlpha:0}, {autoAlpha:1, duration:0.33, ease:'power2.in'})
-      .fromTo($inner, {y:50}, {y:-50, ease:'none'}, `-=0.33`)
-      .to($outer, {autoAlpha:0, duration:0.33, ease:'power2.out'}, `-=0.33`)
+      .fromTo($outer, {autoAlpha:0}, {autoAlpha:1, duration:0.33, ease:'power1.in'})
+      .fromTo($inner, {y:40}, {y:-40, ease:'none'}, `-=0.33`)
+      .to($outer, {autoAlpha:0, duration:0.33, ease:'power1.out'}, `-=0.33`)
     return anim;
   },
   extendTimeline: true
@@ -137,9 +137,9 @@ gsap.registerEffect({
   name: "slidingTextSlow", //2000px
   effect: ($outer, $inner) => {
     let anim = gsap.timeline({paused: true})
-      .fromTo($outer, {autoAlpha:0}, {autoAlpha:1, duration:0.165, ease:'power2.in'})
-      .fromTo($inner, {y:50}, {y:-50, ease:'none'}, `-=0.165`)
-      .to($outer, {autoAlpha:0, duration:0.165, ease:'power2.out'}, `-=0.165`)
+      .fromTo($outer, {autoAlpha:0}, {autoAlpha:1, duration:0.165, ease:'power1.in'})
+      .fromTo($inner, {y:40}, {y:-40, ease:'none'}, `-=0.165`)
+      .to($outer, {autoAlpha:0, duration:0.165, ease:'power1.out'}, `-=0.165`)
     return anim;
   },
   extendTimeline: true
@@ -1196,11 +1196,10 @@ class Section3d {
     }
     this.sceneRender();
     
-    this.resizeEvent = () => {
+    this.resizeCanvas = () => {
       let h = this.$scene_inner.getBoundingClientRect().height,
           w = this.$scene_inner.getBoundingClientRect().width,
           res = this.$canvas.height/this.$canvas.width;
-
 
       if (h / w < res) {
         this.$scene_size_element.forEach(($this)=>{
@@ -1215,8 +1214,33 @@ class Section3d {
       }
     }
 
-    this.resizeEvent();
-    window.addEventListener('resize', this.resizeEvent);
+    this.updateAnimations = () => {
+      let w = getComputedStyle(this.$scene_inner).getPropertyValue('--width'),
+          h = getComputedStyle(this.$scene_inner).getPropertyValue('--height'),
+          l = getComputedStyle(this.$scene_inner).getPropertyValue('--left'),
+          t = getComputedStyle(this.$scene_inner).getPropertyValue('--top');
+      this.animation_resize1 = gsap.timeline({paused:true})
+        .fromTo(this.$scene_inner, {css:{top:t}}, {css:{top:'50%'}, onUpdate: () => {
+          this.resizeCanvas();
+        }})
+      this.animation_resize2 = gsap.timeline({paused:true})
+        .fromTo(this.$scene_inner, {css:{height:h, width:w, left:l}}, {css:{height:'100%', width:'100%', left:'50%'}, onUpdate: () => {
+          this.resizeCanvas();
+        }})
+      if(this.progress_resize1) {
+        this.animation_resize1.progress(this.progress_resize1);
+      }
+      if(this.progress_resize2) {
+        this.animation_resize2.progress(this.progress_resize2);
+      }
+    }
+
+    this.resizeCanvas();
+    this.updateAnimations();
+    window.addEventListener('resize', this.resizeCanvas);
+    window.addEventListener('resize', this.updateAnimations);
+
+  
 
 
     this.animation_fade = gsap.timeline({paused:true})
@@ -1235,8 +1259,22 @@ class Section3d {
       .to(this.$screen_1_items_inner, {autoAlpha:0, duration:0.75, ease:'power2.out', stagger:{amount:0.25}}, `-=1`)
       .set(this.$screen_1, {autoAlpha:0})
 
+    this.$screen_2 = this.$parent.querySelector('.section-3d-screen-2');
+    this.$screen_2_content = this.$parent.querySelector('.section-3d-screen-2__container');
 
-    
+    this.animation_2 = gsap.effects.slidingText(this.$screen_2, this.$screen_2_content);
+
+    this.$screen_3 = this.$parent.querySelector('.section-3d-screen-3');
+    this.$screen_3_content = this.$parent.querySelector('.section-3d-screen-3__container');
+
+    this.animation_3 = gsap.effects.slidingText(this.$screen_3, this.$screen_3_content);
+
+    this.animations_layout = [];
+    this.$screen_layout = this.$parent.querySelectorAll('.section-3d-screen-layout');
+    this.$screen_layout_content = this.$parent.querySelectorAll('.section-3d-screen-layout__container');
+    this.$screen_layout.forEach(($this, index) => {
+      this.animations_layout[index] = gsap.effects.slidingText($this, this.$screen_layout_content[index]);
+    })
     
     
     /* //ANIMATION 2
@@ -1270,17 +1308,111 @@ class Section3d {
       onUpdate: self => {
         let y = self.end*self.progress;
 
-        let progress_3d_1 = Math.max(0, Math.min(y/8500, 1));
-        if(progress_3d_1 > 0 && progress_3d_1 < 1) {
-          this.activeFrame = this.frames_1[Math.round(progress_3d_1*(this.frames_1_count-1))];
-          console.log(this.activeFrame)
+        /* let frame_y_progress = [],
+            frame_index_progress = [];
+
+        frame_y_progress[0] = Math.max(0, Math.min(y/1875, 1));
+        frame_y_progress[1] = Math.max(0, Math.min((y-2875)/3075, 1));
+        frame_index_progress[0] = frame_y_progress[0] * 75;
+        frame_index_progress[1] = (frame_y_progress[1] * 116) + frame_index_progress[0];
+        
+        for (let i = 0; i < frame_y_progress.length; i++) {
+          let idx = frame_y_progress.length - 1 - i;
+          if(frame_y_progress[idx] > 0) {
+
+            break;
+          }
+        } */
+
+        let progress_3d_1 = Math.max(0, Math.min(y/1875, 1)),
+            frame_progress_1 = progress_3d_1 * 75;
+        
+        if(progress_3d_1 > 0) {
+          this.activeFrame = this.frames_1[Math.round(frame_progress_1)];
         }
 
-
-        let progress_1 = Math.max(0, Math.min(y/750, 1));
+        let progress_1 = Math.max(0, Math.min(frame_progress_1/20, 1));
         this.animation_1.progress(progress_1);
+        
+        //resize1
+        this.progress_resize1 = Math.max(0, Math.min(Math.round(frame_progress_1)/20, 1));
+        this.animation_resize1.progress(this.progress_resize1);
 
+        let progress_2 = Math.max(0, Math.min((frame_progress_1 - 30)/40, 1));
+        this.animation_2.progress(progress_2);
 
+        let progress_3 = Math.max(0, Math.min((y-1875)/1000, 1));
+        this.animation_3.progress(progress_3);
+
+        let progress_3d_2 = Math.max(0, Math.min((y-2875)/2900, 1)),
+            frame_progress_2 = (progress_3d_2 * 116) + 75;
+
+        if(progress_3d_2 > 0) {
+          this.activeFrame = this.frames_1[Math.round(frame_progress_2)];
+        }
+
+        //resize2
+        this.progress_resize2 = Math.max(0, Math.min((Math.round(frame_progress_2)-75)/50, 1));
+        this.animation_resize2.progress(this.progress_resize2);
+        
+        //layout1
+        let progress_4 = Math.max(0, Math.min((y-5775)/1000, 1));
+        this.animations_layout[0].progress(progress_4);
+
+        //layout2
+        let progress_5 = Math.max(0, Math.min((y-6775)/1000, 1));
+        this.animations_layout[1].progress(progress_5);
+
+        let progress_3d_3 = Math.max(0, Math.min((y-6775)/200, 1)),
+            frame_progress_3 = (progress_3d_3 * 7) + 191;
+
+        if(progress_3d_3 > 0) {
+          this.activeFrame = this.frames_1[Math.round(frame_progress_3)];
+        }
+
+        //layout3
+        let progress_6 = Math.max(0, Math.min((y-7775)/1000, 1));
+        this.animations_layout[2].progress(progress_6);
+
+        let progress_3d_4 = Math.max(0, Math.min((y-7775)/200, 1)),
+            frame_progress_4 = (progress_3d_4 * 6) + 198;
+
+        if(progress_3d_4 > 0) {
+          this.activeFrame = this.frames_1[Math.round(frame_progress_4)];
+        }
+
+        //layout4
+        let progress_7 = Math.max(0, Math.min((y-8775)/1000, 1));
+        this.animations_layout[3].progress(progress_7);
+
+        let progress_3d_5 = Math.max(0, Math.min((y-8775)/200, 1)),
+            frame_progress_5 = (progress_3d_5 * 7) + 204;
+
+        if(progress_3d_5 > 0) {
+          this.activeFrame = this.frames_1[Math.round(frame_progress_5)];
+        }
+
+        //layout5
+        let progress_8 = Math.max(0, Math.min((y-9775)/1000, 1));
+        this.animations_layout[4].progress(progress_8);
+
+        let progress_3d_6 = Math.max(0, Math.min((y-9775)/200, 1)),
+            frame_progress_6 = (progress_3d_6 * 5) + 211;
+
+        if(progress_3d_6 > 0) {
+          this.activeFrame = this.frames_1[Math.round(frame_progress_6)];
+        }
+
+        //layout6
+        let progress_9 = Math.max(0, Math.min((y-10775)/1000, 1));
+        this.animations_layout[5].progress(progress_9);
+
+        let progress_3d_7 = Math.max(0, Math.min((y-10775)/200, 1)),
+            frame_progress_7 = (progress_3d_7 * 7) + 216;
+
+        if(progress_3d_7 > 0) {
+          this.activeFrame = this.frames_1[Math.round(frame_progress_7)];
+        }
 
       }
     })

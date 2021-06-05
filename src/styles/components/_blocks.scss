@@ -720,17 +720,16 @@
     left: 0;
     overflow: hidden;
     &-inner {
+      --width: 1500px;
+      --height: 842px;
+      --left: 50.5%;
+      --top: 52%;
       position: absolute;
-      top: 51%;
-      left: 50%;
+      top: var(--top);
+      left: var(--left);
       transform: translate(-50%, -50%);
-      width: 1500px;
-      height: 842px;
-      &.wide {
-        width: 100% !important;
-        height: 100% !important;
-        top: 50% !important;
-      }
+      width: var(--width);
+      height: var(--height);
     }
     &-canvas {
       position: absolute;
@@ -752,8 +751,8 @@
   @include media-breakpoint-down(xxl) {
     &__scene {
       &-inner {
-        width: 1018px;
-        height: 570px;
+        --width: 1018px;
+        --height: 570px;
       }
     }
   }
@@ -837,6 +836,23 @@
   }
 }
 
+.section-3d-screen-2 {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.section-3d-screen-layout {
+  &__container {
+    height: 100%;
+    .row {
+      height: 100%;
+      align-items: center;
+    }
+  }
+}
+
+
+
+
 .section-3d-part {
   &__container {
     height: 100vh;
@@ -854,10 +870,6 @@
 .section-3d-part-3 {
   padding-bottom: 4500px;
   margin-top: -100vh;
-}
-
-.section-3d-screen-2 {
-  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .section-3d-screen-3 {
