@@ -1,7 +1,6 @@
 const Dev = false;
 
 import 'lazysizes';
-lazySizes.cfg.preloadAfterLoad = true;
 lazySizes.cfg.customMedia = {
   '--small': '(max-width: 575px)',
   '--medium': '(max-width: 1023px)',

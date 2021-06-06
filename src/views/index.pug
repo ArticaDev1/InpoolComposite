@@ -199,8 +199,8 @@ block content
       .background-figure.background-figure_2(data-parallax='0.5')
     .container.home-screen__container
       .home-screen__center.row 
-        .offset-1.col-11.home-screen__image 
-          img(src="./img/home.jpg", alt="image")
+        .offset-1.col-11.home-screen__image
+          img(data-src="./img/home.jpg", alt="image").lazyload.lazypreload
 
         .home-screen__text.offset-1.col-11
           span.home-screen__label Бассейны Сompass pools
@@ -222,13 +222,12 @@ block content
         h2.h1.animated-head__title Совершенство формы.
     .section-animated__content.container 
       .section-form__image
-        img(src="./img/pool_form.png", alt="image").lazyload
+        img(src="./img/pool_form.png", alt="image").lazyload.lazypreload
       .section-form__text.mobile-fade-in.row 
         p.offset-sm-6.col-sm-6.mobile-fade-in__content
           strong Строим со знанием того, зачем бассейны нужны вам, 
           | как оптимизировать их конфигурацию под ваши потребности, нужды и как ими пользоваться с максимальной пользой и удовлетворением.
         
-
   section.section.section-animated.section-preview
     .animated-head.section-animated__head
       .container.animated-head__container
@@ -346,24 +345,24 @@ block content
               .colors-slide
                 .colors-slide__left.colors-slide__element
                   .colors-slide__element-inner.image.image_cover
-                    img(data-src=image1, alt="image").lazyload
+                    img(data-src=image1, alt="image").lazyload.lazypreload
                 .colors-slide__center.colors-slide__element
                   .colors-slide__element-inner
                     .colors-slide__back
                       .image.image_cover
-                        img(data-src=image2, alt="image").lazyload
+                        img(data-src=image2, alt="image").lazyload.lazypreload
                       .colors-slide__title.colors-slide__back-title
                         .h1.colors-slide__title-element.colors-slide__title-element_1=title
                     .colors-slide__front 
                       .colors-slide__front-container
                         .image.image_cover
-                          img(data-src=image2, alt="image").lazyload
+                          img(data-src=image2, alt="image").lazyload.lazypreload
                         .colors-slide__title.colors-slide__front-title
                           h2.h1.colors-slide__title-element(class=classes)=title
 
                 .colors-slide__right.colors-slide__element
                   .colors-slide__element-inner.image.image_cover
-                    img(data-src=image3, alt="image").lazyload
+                    img(data-src=image3, alt="image").lazyload.lazypreload
                 .colors-slide__text.colors-slide__element
                   .colors-slide__element-inner
                     .colors-slide__element-text
