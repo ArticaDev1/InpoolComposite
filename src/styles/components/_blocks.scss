@@ -690,13 +690,10 @@
 }
 
 .section-3d {
-  padding-bottom: 13000px;
+  padding-bottom: 11375px;
   &__container {
-    position: absolute;
     height: 100vh;
-    width: 100%;
-    top: 0;
-    left: 0;
+    position: relative;
   }
   &__scene {
     position: absolute;
@@ -835,9 +832,6 @@
     }
   }
 }
-
-
-
 
 .section-3d-part {
   &__container {

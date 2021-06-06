@@ -1163,7 +1163,7 @@ class Section3d {
     this.$scene_size_element = this.$parent.querySelectorAll('[data-scene-size-element]');
     
     this.frames_1 = Resources.sources[0].frames;
-    this.frames_1_count = Resources.sources[0].framesCount;
+    this.frames_2 = Resources.sources[1].frames;
 
     /* this.$screen2 = this.$parent.querySelector('.section-3d-screen-2');
     this.$screen2_content = this.$screen2.querySelector('.animated-head__container');
@@ -1239,11 +1239,9 @@ class Section3d {
     window.addEventListener('resize', this.resizeCanvas);
     window.addEventListener('resize', this.updateAnimations);
 
-  
-
 
     this.animation_fade = gsap.timeline({paused:true})
-      .to(this.$scene, {autoAlpha:0})
+      .to(this.$scene, {autoAlpha:0, duration:0.33, ease:'power1.out'})
 
     this.$screen_1 = this.$parent.querySelector('.section-3d-screen-1'),
     this.$screen_1_items = this.$parent.querySelectorAll('.section-3d-screen-1__item');
@@ -1300,7 +1298,7 @@ class Section3d {
     this.sceneTrigger = ScrollTrigger.create({
       trigger: this.$container,
       start: "top top",
-      end: "+=13000",
+      end: "+=11375",
       pin: true,
       pinType: pinType,
       pinSpacing: false,
@@ -1320,17 +1318,39 @@ class Section3d {
         //3
         fy.push( Math.max(0, Math.min((y-2400)/2975, 1)) )
         fi.push( (fy[fy.length-1] * 119) + 72 );
+        //4
+        fy.push( Math.max(0, Math.min((y-6375)/100, 1)) )
+        fi.push( (fy[fy.length-1] * 7) + 191 );
+        //5
+        fy.push( Math.max(0, Math.min((y-7375)/100, 1)) )
+        fi.push( (fy[fy.length-1] * 6) + 198 );
+        //6
+        fy.push( Math.max(0, Math.min((y-8375)/100, 1)) )
+        fi.push( (fy[fy.length-1] * 7) + 204 );
+        //7
+        fy.push( Math.max(0, Math.min((y-9375)/100, 1)) )
+        fi.push( (fy[fy.length-1] * 5) + 211 );
+        //8
+        fy.push( Math.max(0, Math.min((y-10375)/100, 1)) )
+        fi.push( (fy[fy.length-1] * 7) + 216 );
+
         
         for (let i = 0; i < fy.length; i++) {
           let index = fy.length - 1 - i;
           if(fy[index] > 0) {
-            this.activeFrame = this.frames_1[Math.round(fi[index])];
-            frame = fi[index];
+            //1
+            if(Math.round(fi[index])<=223) {
+              this.activeFrame = this.frames_1[Math.round(fi[index])];
+              frame = fi[index];
+            } else {
+              this.activeFrame = this.frames_2[Math.round(fi[index]) - 224];
+              frame = fi[index] - 224;
+            }
             break;
           }
         }
 
-        //console.log(Math.round(frame))
+        console.log(Math.round(frame))
 
         let progress_1 = Math.max(0, Math.min(frame/25, 1));
         this.animation_1.progress(progress_1);
@@ -1346,87 +1366,28 @@ class Section3d {
 
         this.progress_resize2 = Math.max(0, Math.min((Math.round(frame)-75)/50, 1));
         this.animation_resize2.progress(this.progress_resize2);
-        
-        //resize1
-        /* this.progress_resize1 = Math.max(0, Math.min(Math.round(frame_progress_1)/20, 1));
-        this.animation_resize1.progress(this.progress_resize1);
 
-        let progress_2 = Math.max(0, Math.min((frame_progress_1 - 30)/40, 1));
-        this.animation_2.progress(progress_2);
-
-        let progress_3 = Math.max(0, Math.min((y-1875)/1000, 1));
-        this.animation_3.progress(progress_3);
-
-        let progress_3d_2 = Math.max(0, Math.min((y-2875)/2900, 1)),
-            frame_progress_2 = (progress_3d_2 * 116) + 75;
-
-        if(progress_3d_2 > 0) {
-          this.activeFrame = this.frames_1[Math.round(frame_progress_2)];
-        }
-
-        //resize2
-        this.progress_resize2 = Math.max(0, Math.min((Math.round(frame_progress_2)-75)/50, 1));
-        this.animation_resize2.progress(this.progress_resize2);
-        
-        //layout1
-        let progress_4 = Math.max(0, Math.min((y-5775)/1000, 1));
+        let progress_4 = Math.max(0, Math.min((y-5375)/1000, 1));
         this.animations_layout[0].progress(progress_4);
 
-        //layout2
-        let progress_5 = Math.max(0, Math.min((y-6775)/1000, 1));
+        let progress_5 = Math.max(0, Math.min((y-6375)/1000, 1));
         this.animations_layout[1].progress(progress_5);
 
-        let progress_3d_3 = Math.max(0, Math.min((y-6775)/100, 1)),
-            frame_progress_3 = (progress_3d_3 * 7) + 191;
-
-        if(progress_3d_3 > 0) {
-          this.activeFrame = this.frames_1[Math.round(frame_progress_3)];
-        }
-
-        //layout3
-        let progress_6 = Math.max(0, Math.min((y-7775)/1000, 1));
+        let progress_6 = Math.max(0, Math.min((y-7375)/1000, 1));
         this.animations_layout[2].progress(progress_6);
 
-        let progress_3d_4 = Math.max(0, Math.min((y-7775)/100, 1)),
-            frame_progress_4 = (progress_3d_4 * 6) + 198;
-
-        if(progress_3d_4 > 0) {
-          this.activeFrame = this.frames_1[Math.round(frame_progress_4)];
-        }
-
-        //layout4
-        let progress_7 = Math.max(0, Math.min((y-8775)/1000, 1));
+        let progress_7 = Math.max(0, Math.min((y-8375)/1000, 1));
         this.animations_layout[3].progress(progress_7);
 
-        let progress_3d_5 = Math.max(0, Math.min((y-8775)/100, 1)),
-            frame_progress_5 = (progress_3d_5 * 7) + 204;
-
-        if(progress_3d_5 > 0) {
-          this.activeFrame = this.frames_1[Math.round(frame_progress_5)];
-        }
-
-        //layout5
-        let progress_8 = Math.max(0, Math.min((y-9775)/1000, 1));
+        let progress_8 = Math.max(0, Math.min((y-9375)/1000, 1));
         this.animations_layout[4].progress(progress_8);
 
-        let progress_3d_6 = Math.max(0, Math.min((y-9775)/100, 1)),
-            frame_progress_6 = (progress_3d_6 * 5) + 211;
-
-        if(progress_3d_6 > 0) {
-          this.activeFrame = this.frames_1[Math.round(frame_progress_6)];
-        }
-
-        //layout6
-        let progress_9 = Math.max(0, Math.min((y-10775)/1000, 1));
+        let progress_9 = Math.max(0, Math.min((y-10375)/1000, 1));
         this.animations_layout[5].progress(progress_9);
 
-        let progress_3d_7 = Math.max(0, Math.min((y-10775)/100, 1)),
-            frame_progress_7 = (progress_3d_7 * 7) + 216;
-
-        if(progress_3d_7 > 0) {
-          this.activeFrame = this.frames_1[Math.round(frame_progress_7)];
-        }
- */
+        //fadeOut scene
+        let progress_10 = Math.max(0, Math.min((y-11045)/330, 1));
+        this.animation_fade.progress(progress_10);
       }
     })
 
