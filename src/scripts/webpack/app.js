@@ -676,6 +676,8 @@ const Preloader = {
   init: function() {
     this.$element = document.querySelector('.preloader');
     this.$item = document.querySelector('.preloader__item');
+
+    let frames_preload_count = 100;
     
     this.finish = () => {
       this.finished = true;
@@ -707,9 +709,9 @@ const Preloader = {
           this.animationFrame = requestAnimationFrame(this.check);
           //animation
           this.$item.style.opacity = '1';
-          this.$item.setAttribute('y', `${100-(Math.min(Resources.framesLoaded/Resources.sources[0].framesCount, 1)*100)}%`);
+          this.$item.setAttribute('y', `${100-(Math.min(Resources.framesLoaded/frames_preload_count, 1)*100)}%`);
           //frames loaded
-          if(Resources.framesLoaded>=Resources.sources[0].framesCount) {
+          if(Resources.framesLoaded>=frames_preload_count) {
             cancelAnimationFrame(this.animationFrame);
             clearInterval(this.timer);
             setTimeout(() => {
