@@ -1250,11 +1250,12 @@ class Section3d {
     this.$screen_1_items_inner = this.$parent.querySelectorAll('.section-3d-screen-1__item-inner');
     
     this.animation_start = gsap.timeline({paused:true})
+      .set(this.$screen_1, {autoAlpha:1})
       .fromTo(this.$scene_canvas, {scale:0.9, autoAlpha:0}, {scale:1, autoAlpha:1, ease:'power2.out'})
       .fromTo(this.$screen_1_items, {autoAlpha:0, y:20}, {autoAlpha:1, y:0, duration:0.75, ease:'power2.out', stagger:{amount:0.25}}, `-=0.75`) 
 
     this.animation_1 = gsap.timeline({paused:true})
-      .to(this.$screen_1, {y:-50, ease:'none'})
+      .to(this.$screen_1, {y:-40, ease:'none'})
       .to(this.$screen_1_items_inner, {autoAlpha:0, duration:0.75, ease:'power2.out', stagger:{amount:0.25}}, `-=1`)
       .set(this.$screen_1, {autoAlpha:0})
 
