@@ -3535,15 +3535,6 @@ img {
 
 .section-3d {
   padding-bottom: 13000px; }
-  .section-3d .background-figure_1 {
-    top: -320px;
-    left: -1400px; }
-  .section-3d .background-figure_2 {
-    top: 0;
-    right: -1400px; }
-  .section-3d .background-figure_3 {
-    top: 3500px;
-    right: -1000px; }
   .section-3d__container {
     position: absolute;
     height: 100vh;

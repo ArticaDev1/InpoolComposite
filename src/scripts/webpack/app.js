@@ -196,7 +196,7 @@ const Resources = {
     this.sources = {
       0: {
         src: './img/model/1/',
-        type: 'png',
+        type: 'jpg',
         framesCount: 224,
         frames: []
       },
@@ -1308,34 +1308,48 @@ class Section3d {
       onUpdate: self => {
         let y = self.end*self.progress;
 
-        /* let frame_y_progress = [],
-            frame_index_progress = [];
+        let fy = [],
+            fi = [],
+            frame;
 
-        frame_y_progress[0] = Math.max(0, Math.min(y/1875, 1));
-        frame_y_progress[1] = Math.max(0, Math.min((y-2875)/3075, 1));
-        frame_index_progress[0] = frame_y_progress[0] * 75;
-        frame_index_progress[1] = (frame_y_progress[1] * 116) + frame_index_progress[0];
+        //1
+        fy.push( Math.max(0, Math.min(y/625, 1)) )
+        fi.push( fy[fy.length-1] * 25 );
+        //2
+        fy.push( Math.max(0, Math.min((y-625)/2350, 1)) )
+        fi.push( (fy[fy.length-1] * 47) + 25 );
+        //3
+        fy.push( Math.max(0, Math.min((y-2975)/2975, 1)) )
+        fi.push( (fy[fy.length-1] * 119) + 72 );
         
-        for (let i = 0; i < frame_y_progress.length; i++) {
-          let idx = frame_y_progress.length - 1 - i;
-          if(frame_y_progress[idx] > 0) {
-
+        for (let i = 0; i < fy.length; i++) {
+          let index = fy.length - 1 - i;
+          if(fy[index] > 0) {
+            this.activeFrame = this.frames_1[Math.round(fi[index])];
+            frame = fi[index];
             break;
           }
-        } */
-
-        let progress_3d_1 = Math.max(0, Math.min(y/1875, 1)),
-            frame_progress_1 = progress_3d_1 * 75;
-        
-        if(progress_3d_1 > 0) {
-          this.activeFrame = this.frames_1[Math.round(frame_progress_1)];
         }
 
-        let progress_1 = Math.max(0, Math.min(frame_progress_1/20, 1));
+        //console.log(Math.round(frame))
+
+        let progress_1 = Math.max(0, Math.min(frame/25, 1));
         this.animation_1.progress(progress_1);
+
+        this.progress_resize1 = Math.max(0, Math.min(Math.round(frame)/25, 1));
+        this.animation_resize1.progress(this.progress_resize1);
+
+        let progress_2 = Math.max(0, Math.min((frame - 38)/20, 1));
+        this.animation_2.progress(progress_2);
+
+        let progress_3 = Math.max(0, Math.min((y-2300)/1000, 1));
+        this.animation_3.progress(progress_3);
+
+        this.progress_resize2 = Math.max(0, Math.min((Math.round(frame)-75)/50, 1));
+        this.animation_resize2.progress(this.progress_resize2);
         
         //resize1
-        this.progress_resize1 = Math.max(0, Math.min(Math.round(frame_progress_1)/20, 1));
+        /* this.progress_resize1 = Math.max(0, Math.min(Math.round(frame_progress_1)/20, 1));
         this.animation_resize1.progress(this.progress_resize1);
 
         let progress_2 = Math.max(0, Math.min((frame_progress_1 - 30)/40, 1));
@@ -1363,7 +1377,7 @@ class Section3d {
         let progress_5 = Math.max(0, Math.min((y-6775)/1000, 1));
         this.animations_layout[1].progress(progress_5);
 
-        let progress_3d_3 = Math.max(0, Math.min((y-6775)/200, 1)),
+        let progress_3d_3 = Math.max(0, Math.min((y-6775)/100, 1)),
             frame_progress_3 = (progress_3d_3 * 7) + 191;
 
         if(progress_3d_3 > 0) {
@@ -1374,7 +1388,7 @@ class Section3d {
         let progress_6 = Math.max(0, Math.min((y-7775)/1000, 1));
         this.animations_layout[2].progress(progress_6);
 
-        let progress_3d_4 = Math.max(0, Math.min((y-7775)/200, 1)),
+        let progress_3d_4 = Math.max(0, Math.min((y-7775)/100, 1)),
             frame_progress_4 = (progress_3d_4 * 6) + 198;
 
         if(progress_3d_4 > 0) {
@@ -1385,7 +1399,7 @@ class Section3d {
         let progress_7 = Math.max(0, Math.min((y-8775)/1000, 1));
         this.animations_layout[3].progress(progress_7);
 
-        let progress_3d_5 = Math.max(0, Math.min((y-8775)/200, 1)),
+        let progress_3d_5 = Math.max(0, Math.min((y-8775)/100, 1)),
             frame_progress_5 = (progress_3d_5 * 7) + 204;
 
         if(progress_3d_5 > 0) {
@@ -1396,7 +1410,7 @@ class Section3d {
         let progress_8 = Math.max(0, Math.min((y-9775)/1000, 1));
         this.animations_layout[4].progress(progress_8);
 
-        let progress_3d_6 = Math.max(0, Math.min((y-9775)/200, 1)),
+        let progress_3d_6 = Math.max(0, Math.min((y-9775)/100, 1)),
             frame_progress_6 = (progress_3d_6 * 5) + 211;
 
         if(progress_3d_6 > 0) {
@@ -1407,13 +1421,13 @@ class Section3d {
         let progress_9 = Math.max(0, Math.min((y-10775)/1000, 1));
         this.animations_layout[5].progress(progress_9);
 
-        let progress_3d_7 = Math.max(0, Math.min((y-10775)/200, 1)),
+        let progress_3d_7 = Math.max(0, Math.min((y-10775)/100, 1)),
             frame_progress_7 = (progress_3d_7 * 7) + 216;
 
         if(progress_3d_7 > 0) {
           this.activeFrame = this.frames_1[Math.round(frame_progress_7)];
         }
-
+ */
       }
     })
 
