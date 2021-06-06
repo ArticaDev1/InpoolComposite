@@ -1315,10 +1315,10 @@ class Section3d {
         fy.push( Math.max(0, Math.min(y/625, 1)) )
         fi.push( fy[fy.length-1] * 25 );
         //2
-        fy.push( Math.max(0, Math.min((y-625)/2350, 1)) )
+        fy.push( Math.max(0, Math.min((y-625)/1775, 1)) )
         fi.push( (fy[fy.length-1] * 47) + 25 );
         //3
-        fy.push( Math.max(0, Math.min((y-2975)/2975, 1)) )
+        fy.push( Math.max(0, Math.min((y-2400)/2975, 1)) )
         fi.push( (fy[fy.length-1] * 119) + 72 );
         
         for (let i = 0; i < fy.length; i++) {
@@ -1338,10 +1338,10 @@ class Section3d {
         this.progress_resize1 = Math.max(0, Math.min(Math.round(frame)/25, 1));
         this.animation_resize1.progress(this.progress_resize1);
 
-        let progress_2 = Math.max(0, Math.min((frame - 38)/20, 1));
+        let progress_2 = Math.max(0, Math.min((y-625)/1000, 1));
         this.animation_2.progress(progress_2);
 
-        let progress_3 = Math.max(0, Math.min((y-2300)/1000, 1));
+        let progress_3 = Math.max(0, Math.min((y-1625)/1000, 1));
         this.animation_3.progress(progress_3);
 
         this.progress_resize2 = Math.max(0, Math.min((Math.round(frame)-75)/50, 1));
