@@ -1274,8 +1274,20 @@ class Section3d {
     this.$screen_layout.forEach(($this, index) => {
       this.animations_layout[index] = gsap.effects.slidingText($this, this.$screen_layout_content[index]);
     })
+
+    this.$screen_4 = this.$parent.querySelector('.section-3d-screen-4');
+    this.$screen_4_content = this.$parent.querySelector('.section-3d-screen-4__container');
+
+    this.animation_4 = gsap.effects.slidingText(this.$screen_4, this.$screen_4_content);
     
-    
+    this.$screen_5 = this.$parent.querySelector('.section-3d-dots');
+    this.$screen_5_items = this.$parent.querySelectorAll('.section-3d-dots__item');
+
+    this.animation_5 = gsap.timeline({paused:true})
+      .fromTo(this.$screen_5, {autoAlpha:0}, {autoAlpha:1, duration:0.1, ease:'power1.in'})
+      .fromTo(this.$screen_5_items, {autoAlpha:0}, {autoAlpha:1, duration:0.33, ease:'power1.in', stagger:{amount:0.17}}, '-=0.1')
+      .to(this.$screen_5_items, {autoAlpha:0, duration:0.33, ease:'power1.out', stagger:{amount:0.17}}, '+=0.5')
+      .to(this.$screen_5, {autoAlpha:0, duration:0.1, ease:'power1.out'}, '-=0.1')
     /* //ANIMATION 2
     this.animation2 = gsap.effects.slidingText(this.$screen2, this.$screen2_content);
     //ANIMATION 3
@@ -1300,7 +1312,7 @@ class Section3d {
     this.sceneTrigger = ScrollTrigger.create({
       trigger: this.$container,
       start: "top top",
-      end: "+=11375",
+      end: "+=14875",
       pin: true,
       pinType: pinType,
       pinSpacing: false,
@@ -1335,24 +1347,26 @@ class Section3d {
         //8
         fy.push( Math.max(0, Math.min((y-10375)/100, 1)) )
         fi.push( (fy[fy.length-1] * 7) + 216 );
+        //last
+        fy.push( Math.max(0, Math.min((y-12375)/2500, 1)) )
+        fi.push( (fy[fy.length-1] * 99) );
 
         
         for (let i = 0; i < fy.length; i++) {
           let index = fy.length - 1 - i;
           if(fy[index] > 0) {
             //1
-            if(Math.round(fi[index])<=223) {
+            if(index<8) {
               this.activeFrame = this.frames_1[Math.round(fi[index])];
               frame = fi[index];
             } else {
-              this.activeFrame = this.frames_2[Math.round(fi[index]) - 224];
-              frame = fi[index] - 224;
+              this.activeFrame = this.frames_2[Math.round(fi[index])];
+              frame = fi[index] + 223;
             }
+            
             break;
           }
         }
-
-        console.log(Math.round(frame))
 
         let progress_1 = Math.max(0, Math.min(frame/25, 1));
         this.animation_1.progress(progress_1);
@@ -1386,10 +1400,26 @@ class Section3d {
 
         let progress_9 = Math.max(0, Math.min((y-10375)/1000, 1));
         this.animations_layout[5].progress(progress_9);
+        
+        let progress_10 = Math.max(0, Math.min((y-11375)/1000, 1));
+        this.animation_4.progress(progress_10);
 
-        //fadeOut scene
-        let progress_10 = Math.max(0, Math.min((y-11045)/330, 1));
-        this.animation_fade.progress(progress_10);
+        let progress_11 = Math.max(0, Math.min((y-12800)/1500, 1));
+        this.animation_5.progress(progress_11);
+
+
+        //fade scene
+        let fade_progress_1 = Math.max(0, Math.min((y-11045)/330, 1)),  
+            fade_progress_2 = Math.max(0, Math.min((y-12375)/330, 1)),
+            fade_progress_3 = Math.max(0, Math.min((y-14575)/330, 1));
+        if(fade_progress_3>0) {
+          this.animation_fade.progress(fade_progress_3);
+        } else if(fade_progress_2>0) {
+          this.animation_fade.progress(1 - fade_progress_2);
+        } else if(fade_progress_1>0) {
+          this.animation_fade.progress(fade_progress_1);
+        }
+
       }
     })
 
