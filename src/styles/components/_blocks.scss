@@ -122,7 +122,7 @@
 
 .section-form {
   margin-top: -40px;
-  margin-bottom: var(--margin-1);
+  margin-bottom: 250px;
   .background-figure {
     &_1 {
       right: -800px;
@@ -161,6 +161,7 @@
   }
   @include media-breakpoint-down(sm) {
     margin-top: -30px;
+    margin-bottom: 200px;
     &__text {
       margin-top: 60px;
       text-align: center;

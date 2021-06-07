@@ -143,14 +143,13 @@ gsap.registerEffect({
   },
   extendTimeline: true
 });
-
 gsap.registerEffect({
-  name: "slidingText2500", 
+  name: "slidingText1500", 
   effect: ($outer, $inner) => {
     let anim = gsap.timeline({paused: true})
-      .fromTo($outer, {autoAlpha:0}, {autoAlpha:1, duration:0.132, ease:'power1.in'})
-      .fromTo($inner, {y:40}, {y:-40, ease:'none'}, `-=0.132`)
-      .to($outer, {autoAlpha:0, duration:0.132, ease:'power1.out'}, `-=0.132`)
+      .fromTo($outer, {autoAlpha:0}, {autoAlpha:1, duration:0.22, ease:'power1.in'})
+      .fromTo($inner, {y:40}, {y:-40, ease:'none'}, `-=0.22`)
+      .to($outer, {autoAlpha:0, duration:0.22, ease:'power1.out'}, `-=0.22`)
     return anim;
   },
   extendTimeline: true
@@ -1325,7 +1324,7 @@ class Section3d {
     this.$screen_6 = this.$parent.querySelector('.section-3d-screen-6');
     this.$screen_6_content = this.$parent.querySelector('.section-3d-screen-6__container');
 
-    this.animation_6 = gsap.effects.slidingText2500(this.$screen_6, this.$screen_6_content);
+    this.animation_6 = gsap.effects.slidingText1500(this.$screen_6, this.$screen_6_content);
 
     this.sceneTrigger = ScrollTrigger.create({
       refreshPriority: 1000000,
@@ -1426,8 +1425,8 @@ class Section3d {
         let progress_11 = Math.max(0, Math.min((y-12800)/1500, 1));
         this.animation_5.progress(progress_11);
 
-        let progress_12 = Math.max(0, Math.min((y-12375)/2500, 1));
-        this.animation_6.progress(progress_12);
+        //let progress_12 = Math.max(0, Math.min((y-12800)/1500, 1));
+        this.animation_6.progress(progress_11);
 
 
         //fade scene

@@ -3096,7 +3096,7 @@ img {
 
 .section-form {
   margin-top: -40px;
-  margin-bottom: var(--margin-1); }
+  margin-bottom: 250px; }
   .section-form .background-figure_1 {
     right: -800px;
     bottom: -750px; }
@@ -3125,7 +3125,8 @@ img {
       bottom: -300px; } }
   @media (max-width: 575.98px) {
     .section-form {
-      margin-top: -30px; }
+      margin-top: -30px;
+      margin-bottom: 200px; }
       .section-form__text {
         margin-top: 60px;
         text-align: center; } }
