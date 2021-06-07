@@ -3675,16 +3675,17 @@ img {
   position: absolute;
   bottom: 20%; }
 
-.section-3d-screen-6 .container {
-  height: 100%; }
-
-.section-3d-screen-6 .row {
-  height: 100%;
-  position: relative; }
-
-.section-3d-screen-6__text {
-  position: absolute;
-  bottom: 15%; }
+.section-3d-screen-6 {
+  pointer-events: none; }
+  .section-3d-screen-6 .container {
+    height: 100%; }
+  .section-3d-screen-6 .row {
+    height: 100%;
+    position: relative; }
+  .section-3d-screen-6__text {
+    position: absolute;
+    bottom: 15%;
+    pointer-events: all; }
 
 .section-3d-dots {
   opacity: 0;

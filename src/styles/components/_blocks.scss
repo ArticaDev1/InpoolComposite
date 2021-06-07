@@ -869,6 +869,7 @@
 }
 
 .section-3d-screen-6 {
+  pointer-events: none;
   .container {
     height: 100%;
   }
@@ -879,6 +880,7 @@
   &__text {
     position: absolute;
     bottom: 15%;
+    pointer-events: all;
   }
 }
 
