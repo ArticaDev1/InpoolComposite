@@ -71,8 +71,6 @@ const brakepoints = {
 }
 const $body = document.body;
 const $wrapper = document.querySelector('.wrapper');
-const $header = document.querySelector('.header');
-const $consol = document.querySelector('.consol');
 
 //check device
 function mobile() {
@@ -113,6 +111,8 @@ window.onload = function() {
   activeFunctions.add(Map, '.contacts-block__map');
   activeFunctions.add(HomeScreenAnimation, '.home-screen');
   activeFunctions.add(MobilePoolAnimation, '.section-form__image');
+  activeFunctions.add(MobileLayouts, '.section-layouts');
+  
   activeFunctions.add(ParallaxImage, '.parallax-image');
   activeFunctions.init();
 
@@ -133,12 +133,24 @@ gsap.registerEffect({
   extendTimeline: true
 });
 gsap.registerEffect({
-  name: "slidingTextSlow", //2000px
+  name: "slidingText2000", //2000px
   effect: ($outer, $inner) => {
     let anim = gsap.timeline({paused: true})
       .fromTo($outer, {autoAlpha:0}, {autoAlpha:1, duration:0.165, ease:'power1.in'})
       .fromTo($inner, {y:40}, {y:-40, ease:'none'}, `-=0.165`)
       .to($outer, {autoAlpha:0, duration:0.165, ease:'power1.out'}, `-=0.165`)
+    return anim;
+  },
+  extendTimeline: true
+});
+
+gsap.registerEffect({
+  name: "slidingText2500", 
+  effect: ($outer, $inner) => {
+    let anim = gsap.timeline({paused: true})
+      .fromTo($outer, {autoAlpha:0}, {autoAlpha:1, duration:0.132, ease:'power1.in'})
+      .fromTo($inner, {y:40}, {y:-40, ease:'none'}, `-=0.132`)
+      .to($outer, {autoAlpha:0, duration:0.132, ease:'power1.out'}, `-=0.132`)
     return anim;
   },
   extendTimeline: true
@@ -813,12 +825,23 @@ class SectionVideoAnimation {
   init() {
     this.check = ()=> {
       if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
-        this.initDesktop();
+        
+        if(!this.initialized) {
+          this.initDesktop();
+        } else {
+          this.timeout = setTimeout(() => {
+            this.initDesktop();
+            delete this.timeout;
+          }, 500);
+        }
+
         this.flag = true;
       } 
       else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
-        if(this.initialized) {
+        if(this.initialized && !this.timeout) {
           this.destroyDesktop();
+        } else {
+          clearTimeout(this.timeout);
         }
         this.flag = false;
       }
@@ -868,7 +891,7 @@ class SectionVideoAnimation {
     let $color_title = getComputedStyle(document.documentElement).getPropertyValue('--color-text-accent'),
         $color_text = getComputedStyle(document.documentElement).getPropertyValue('--color-text'),
         $color_active = getComputedStyle(document.documentElement).getPropertyValue('--color-text-light');
-    this.animation_text = gsap.effects.slidingTextSlow(this.$text_content, this.$text_content);
+    this.animation_text = gsap.effects.slidingText2000(this.$text_content, this.$text_content);
     this.animation_fade_scene = gsap.timeline({paused:true})
       .fromTo(this.$scene, {autoAlpha:0}, {autoAlpha:1, duration:0.5})
       .fromTo(this.$title, {css:{color:$color_title}}, {css:{color:$color_active}, duration:0.5}, '-=0.5')
@@ -882,8 +905,8 @@ class SectionVideoAnimation {
       trigger: this.$inner,
       start: "top top",
       end: "+=2000",
-      pinSpacing: false,
       pin: true,
+      pinSpacing: false,
       pinType: pinType,
       onUpdate: self => {
         let y = 2000*self.progress;
@@ -912,17 +935,37 @@ class SectionAnimated {
   init() {
     this.check = ()=> {
       if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+        
         if(this.initialized) {
-          this.destroyMobile();
+          if(!this.timeout) {
+            this.destroyMobile();
+          } else {
+            clearTimeout(this.timeout);
+          }
+          this.timeout = setTimeout(() => {
+            this.initDesktop();
+            delete this.timeout;
+          }, 500);
+        } else {
+          this.initDesktop();
         }
-        this.initDesktop();
+
         this.flag = true;
       } 
       else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
         if(this.initialized) {
-          this.destroyDesktop();
+          if(!this.timeout) {
+            this.destroyDesktop();
+          } else {
+            clearTimeout(this.timeout);
+          }
+          this.timeout = setTimeout(() => {
+            this.initMobile();
+            delete this.timeout;
+          }, 500);
+        } else {
+          this.initMobile();
         }
-        this.initMobile();
         this.flag = false;
       }
     }
@@ -963,8 +1006,8 @@ class SectionAnimated {
 
     this.trigger = ScrollTrigger.create({
       trigger: this.$head,
-      start: "top+=50 bottom",
-      end: "bottom+=50 bottom",
+      start: "top+=100 bottom",
+      end: "bottom+=100 bottom",
       once: true,
       onEnter: () => {
         this.animation.play();
@@ -1136,12 +1179,23 @@ class Section3d {
   init() {
     this.check = ()=> {
       if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
-        this.initDesktop();
+        
+        if(!this.initialized) {
+          this.initDesktop();
+        } else {
+          this.timeout = setTimeout(() => {
+            this.initDesktop();
+            delete this.timeout;
+          }, 500);
+        }
+
         this.flag = true;
       } 
       else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
-        if(this.initialized) {
+        if(this.initialized && !this.timeout) {
           this.destroyDesktop();
+        } else {
+          clearTimeout(this.timeout);
         }
         this.flag = false;
       }
@@ -1166,27 +1220,6 @@ class Section3d {
     
     this.frames_1 = Resources.sources[0].frames;
     this.frames_2 = Resources.sources[1].frames;
-
-    /* this.$screen2 = this.$parent.querySelector('.section-3d-screen-2');
-    this.$screen2_content = this.$screen2.querySelector('.animated-head__container');
-    this.$screen3 = this.$parent.querySelector('.section-3d-screen-3');
-    this.$screen3_content = this.$screen3.querySelector('.container');
-    this.frames1 = Resources.sources[0].frames;
-    this.framesCount1 = Resources.sources[0].framesCount;
-    //
-    this.$part2 = this.$parent.querySelector('.section-3d-part-2__container');
-    this.frames2 = Resources.sources[1].frames;
-    this.framesCount2 = Resources.sources[1].framesCount;
-    this.$screen4 = this.$parent.querySelector('.section-3d-info');
-    this.$screen4_items = this.$screen4.querySelectorAll('.section-3d-info__item');
-    //
-    this.$part3 = this.$parent.querySelector('.section-3d-part-3__container');
-    this.frames3 = Resources.sources[2].frames;
-    this.framesCount3 = Resources.sources[2].framesCount;
-    this.$screen5 = this.$parent.querySelector('.section-3d-screen-5');
-    this.$screen5_content = this.$screen5.querySelector('.container');
-    this.$screen6 = this.$parent.querySelector('.section-3d-dots');
-    this.$screen6_items = this.$screen6.querySelectorAll('.section-3d-dots__item'); */
 
     this.sceneRender = ()=> {
       this.context.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
@@ -1243,7 +1276,7 @@ class Section3d {
 
 
     this.animation_fade = gsap.timeline({paused:true})
-      .to(this.$scene, {autoAlpha:0, duration:0.33, ease:'power1.out'})
+      .fromTo(this.$scene, {autoAlpha:1}, {autoAlpha:0, duration:0.33, ease:'power1.out'})
 
     this.$screen_1 = this.$parent.querySelector('.section-3d-screen-1'),
     this.$screen_1_items = this.$parent.querySelectorAll('.section-3d-screen-1__item');
@@ -1255,9 +1288,8 @@ class Section3d {
       .fromTo(this.$screen_1_items, {autoAlpha:0, y:20}, {autoAlpha:1, y:0, duration:0.75, ease:'power2.out', stagger:{amount:0.25}}, `-=0.75`) 
 
     this.animation_1 = gsap.timeline({paused:true})
-      .to(this.$screen_1, {y:-40, ease:'none'})
-      .to(this.$screen_1_items_inner, {autoAlpha:0, duration:0.75, ease:'power2.out', stagger:{amount:0.25}}, `-=1`)
-      .set(this.$screen_1, {autoAlpha:0})
+      .fromTo(this.$screen_1, {y:0}, {y:-40, ease:'none'})
+      .fromTo(this.$screen_1_items_inner, {autoAlpha:1}, {autoAlpha:0, duration:0.75, ease:'power2.out', stagger:{amount:0.25}}, `-=1`)
 
     this.$screen_2 = this.$parent.querySelector('.section-3d-screen-2');
     this.$screen_2_content = this.$parent.querySelector('.section-3d-screen-2__container');
@@ -1289,34 +1321,20 @@ class Section3d {
       .fromTo(this.$screen_5_items, {autoAlpha:0}, {autoAlpha:1, duration:0.33, ease:'power1.in', stagger:{amount:0.17}}, '-=0.1')
       .to(this.$screen_5_items, {autoAlpha:0, duration:0.33, ease:'power1.out', stagger:{amount:0.17}}, '+=0.5')
       .to(this.$screen_5, {autoAlpha:0, duration:0.1, ease:'power1.out'}, '-=0.1')
-    /* //ANIMATION 2
-    this.animation2 = gsap.effects.slidingText(this.$screen2, this.$screen2_content);
-    //ANIMATION 3
-    this.animation3 = gsap.effects.slidingText(this.$screen3, this.$screen3_content);
+    
+    this.$screen_6 = this.$parent.querySelector('.section-3d-screen-6');
+    this.$screen_6_content = this.$parent.querySelector('.section-3d-screen-6__container');
 
-    this.animation4 = gsap.timeline({paused:true})
-      .set(this.$screen4, {autoAlpha:1})
-      .fromTo(this.$screen4_items, {autoAlpha:0}, {autoAlpha:1, duration:1, stagger:{amount:1}})
-      .fromTo(this.$screen4_items, {y:30}, {y:0, duration:1, ease:'power2.out', stagger:{amount:1}}, '-=2')
-      .to(this.$screen4, {autoAlpha:0})
-
-
-    //ANIMATION 5
-    this.animation5 = gsap.effects.slidingText(this.$screen5, this.$screen5_content);
-
-    this.animation6 = gsap.timeline({paused:true})
-      .set(this.$screen6, {autoAlpha:1})
-      .fromTo(this.$screen6_items, {autoAlpha:0}, {autoAlpha:1, duration:0.6, stagger:{amount:0.4}})
-      .to(this.$screen6, {autoAlpha:0, duration:0.5}, '+=0.5') */
-
+    this.animation_6 = gsap.effects.slidingText2500(this.$screen_6, this.$screen_6_content);
 
     this.sceneTrigger = ScrollTrigger.create({
+      refreshPriority: 1000000,
       trigger: this.$container,
       start: "top top",
       end: "+=14875",
       pin: true,
-      pinType: pinType,
       pinSpacing: false,
+      pinType: pinType,
       onUpdate: self => {
         let y = self.end*self.progress;
 
@@ -1408,11 +1426,15 @@ class Section3d {
         let progress_11 = Math.max(0, Math.min((y-12800)/1500, 1));
         this.animation_5.progress(progress_11);
 
+        let progress_12 = Math.max(0, Math.min((y-12375)/2500, 1));
+        this.animation_6.progress(progress_12);
+
 
         //fade scene
         let fade_progress_1 = Math.max(0, Math.min((y-11045)/330, 1)),  
             fade_progress_2 = Math.max(0, Math.min((y-12375)/330, 1)),
-            fade_progress_3 = Math.max(0, Math.min((y-14575)/330, 1));
+            fade_progress_3 = Math.max(0, Math.min((y-14545)/330, 1));
+
         if(fade_progress_3>0) {
           this.animation_fade.progress(fade_progress_3);
         } else if(fade_progress_2>0) {
@@ -1424,98 +1446,25 @@ class Section3d {
       }
     })
 
+    this.playStart = () => {
+      this.animation_start.play();
+    }
+
     if(!Preloader.finished) {
-      window.addEventListener('start', () => {
-        this.animation_start.play();
-      })
-    } else this.animation_start.play();
+      window.addEventListener('start', this.playStart);
+    } else {
+      this.playStart();
+    }
 
-    /* this.trigger1 = ScrollTrigger.create({
-      trigger: this.$part1,
-      start: "top top",
-      end: "+=4500",
-      pin: true,
-      pinType: pinType,
-      pinSpacing: false,
-      onUpdate: self => {
-        let index = Math.round(self.progress*(this.framesCount1-1));
-        this.activeFrame = this.frames1[index];
-        //animations
-        let y = self.end*self.progress;
 
-        let time1 = Math.max(0, Math.min(y/750, 1));
-        this.animation1.progress(time1);
-        let time2 = Math.max(0, Math.min((y-750)/1500, 1));
-        this.animation2.progress(time2);
-        let time3 = Math.max(0, Math.min((y-2500)/1500, 1));
-        this.animation3.progress(time3);
-        let time4 = Math.max(0, Math.min((y-4000)/500, 1));
-        if(time4>0 && time4<1) this.animation_fade.progress(time4);
-      
-      },
-      onEnterBack: ()=> {
-        this.$scene_inner.classList.remove('wide');
-        this.resizeEvent();
-      }
-    }) */
+  }
 
-    /* this.trigger2 = ScrollTrigger.create({
-      trigger: this.$part2,
-      start: "top top",
-      end: "+=4000",
-      pin: true,
-      pinType: pinType,
-      pinSpacing: false,
-      onUpdate: self => {
-        let y = (self.end-self.start)*self.progress;
-
-        let index = Math.round(Math.max(0, Math.min(y/3000, 1)*(this.framesCount2-1)));
-        this.activeFrame = this.frames2[index];
-        
-        //animations
-        let time1 = Math.max(0, Math.min(y/500, 1));
-        if(time1>0 && time1<1) this.animation_fade.progress(1-time1);
-        let time2 = Math.max(0, Math.min((y-3500)/500, 1));
-        if(time2>0 && time2<1) this.animation_fade.progress(time2);
-        //dots1
-        let time3 = Math.max(0, Math.min((y-2500)/1500, 1));
-        this.animation4.progress(time3);
-
-      },
-      onEnter: ()=> {
-        this.$scene_inner.classList.add('wide');
-        this.resizeEvent();
-      }
-    }) */
-
-    /* this.trigger3 = ScrollTrigger.create({
-      trigger: this.$part3,
-      start: "top top",
-      end: "+=4500",
-      pin: true,
-      pinType: pinType,
-      pinSpacing: false,
-      onUpdate: self => {
-        let y = (self.end-self.start)*self.progress;
-        //2000 change
-        let index = Math.round(Math.max(0, Math.min((y-1500)/3000, 1)*(this.framesCount3-1)));
-        this.activeFrame = this.frames3[index];
-        
-        
-        //animations
-        let time1 = Math.max(0, Math.min(y/1500, 1));
-        this.animation5.progress(time1);
-        //fadeInScene
-        let time2 = Math.max(0, Math.min((y-1500)/500, 1));
-        if(time2>0 && time2<1) this.animation_fade.progress(1-time2);
-        let time3 = Math.max(0, Math.min((y-3500)/1000, 1));
-        if(time3>0 && time3<1) this.animation_fade.progress(time3);
-        //dots
-        let time4 = Math.max(0, Math.min((y-2300)/1200, 1));
-        this.animation6.progress(time4);
-      }
-    }) */
-
+  destroyDesktop() {
+    cancelAnimationFrame(this.animationFrame);
+    window.removeEventListener('resize', this.resizeCanvas);
+    window.removeEventListener('resize', this.updateAnimations);
+    window.removeEventListener('start', this.playStart);
+    this.sceneTrigger.kill();
   }
 }
 
@@ -1527,16 +1476,27 @@ class DesktopModelsList {
   init() {
     this.check = ()=> {
       if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
-        this.initDesktop();
+        if(!this.initialized) {
+          this.initDesktop();
+        } else {
+          this.timeout = setTimeout(() => {
+            this.initDesktop();
+            delete this.timeout;
+          }, 500);
+        }
+
         this.flag = true;
       } 
       else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
-        if(this.initialized) {
+        if(this.initialized && !this.timeout) {
           this.destroyDesktop();
+        } else {
+          clearTimeout(this.timeout);
         }
         this.flag = false;
       }
     }
+
     this.check();
     window.addEventListener('resize', this.check);
     this.initialized = true;
@@ -1552,7 +1512,7 @@ class DesktopModelsList {
     this.x = 0;
     this.y = 0;
     
-    this.check = (event)=> {
+    this.checkEvent = (event)=> {
         if(event.type=='mousemove') {
           this.x = event.clientX;
           this.y = event.clientY;
@@ -1603,8 +1563,8 @@ class DesktopModelsList {
         }
     }
 
-    document.addEventListener('mousemove', this.check);
-    Scroll.addListener(this.check);
+    document.addEventListener('mousemove', this.checkEvent);
+    Scroll.addListener(this.checkEvent);
 
     this.clickEvent = (event)=> {
       if(event.type=='cursorMousedown' && this.isVisible) {
@@ -1633,6 +1593,14 @@ class DesktopModelsList {
     });
 
 
+  }
+
+  destroyDesktop() {
+    console.log('destroy');
+    this.fixTrigger.kill();
+    document.removeEventListener('mousemove', this.checkEvent);
+    Scroll.removeListener(this.checkEvent);
+    delete this.index;
   }
 }
 
@@ -1666,7 +1634,6 @@ class MobileModelsSlider {
     this.slider = new Swiper(this.$slider, {
       touchStartPreventDefault: false,
       longSwipesRatio: 0.1,
-      loop: true,
       speed: 500,
       autoHeight: true,
       lazy: {
@@ -1685,6 +1652,97 @@ class MobileModelsSlider {
     this.slider.destroy();
   }
 
+
+}
+
+class MobileLayouts {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
+
+  init() {
+    this.check = ()=> {
+      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+        if(this.initialized) {
+          this.destroyMobile();
+        }
+        this.flag = true;
+      } 
+      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
+        this.initMobile();
+        this.flag = false;
+      }
+    }
+    this.check();
+    window.addEventListener('resize', this.check);
+    this.initialized = true;
+  }
+
+  initMobile() {
+    this.$slider = this.$parent.querySelector('.swiper-container');
+    this.$pagination = this.$parent.querySelector('.swiper-pagination');
+    this.$images_container = this.$parent.querySelector('.section-layouts__images');
+    this.$images = this.$parent.querySelectorAll('.section-layouts__image');
+
+    this.animations = [];
+    this.$images.forEach(($image, index) => {
+      this.animations[index] = gsap.timeline({paused:true})
+        .fromTo($image, {autoAlpha:0}, {autoAlpha:1, duration:0.5})
+    })
+
+    this.changeEvent = (index) => {
+      if(index > this.index || this.index==undefined) {
+        let start = this.index==undefined?-1:this.index;
+        for(let i = start+1; i < index+1; i++) {
+          this.animations[i].play();
+        }
+      } else if(index < this.index) {
+        for(let i = index+1; i < this.index+1; i++) {
+          this.animations[i].reverse();
+        }
+      }
+      this.index = index;
+    }
+
+    this.swipeEvent = (event) => {
+      let dir = event.detail.directions;
+      if(dir.left) this.slider.slideNext();
+      else if(dir.right) this.slider.slidePrev();
+    }
+
+    this.slider = new Swiper(this.$slider, {
+      init: false,
+      touchStartPreventDefault: false,
+      longSwipesRatio: 0.1,
+      speed: 500,
+      pagination: {
+        el: this.$pagination,
+        clickable: true,
+        bulletElement: 'button'
+      }
+    });
+
+    this.slider.on('slideChange', (swiper)=>{
+      this.changeEvent(swiper.realIndex)
+    });
+    this.slider.on('init', (swiper) => {
+      this.changeEvent(swiper.realIndex)
+    });
+
+    this.slider.init();
+
+    this.swipes = SwipeListener(this.$images_container);
+    this.$images_container.addEventListener('swipe', this.swipeEvent);
+  }
+
+  destroyMobile() {
+    delete this.index;
+    this.swipes.off();
+    this.$images_container.removeEventListener('swipe', this.swipeEvent);
+    this.slider.destroy();
+    for(let index in this.animtations) this.animtations[index].kill();
+    gsap.set(this.$images, {clearProps: "all"});
+  }
 
 }
 
@@ -1809,12 +1867,23 @@ class PreviewSection {
   init() {
     this.check = ()=> {
       if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
-        this.initDesktop();
+        
+        if(!this.initialized) {
+          this.initDesktop();
+        } else {
+          this.timeout = setTimeout(() => {
+            this.initDesktop();
+            delete this.timeout;
+          }, 500);
+        }
+
         this.flag = true;
       } 
       else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
-        if(this.initialized) {
+        if(this.initialized && !this.timeout) {
           this.destroyDesktop();
+        } else {
+          clearTimeout(this.timeout);
         }
         this.flag = false;
       }
@@ -1978,7 +2047,7 @@ class MobileFadeInBlocks {
 
     this.trigger = ScrollTrigger.create({
       trigger: this.$parent,
-      start: "top+=50 bottom",
+      start: "top+=100 bottom",
       end: "bottom bottom",
       once: true,
       onEnter: () => {
@@ -1990,7 +2059,7 @@ class MobileFadeInBlocks {
   destroyMobile() {
     this.animation.kill();
     this.trigger.kill();
-    gsap.set(this.$parent, {clearProps: "all"});
+    gsap.set(this.$content, {clearProps: "all"});
   }
 }
 

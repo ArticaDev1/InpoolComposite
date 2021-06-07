@@ -31,6 +31,9 @@
   @include media-breakpoint-down(xxl) {
     padding: 24px;
   }
+  @include media-breakpoint-down(xl) {
+    padding: 24px $field;
+  }
   @include media-breakpoint-down(lg) {
     padding: 28px $field;
   }
