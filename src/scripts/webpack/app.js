@@ -112,6 +112,7 @@ window.onload = function() {
   activeFunctions.add(HomeScreenAnimation, '.home-screen');
   activeFunctions.add(MobilePoolAnimation, '.section-form__image');
   activeFunctions.add(MobileLayouts, '.section-layouts');
+  activeFunctions.add(MobileEquipment, '.section-equipment');
   
   activeFunctions.add(ParallaxImage, '.parallax-image');
   activeFunctions.init();
@@ -2148,6 +2149,61 @@ class HomeScreenAnimation {
     } else {
       this.play();
     }
+  }
+
+  destroyMobile() {
+    this.animation.kill();
+    gsap.set(this.$items, {clearProps: "all"});
+    window.removeEventListener('start', this.play);
+  }
+}
+
+class MobileEquipment {
+  constructor($parent) {
+    this.$parent = $parent;
+  }
+  init() {
+    this.check = ()=> {
+      if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
+        if(this.initialized) {
+          this.destroyMobile();
+        }
+        this.flag = true;
+      } 
+      else if(window.innerWidth < brakepoints.lg && (!this.initialized || this.flag)) {
+        this.initMobile();
+        this.flag = false;
+      }
+    }
+    this.check();
+    window.addEventListener('resize', this.check);
+    this.initialized = true;
+  }
+
+  initMobile() {
+    this.$triggers = this.$parent.querySelectorAll('.section-equipment__dot');
+    this.$items = this.$parent.querySelectorAll('.section-equipment__description-item');
+
+    this.$triggers.forEach(($this, index) => {
+      $this.addEventListener('click', () => {
+        $this.classList.add('is-active');
+        this.$items[index].classList.add('is-active');
+
+        if(this.index!==undefined) {
+          this.$triggers[this.index].classList.remove('is-active');
+          this.$items[this.index].classList.remove('is-active');
+        }
+
+        if(this.timeout) clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
+          this.$triggers[this.index].classList.remove('is-active');
+          this.$items[this.index].classList.remove('is-active');
+        }, 3000);
+
+        this.index = index;
+      })
+    })
+
   }
 
   destroyMobile() {
