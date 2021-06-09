@@ -241,9 +241,22 @@ block content
         h5.animated-head__sub-title А в жизни как?
         h2.h1.animated-head__title Представьте.
     .section-animated__content
-      .section-preview__full-screen-image.mobile-fade-in
-        .image.image_cover.mobile-fade-in__content
-          img(src="./img/final.jpg", alt="image").lazyload.lazypreload
+      .swiper.mobile-fade-in
+        .swiper-container.mobile-fade-in__content
+          .swiper-wrapper 
+            .swiper-slide.section-preview__slide.image.image_cover 
+              img(data-src="./img/preview-slider/1.jpg", alt="image").swiper-lazy
+            .swiper-slide.section-preview__slide.image.image_cover 
+              img(data-src="./img/preview-slider/2.jpg", alt="image").swiper-lazy
+            .swiper-slide.section-preview__slide.image.image_cover 
+              img(data-src="./img/preview-slider/3.jpg", alt="image").swiper-lazy
+            .swiper-slide.section-preview__slide.image.image_cover 
+              img(data-src="./img/preview-slider/4.jpg", alt="image").swiper-lazy
+            .swiper-slide.section-preview__slide.image.image_cover 
+              img(data-src="./img/preview-slider/5.jpg", alt="image").swiper-lazy
+            .swiper-slide.section-preview__slide.image.image_cover 
+              img(data-src="./img/preview-slider/6.jpg", alt="image").swiper-lazy
+        .swiper-pagination
 
       .section-preview__small-images-container.container 
         .row 
@@ -316,7 +329,7 @@ block content
             +slide(block4[0], block4[1], block4[2], block4[3])
             +slide(block5[0], block5[1], block5[2], block5[3])
 
-        .swiper-pagination
+        .swiper-pagination.swiper-pagination_type-2
 
       
       .section-choose-models__more
@@ -480,7 +493,7 @@ block content
     .section-animated__content.container.contact-form__content
       .row.contact-form__title
         h4.offset-1.col-10.offset-md-2.col-md-8.offset-xl-1.col-xl-10.contact-form__title-element Оставьте свои контакты и мы вам перезвоним
-      form.form.contact-form__form.row
+      form(action="./mail.php").form.contact-form__form.row
         input(type="text" name='subject' value='Форма обратной связи' hidden).form__subject
         .col-md-8.col-xl-6 
           .form__item

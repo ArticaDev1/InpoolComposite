@@ -73,6 +73,12 @@ img {
   &-pagination {
     display: flex;
     height: 6px;
+    --color: var(--color-pagination);
+    --color-active: var(--color-pagination-active);
+    &_type-2 {
+      --color: var(--color-pagination2);
+      --color-active: var(--color-pagination-active2);
+    }
     &-bullet {
       &:first-child {
         margin-left: -10px;
@@ -92,12 +98,12 @@ img {
         width: 100%;
         height: 100%;
         border-radius: 100%;
-        background-color: var(--color-pagination);
+        background-color: var(--color);
         transition: background-color $trs1;
       }
       &[data-touch], &[data-hover], &-active {
         &::before {
-          background-color: var(--color-pagination-active);
+          background-color: var(--color-active);
         }
       }
       &-active {

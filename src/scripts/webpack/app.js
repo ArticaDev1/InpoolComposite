@@ -543,8 +543,8 @@ const Validation = {
       $input.parentNode.classList.add('loading');
     })
     $submit.classList.add('loading');
-    //test
-    setTimeout(() => {
+
+    let finish = () => {
       $inputs.forEach(($input) => {
         $input.parentNode.classList.remove('loading');
       })
@@ -554,7 +554,16 @@ const Validation = {
       setTimeout(()=>{
         Modal.close();
       }, 2000)
-    }, 2000)
+    }  
+
+    $.ajax({
+      type: "POST",
+      url: $($form).attr('action'),
+      data: $($form).serialize(),
+      success: function(data) {
+        finish();
+      }
+    });
   }
 }
 
@@ -1634,7 +1643,6 @@ class MobileModelsSlider {
     this.slider = new Swiper(this.$slider, {
       touchStartPreventDefault: false,
       longSwipesRatio: 0.1,
-      speed: 500,
       autoHeight: true,
       lazy: {
         loadOnTransitionStart: true,
@@ -1687,7 +1695,7 @@ class MobileLayouts {
     this.animations = [];
     this.$images.forEach(($image, index) => {
       this.animations[index] = gsap.timeline({paused:true})
-        .fromTo($image, {autoAlpha:0}, {autoAlpha:1, duration:0.5})
+        .fromTo($image, {autoAlpha:0}, {autoAlpha:1, duration:0.3})
     })
 
     this.changeEvent = (index) => {
@@ -1714,7 +1722,6 @@ class MobileLayouts {
       init: false,
       touchStartPreventDefault: false,
       longSwipesRatio: 0.1,
-      speed: 500,
       pagination: {
         el: this.$pagination,
         clickable: true,
@@ -1865,6 +1872,25 @@ class PreviewSection {
   }
 
   init() {
+    this.$slider_parent = this.$parent.querySelector('.swiper');
+    this.$slider = this.$parent.querySelector('.swiper-container');
+    this.$pagination = this.$parent.querySelector('.swiper-pagination');
+
+    this.slider = new Swiper(this.$slider, {
+      touchStartPreventDefault: false,
+      longSwipesRatio: 0.1,
+      lazy: {
+        loadOnTransitionStart: true,
+        loadPrevNext: true
+      },
+      pagination: {
+        el: this.$pagination,
+        clickable: true,
+        bulletElement: 'button'
+      }
+    });
+
+    ///
     this.check = ()=> {
       if(window.innerWidth >= brakepoints.lg && (!this.initialized || !this.flag)) {
         
@@ -1894,16 +1920,13 @@ class PreviewSection {
   }
 
   initDesktop() {
-    this.$image_parent = this.$parent.querySelector('.section-preview__full-screen-image');
-    this.$image = this.$image_parent.querySelector('.image');
-
     this.animation = gsap.timeline({paused:true})
-      .fromTo(this.$image, {scale:0.7, yPercent:-15}, {scale:1, yPercent:0, ease:'power2.out'})
+      .fromTo(this.$slider, {scale:0.7, yPercent:-15}, {scale:1, yPercent:0, ease:'power2.out'})
 
     this.trigger = ScrollTrigger.create({
-      trigger: this.$image_parent,
+      trigger: this.$slider_parent,
       start: "top bottom",
-      end: "bottom center",
+      end: "bottom bottom",
       onUpdate: self => {
         this.animation.progress(self.progress);
       }
@@ -1913,7 +1936,7 @@ class PreviewSection {
   destroyDesktop() {
     this.animation.kill();
     this.trigger.kill();
-    gsap.set(this.$image, {clearProps: "all"});
+    gsap.set(this.$slider, {clearProps: "all"});
   }
 
 }
@@ -1930,7 +1953,6 @@ class ModelsSlider {
     this.slider = new Swiper(this.$slider, {
       touchStartPreventDefault: false,
       longSwipesRatio: 0.1,
-      speed: 500,
       observer: true,
       observeParents: true,
       spaceBetween: 16,
