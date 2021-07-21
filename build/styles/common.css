@@ -3656,8 +3656,8 @@ img {
       left: 61%;
       top: 46%; }
     .section-3d-dots__item_11 {
-      left: 49%;
-      top: 32%; }
+      left: 59%;
+      top: 26%; }
   @media (max-width: 1599.98px) {
     .section-3d-dots__item {
       width: 40px;
@@ -4285,7 +4285,7 @@ img {
   transform: translateX(-50%); }
 
 .section-preview__slide {
-  height: 100vh; }
+  height: calc(100vh - 76px); }
 
 .section-preview__small-images-container {
   position: relative;

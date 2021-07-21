@@ -818,8 +818,8 @@
       top: 46%;
     }
     &_11 {
-      left: 49%;
-      top: 32%;
+      left: 59%;
+      top: 26%;
     }
   }
   @include media-breakpoint-down(xxl) {
@@ -1628,7 +1628,7 @@
     transform: translateX(-50%);
   }
   &__slide {
-    height: 100vh;
+    height: calc(100vh - 76px);
   }
   &__small-images-container {
     position: relative;

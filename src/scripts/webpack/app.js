@@ -697,6 +697,7 @@ const Preloader = {
   init: function() {
     this.$element = document.querySelector('.preloader');
     this.$item = document.querySelector('.preloader__item');
+    this.$counter = document.querySelector('.preloader__counter span');
 
     let frames_preload_count = 100;
     
@@ -728,9 +729,9 @@ const Preloader = {
       if(window.innerWidth >= brakepoints.lg) {
         this.check = () => {
           this.animationFrame = requestAnimationFrame(this.check);
-          //animation
-          this.$item.style.opacity = '1';
-          this.$item.setAttribute('y', `${100-(Math.min(Resources.framesLoaded/frames_preload_count, 1)*100)}%`);
+
+          this.$counter.innerHTML = `${Math.round(Math.min(Resources.framesLoaded/frames_preload_count, 1) * 100)}`;
+
           //frames loaded
           if(Resources.framesLoaded>=frames_preload_count) {
             cancelAnimationFrame(this.animationFrame);
@@ -744,13 +745,9 @@ const Preloader = {
       }
       //mobile
       else {
-        this.$item.style.transition = 'initial';
-        this.$item.setAttribute('y', '0');
-        gsap.to(this.$item, {autoAlpha:1, duration:0.5, onComplete:()=>{
-          setTimeout(() => {
-            this.finish();
-          }, 500);
-        }})
+        setTimeout(() => {
+          this.finish();
+        }, 500);
       }
     } 
     else {
@@ -1162,7 +1159,7 @@ const Modal = {
     //значение формы
     let $input = $modal.querySelector('.form__subject');
     if(modalSubject && $input) {
-      $input.setAttribute('value', modalSubject);
+      $input.value = modalSubject;
     }
   },
   close: function (callback) {
@@ -1644,6 +1641,7 @@ class MobileModelsSlider {
       touchStartPreventDefault: false,
       longSwipesRatio: 0.1,
       autoHeight: true,
+      speed: 500,
       lazy: {
         loadOnTransitionStart: true,
         loadPrevNext: true
@@ -1722,6 +1720,7 @@ class MobileLayouts {
       init: false,
       touchStartPreventDefault: false,
       longSwipesRatio: 0.1,
+      speed: 500,
       pagination: {
         el: this.$pagination,
         clickable: true,
@@ -1879,6 +1878,7 @@ class PreviewSection {
     this.slider = new Swiper(this.$slider, {
       touchStartPreventDefault: false,
       longSwipesRatio: 0.1,
+      speed: 500,
       lazy: {
         loadOnTransitionStart: true,
         loadPrevNext: true
@@ -1956,6 +1956,7 @@ class ModelsSlider {
       observer: true,
       observeParents: true,
       spaceBetween: 16,
+      speed: 500,
       lazy: {
         loadOnTransitionStart: true,
         loadPrevNext: true
@@ -2206,8 +2207,10 @@ class MobileEquipment {
     this.$triggers = this.$parent.querySelectorAll('.section-equipment__dot');
     this.$items = this.$parent.querySelectorAll('.section-equipment__description-item');
 
+    this.clickEvents = [];
+
     this.$triggers.forEach(($this, index) => {
-      $this.addEventListener('click', () => {
+      this.clickEvents[index] = ()=> {
         $this.classList.add('is-active');
         this.$items[index].classList.add('is-active');
 
@@ -2223,14 +2226,17 @@ class MobileEquipment {
         }, 3000);
 
         this.index = index;
-      })
+        console.log('click');
+      }
+
+      $this.addEventListener('click', this.clickEvents[index])
     })
 
   }
 
   destroyMobile() {
-    this.animation.kill();
-    gsap.set(this.$items, {clearProps: "all"});
-    window.removeEventListener('start', this.play);
+    this.$triggers.forEach(($this, index) => {
+      $this.removeEventListener('click', this.clickEvents[index]);
+    })
   }
 }
