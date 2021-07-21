@@ -696,7 +696,6 @@ const Scroll = {
 const Preloader = {
   init: function() {
     this.$element = document.querySelector('.preloader');
-    this.$item = document.querySelector('.preloader__item');
     this.$counter = document.querySelector('.preloader__counter span');
 
     let frames_preload_count = 100;
