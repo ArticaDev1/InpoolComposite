@@ -47,19 +47,19 @@ block content
       .section-3d-screen.section-3d-screen-layout
         .container.section-3d-screen-layout__container
           .row
-            h3.col-lg-5 Слой винилэфирной смолы усиленный стекловолокном
+            h3.col-lg-5 Слой полиэфирной смолы, усиленный стекловолокном
       
       //screen
       .section-3d-screen.section-3d-screen-layout
         .container.section-3d-screen-layout__container
           .row
-            h3.col-lg-5 Ceramic Core®
+            h3.col-lg-5 Усиление из стеклоткани
 
       //screen
       .section-3d-screen.section-3d-screen-layout
         .container.section-3d-screen-layout__container
           .row
-            h3.col-lg-5 Усиление из стеклокерамики
+            h3.col-lg-5 Ceramic Core®
 
       //screen
       .section-3d-screen.section-3d-screen-layout
@@ -353,14 +353,13 @@ block content
                 button.colors-slider__navigation-trigger о. Таити
                 button.colors-slider__navigation-trigger Мальдивы
                 button.colors-slider__navigation-trigger о. Занзибар
-                button.colors-slider__navigation-trigger о. Мадагаскар
                 button.colors-slider__navigation-trigger Сейшелы
               .colors-slider__line
                 .colors-slider__slider-element
 
         .colors-slider__container.container
           .colors-slider__wrapper
-            mixin slide(title, image1, image2, image3, classes, classes2, tema)
+            mixin slide(title, text, image1, image2, image3, classes, classes2, tema)
               //slide
               .colors-slide
                 .colors-slide__left.colors-slide__element
@@ -372,7 +371,7 @@ block content
                       .image.image_cover
                         img(data-src=image2, alt="image").lazyload.lazypreload
                       .colors-slide__title.colors-slide__back-title
-                        .h1.colors-slide__title-element.colors-slide__title-element_1=title
+                        .h1.colors-slide__title-element(class=classes)=title
                     .colors-slide__front 
                       .colors-slide__front-container
                         .image.image_cover
@@ -386,16 +385,15 @@ block content
                 .colors-slide__text.colors-slide__element
                   .colors-slide__element-inner
                     .colors-slide__element-text
-                      p Приятный глубокий голубой цвет, напоминающий живописный тропический пляж
+                      p=text
                     a(href="#modal-form" data-modal='open' data-modal-subject='Цвет '+title class=classes2).button.colors-slide__button Выбрать этот цвет
             
-            +slide('Blue Saphire', './img/colors/1_1.jpg', './img/colors/1_2.jpg', './img/colors/1_3.jpg', 'colors-slide__title-element_1', 'colors-slide__button_style-1')
-            +slide('Smokey Quartz', './img/colors/2_1.jpg', './img/colors/2_2.jpg', './img/colors/2_3.jpg', 'colors-slide__title-element_2', 'colors-slide__button_style-2')
-            +slide('Golden Pebble', './img/colors/3_1.jpg', './img/colors/3_2.jpg', './img/colors/3_3.jpg', 'colors-slide__title-element_3', 'colors-slide__button_style-3')
-            +slide('Nova Navy', './img/colors/4_1.jpg', './img/colors/4_2.jpg', './img/colors/4_3.jpg', 'colors-slide__title-element_4', 'colors-slide__button_style-4')
-            +slide('Nova Pearl', './img/colors/5_1.jpg', './img/colors/5_2.jpg', './img/colors/5_3.jpg', 'colors-slide__title-element_5', 'colors-slide__button_style-5')
-            +slide('Nova Blue', './img/colors/6_1.jpg', './img/colors/6_2.jpg', './img/colors/6_3.jpg', 'colors-slide__title-element_6', 'colors-slide__button_style-6')
-            +slide('Nova Graphite', './img/colors/7_1.jpg', './img/colors/7_2.jpg', './img/colors/7_3.jpg', 'colors-slide__title-element_7', 'colors-slide__button_style-7')
+            +slide('Blue Saphire', 'Приятный глубокий голубой цвет, напоминающий живописный тропический пляж', './img/colors/1_1.jpg', './img/colors/1_2.jpg', './img/colors/1_3.jpg', 'colors-slide__title-element_1', 'colors-slide__button_style-1')
+            +slide('Smokey Quartz', 'Современный, взятый из естественной среды цвет светло-серого камня', './img/colors/2_1.jpg', './img/colors/2_2.jpg', './img/colors/2_3.jpg', 'colors-slide__title-element_2', 'colors-slide__button_style-2')
+            +slide('Golden Pebble', 'Цвет жёлтого морского песка на мелководьях тропических островов', './img/colors/3_1.jpg', './img/colors/3_2.jpg', './img/colors/3_3.jpg', 'colors-slide__title-element_3', 'colors-slide__button_style-3')
+            +slide('Nova Navy', 'Объемный голубой цвет с неповторимым блеском мелких вкраплений', './img/colors/4_1.jpg', './img/colors/4_2.jpg', './img/colors/4_3.jpg', 'colors-slide__title-element_4', 'colors-slide__button_style-4')
+            +slide('Nova Pearl', 'Невероятно красивый, объемный цвет белого песка африканского побережья', './img/colors/5_1.jpg', './img/colors/5_2.jpg', './img/colors/5_3.jpg', 'colors-slide__title-element_5', 'colors-slide__button_style-5')
+            +slide('Nova Anthracite', 'Брутальный, завораживающий глубиной и объемом цвет тропического побережья Индийского океана', './img/colors/6_1.jpg', './img/colors/6_2.jpg', './img/colors/6_3.jpg', 'colors-slide__title-element_6', 'colors-slide__button_style-6')
 
   section.section.section-video-animation
     .section-video-animation__inner

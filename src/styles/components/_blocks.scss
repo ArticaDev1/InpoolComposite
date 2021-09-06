@@ -1045,6 +1045,7 @@
 }
 
 .colors-slider {
+  --width: 16.66%;
   &__wrapper {
     height: 580px;
     position: relative;
@@ -1060,7 +1061,7 @@
     height: 7px;
     margin-top: -7px;
     position: relative;
-    background: linear-gradient(90deg, #418EB5 5.85%, #989DA0 21.37%, #8B8668 35.67%, #2D93CA 49.97%, #C0BBB4 65.58%, #2A4C6B 78.42%, #858C8E 100%);
+    background: linear-gradient(90deg, #418EB5 5.85%, #989DA0 23.63%, #8B8668 41.74%, #2D93CA 58.89%, #C0BBB4 77.16%, #858C8E 92.55%);
     .image {
       position: absolute;
       width: 100%;
@@ -1086,7 +1087,7 @@
   }
   &__slider-element {
     position: absolute;
-    width: 14.285%;
+    width: var(--width);
     height: 100%;
     z-index: 3;
     &::before, &::after {
@@ -1107,7 +1108,7 @@
     }
   }
   &__navigation-trigger {
-    width: 14.285%;
+    width: var(--width);
     text-align: center;
     color: var(--color-text-muted);
     transition: color $trs1;
@@ -1270,9 +1271,6 @@
       background-color: #5EAEB9;
     }
     &_style-6 {
-      background-color: #176DA1;
-    }
-    &_style-7 {
       background-color: #1E7E8C;
     }
   }
@@ -1335,6 +1333,9 @@
     color: inherit;
     &_1 {
       transform: translateX(0.04em);
+    }
+    &_6 {
+      transform: translateX(-0.075em);
     }
   }
   &__front-title {
