@@ -1,5 +1,11 @@
 const Dev = false;
-
+const captchas = {
+  isCapthca1: false,
+  isCapthca2: false
+}
+// <div class="captcha">
+ //                     <div id="captcha"></div>
+   //               </div>
 import 'lazysizes';
 lazySizes.cfg.customMedia = {
   '--small': '(max-width: 575px)',
@@ -119,6 +125,73 @@ window.onload = function() {
 
   //preload
   Preloader.init();
+  //captcha
+  var captcha1 = sliderCaptcha({
+    id: 'captcha',
+    width: 280,
+    height: 150,
+    sliderL: 42,
+    sliderR: 9,
+    offset: 5,
+    // loadingText: 'Загрузка...',
+    // failedText: 'Попробуйте еще раз',
+    // barText: 'Сдвиньте, чтобы заполнить',
+    // loadingText: '',
+    // failedText: '',
+    // barText: '',
+    // repeatIcon: 'fa fa-redo',
+    setSrc: function () {
+      // return './img/desktop-models/' + Math.round(Math.random() * 6) + '.jpg'
+    },
+    onSuccess: function () {
+      captchas.isCapthca1 = true
+      let currCaptcha = document.getElementById('captcha').parentElement
+      currCaptcha.classList.add('success')
+      gsap.to(currCaptcha, {autoAlpha:0, duration:0.5, display:'none', ease:'power1.out'})
+      var handler = setTimeout(function () {
+          window.clearTimeout(handler);
+          captcha1.reset();
+      }, 500);
+    },
+    onFail: function () {
+      captchas.isCapthca1 = false
+    },
+    onRefresh: function () {
+    }
+  });
+  var captcha2 = sliderCaptcha({
+    id: 'captcha2',
+    width: 280,
+    height: 150,
+    sliderL: 42,
+    sliderR: 9,
+    offset: 5,
+    // loadingText: 'Загрузка...',
+    // failedText: 'Попробуйте еще раз',
+    // barText: 'Сдвиньте, чтобы заполнить',
+    // loadingText: '',
+    // failedText: '',
+    // barText: '',
+    // repeatIcon: 'fa fa-redo',
+    setSrc: function () {
+      // return './img/desktop-models/' + Math.round(Math.random() * 6) + '.jpg'
+    },
+    onSuccess: function () {
+      captchas.isCapthca2 = true
+      let currCaptcha = document.getElementById('captcha2').parentElement
+      currCaptcha.classList.add('success')
+      gsap.to(currCaptcha, {autoAlpha:0, duration:0.5, display:'none', ease:'power1.out'})
+      var handler = setTimeout(function () {
+          window.clearTimeout(handler);
+          captcha2.reset();
+      }, 500);
+    },
+    onFail: function () {
+      captchas.isCapthca2 = false
+    },
+    onRefresh: function () {
+    }
+  });
 }
 
 //effects
@@ -453,7 +526,10 @@ const Validation = {
           $inputs.forEach(($input) => {
             if (!this.validInput($input)) flag++;
           })
-          if (!flag) this.submitEvent($form);
+          console.log();
+          if ($form.querySelector('.captcha.success')) {
+            if (!flag) this.submitEvent($form);
+          }
           break;
         } else i++
       }

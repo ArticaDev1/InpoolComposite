@@ -19,6 +19,8 @@
     <meta property="og:image" content="https://compasspools-centr.ru/img/favicons/apple-touch-icon.png">
     <!--theme-->
     <link rel="stylesheet" href="./styles/theme.css">
+    <!--captcha-->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/5.7.2/css/all.min.css">
   </head>
   <body style="overflow:hidden;position:fixed;height:100%;width:100%;">
     <!--PRELOADER START-->
@@ -856,6 +858,11 @@
                     <textarea class="input__element" name="message" data-validate="message"></textarea>
                   </label>
                 </div>
+                <div class="form__item">
+                  <div class="captcha">
+                    <div id="captcha2"></div>
+                  </div>
+                </div>
                 <div class="form__submit">
                   <button class="button button_style-1 button_loader"> <span>Отправить</span>
                     <svg viewBox="0 0 120 30" fill="currentColor">
@@ -972,6 +979,11 @@
                       <label class="input"><span class="input__title">Комментарий</span>
                         <textarea class="input__element" name="message" data-validate="message"></textarea>
                       </label>
+                    </div>
+                    <div class="form__item">
+                      <div class="captcha">
+                        <div id="captcha"></div>
+                      </div>
                     </div>
                     <div class="form__submit">
                       <button class="button button_style-1 button_loader"> <span>Отправить</span>
@@ -1721,6 +1733,8 @@
     </div>
     <!--jquery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!--captcha-->
+    <script src="./scripts/libs/captcha.js"></script>
     <!--fonts-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
@@ -1732,20 +1746,6 @@
     <!--js-->
     <script src="./scripts/main.js"></script>
     <!-- Yandex.Metrika counter-->
-    <script type="text/javascript">
-      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-      m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-      ym(83213308, "init", {
-      clickmap:true,
-      trackLinks:true,
-      accurateTrackBounce:true,
-      webvisor:true
-      });
-    </script>
-    <noscript>
-      <div><img src="https://mc.yandex.ru/watch/83213308" style="position:absolute; left:-9999px;" alt=""></div>
-    </noscript>
     <!-- /Yandex.Metrika counter-->
   </body>
 </html>

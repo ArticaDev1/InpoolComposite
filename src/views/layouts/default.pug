@@ -21,7 +21,8 @@ html(lang='ru')
     meta(property='og:image' content='https://compasspools-centr.ru/img/favicons/apple-touch-icon.png')
     //theme
     link(rel="stylesheet" href="./styles/theme.css")
-
+    //captcha
+    link(rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/5.7.2/css/all.min.css")
   body(style='overflow:hidden;position:fixed;height:100%;width:100%;')
     include ../blocks/preloader
 
@@ -43,6 +44,9 @@ html(lang='ru')
     
     //jquery
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+    
+    //captcha
+    script(src="./scripts/libs/captcha.js")
 
     //fonts
     link(rel='preconnect' href='https://fonts.gstatic.com')
@@ -54,22 +58,23 @@ html(lang='ru')
 
     //css
     link(rel="stylesheet" href="./styles/common.css")
-    
+
     //js
     script(src="./scripts/main.js")
 
     // Yandex.Metrika counter
-    script(type='text/javascript').
-      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-      m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-      ym(83213308, "init", {
-      clickmap:true,
-      trackLinks:true,
-      accurateTrackBounce:true,
-      webvisor:true
-      });
-    noscript
-      div
-        img(src='https://mc.yandex.ru/watch/83213308' style='position:absolute; left:-9999px;' alt='')
+    //- script(type='text/javascript').
+    //-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    //-   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    //-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    //-   ym(83213308, "init", {
+    //-   clickmap:true,
+    //-   trackLinks:true,
+    //-   accurateTrackBounce:true,
+    //-   webvisor:true
+    //-   });
+    //- noscript
+    //-   div
+    //-     img(src='https://mc.yandex.ru/watch/83213308' style='position:absolute; left:-9999px;' alt='')
+    
     // /Yandex.Metrika counter

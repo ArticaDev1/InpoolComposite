@@ -35315,6 +35315,13 @@ function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflec
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 var Dev = false;
+var captchas = {
+  isCapthca1: false,
+  isCapthca2: false
+}; // <div class="captcha">
+//                     <div id="captcha"></div>
+//               </div>
+
 
 lazySizes.cfg.customMedia = {
   '--small': '(max-width: 575px)',
@@ -35459,7 +35466,80 @@ window.onload = function () {
   activeFunctions.add(ParallaxImage, '.parallax-image');
   activeFunctions.init(); //preload
 
-  Preloader.init();
+  Preloader.init(); //captcha
+
+  var captcha1 = sliderCaptcha({
+    id: 'captcha',
+    width: 280,
+    height: 150,
+    sliderL: 42,
+    sliderR: 9,
+    offset: 5,
+    // loadingText: 'Загрузка...',
+    // failedText: 'Попробуйте еще раз',
+    // barText: 'Сдвиньте, чтобы заполнить',
+    // loadingText: '',
+    // failedText: '',
+    // barText: '',
+    // repeatIcon: 'fa fa-redo',
+    setSrc: function setSrc() {// return './img/desktop-models/' + Math.round(Math.random() * 6) + '.jpg'
+    },
+    onSuccess: function onSuccess() {
+      captchas.isCapthca1 = true;
+      var currCaptcha = document.getElementById('captcha').parentElement;
+      currCaptcha.classList.add('success');
+      gsap__WEBPACK_IMPORTED_MODULE_7__["gsap"].to(currCaptcha, {
+        autoAlpha: 0,
+        duration: 0.5,
+        display: 'none',
+        ease: 'power1.out'
+      });
+      var handler = setTimeout(function () {
+        window.clearTimeout(handler);
+        captcha1.reset();
+      }, 500);
+    },
+    onFail: function onFail() {
+      captchas.isCapthca1 = false;
+    },
+    onRefresh: function onRefresh() {}
+  });
+  var captcha2 = sliderCaptcha({
+    id: 'captcha2',
+    width: 280,
+    height: 150,
+    sliderL: 42,
+    sliderR: 9,
+    offset: 5,
+    // loadingText: 'Загрузка...',
+    // failedText: 'Попробуйте еще раз',
+    // barText: 'Сдвиньте, чтобы заполнить',
+    // loadingText: '',
+    // failedText: '',
+    // barText: '',
+    // repeatIcon: 'fa fa-redo',
+    setSrc: function setSrc() {// return './img/desktop-models/' + Math.round(Math.random() * 6) + '.jpg'
+    },
+    onSuccess: function onSuccess() {
+      captchas.isCapthca2 = true;
+      var currCaptcha = document.getElementById('captcha2').parentElement;
+      currCaptcha.classList.add('success');
+      gsap__WEBPACK_IMPORTED_MODULE_7__["gsap"].to(currCaptcha, {
+        autoAlpha: 0,
+        duration: 0.5,
+        display: 'none',
+        ease: 'power1.out'
+      });
+      var handler = setTimeout(function () {
+        window.clearTimeout(handler);
+        captcha2.reset();
+      }, 500);
+    },
+    onFail: function onFail() {
+      captchas.isCapthca2 = false;
+    },
+    onRefresh: function onRefresh() {}
+  });
 }; //effects
 
 
@@ -35914,7 +35994,12 @@ var Validation = {
             $inputs.forEach(function ($input) {
               if (!_this4.validInput($input)) flag++;
             });
-            if (!flag) _this4.submitEvent($form);
+            console.log();
+
+            if ($form.querySelector('.captcha.success')) {
+              if (!flag) _this4.submitEvent($form);
+            }
+
             return "break";
           }();
 
