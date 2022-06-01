@@ -26,9 +26,9 @@ const paths = {
     watch: ['./src/styles/**/*'],
     build:  './build/styles/'
   },
-  scripts: {
-    src:   ['./src/scripts/webpack/app.js'],
-    watch: ['./src/scripts/**/*'],
+  webpack: {
+    src:   ['./src/scripts/webpack/**/*'],
+    watch: ['./src/scripts/webpack/**/*'],
     build:  './build/scripts/'
   },
   favicons: {
@@ -40,7 +40,7 @@ const paths = {
       './src/**/*',
       '!./src/views/**',
       '!./src/styles/**', 
-      '!./src/scripts/**', 
+      '!./src/scripts/webpack/**',
       '!./src/img/favicons/**',
     ],
     build: './build/'
@@ -67,8 +67,8 @@ task('styles', function() {
     .pipe(dest(paths.styles.build))
 });
 
-task('scripts', function() {
-  return src(paths.scripts.src)
+task('webpack', function() {
+  return src(paths.webpack.src)
     .pipe(webpackStream({
       mode: 'development',
       devtool: 'source-map',
@@ -111,7 +111,7 @@ task('scripts', function() {
         ]
       }
     }))
-    .pipe(dest(paths.scripts.build))
+    .pipe(dest(paths.webpack.build))
 });
 
 task('favicons', function () {
@@ -153,7 +153,7 @@ function serve(done) {
 
   watch(paths.views.watch, series('views', reload));
   watch(paths.styles.watch, series('styles', reload));
-  watch(paths.scripts.watch, series('scripts', reload));
+  watch(paths.webpack.watch, series('webpack', reload));
   watch(paths.other.src, series('other', reload));
   
   done();
@@ -167,7 +167,7 @@ function reload(done) {
 task('default', 
   series(
     clean,
-    parallel('views', 'styles', 'scripts', 'favicons', 'other'),
+    parallel('views', 'styles', 'webpack', 'favicons', 'other'),
     serve
   )
 );
