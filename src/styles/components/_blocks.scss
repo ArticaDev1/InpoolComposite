@@ -973,6 +973,11 @@
 
 .mobile-models-slider {
   --slider-height: 600px;
+  @include media-breakpoint-down(md) {
+    .image_cover img {
+      object-position: bottom;
+    }
+  }
   &__slide {
     text-align: center;
   }

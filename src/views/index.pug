@@ -428,7 +428,10 @@ block content
                     svg.icon
                       use(xlink:href='./img/icons/sprite.svg#gift')
                     span При заключении договора проект в подарок!
-                a(href=link data-modal='open').btn-link.technologies-block__button Подробнее 
+                if type==2
+                  a(href=link data-modal='open').d-none.btn-link.technologies-block__button Подробнее
+                else 
+                  a(href=link data-modal='open').btn-link.technologies-block__button Подробнее
     
         +block1(
           './img/technologies/1.jpg',
@@ -491,7 +494,7 @@ block content
     .section-animated__content.container.contact-form__content
       .row.contact-form__title
         h4.offset-1.col-10.offset-md-2.col-md-8.offset-xl-1.col-xl-10.contact-form__title-element Оставьте свои контакты и мы вам перезвоним
-      form(action="./mail.php").form.contact-form__form.row
+      form(action="./application.php").form.contact-form__form.row
         input(type="text" name='subject' value='Форма обратной связи' hidden).form__subject
         .col-md-8.col-xl-6 
           .form__item
@@ -510,7 +513,8 @@ block content
               textarea(name="message" data-validate='message').input__element
           .form__item
             .captcha
-              #captcha2
+              #captcha2.captchaId
+          input(type="checkbox" name='checkForm' hidden).form__item-checkbox
           .form__submit
             button.button.button_style-1.button_loader 
               span Отправить
@@ -535,7 +539,7 @@ block content
             .contacts-block__item
               a(href="mailto:mail@centr-bassein.ru").link.h3.contacts-block__link mail@centr-bassein.ru
             .contacts-block__item
-              a(href="tel:+79269659259").h3.contacts-block__phone +7 926 965-9259
+              a(href="tel:+74957554696").h3.contacts-block__phone +7 495 755-4696
           .offset-1.col-10.offset-md-4.col-md-8.offset-xl-1.col-xl-5.contacts-block__text
             .contacts-block__text-content
               p Россия, Московская область, Красногорский район, Ильинское сельское поселение, Новорижское шоссе, 27-й км (10 км от МКАД), Садовый центр Балтия Гарден,  Центр Бассейнов

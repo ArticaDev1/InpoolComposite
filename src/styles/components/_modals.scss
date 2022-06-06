@@ -40,6 +40,11 @@
     top: 20px;
     background-color: var(--color-modal-close-bg);
     transition: background-color $trs1;
+    &--bottom {
+      position: relative;
+      margin-left: calc(100vw - 67px);
+      margin-top: 10px;
+    }
     &:before, &:after {
       content: '';
       display: block;

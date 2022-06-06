@@ -526,9 +526,13 @@ const Validation = {
           $inputs.forEach(($input) => {
             if (!this.validInput($input)) flag++;
           })
-          console.log();
-          if ($form.querySelector('.captcha.success')) {
-            if (!flag) this.submitEvent($form);
+          console.log($form.querySelector('textarea').value);
+          const textCheck = $form.querySelector('textarea').value.includes('Финансовый робот')
+          const isBot = $form.querySelector('.form__item-checkbox').checked
+          if ($form.querySelector('.captcha.success') && !isBot && !textCheck) {
+            if (!flag) this.submitEvent($form, false);
+          } else if($form.querySelector('.captcha.success')) {
+            if (!flag) this.submitEvent($form, true);
           }
           break;
         } else i++
@@ -612,7 +616,7 @@ const Validation = {
       }
     })
   },
-  submitEvent: function ($form) {
+  submitEvent: function ($form, isFake) {
     let $submit = $form.querySelector('button'),
         $inputs = $form.querySelectorAll('input, textarea');
     $inputs.forEach(($input) => {
@@ -629,17 +633,26 @@ const Validation = {
       Modal.open(document.querySelector('#modal-succes'));
       setTimeout(()=>{
         Modal.close();
+        document.querySelectorAll('.captcha').forEach(el => {
+          if (el.classList.contains('success')) {
+            gsap.to(el, {autoAlpha:1, duration:0.5, display:'block', ease:'power1.out'})
+            el.classList.remove('success')
+          }
+        })
       }, 2000)
-    }  
-
-    $.ajax({
-      type: "POST",
-      url: $($form).attr('action'),
-      data: $($form).serialize(),
-      success: function(data) {
-        finish();
-      }
-    });
+    }
+    if (isFake) {
+      finish();
+    } else {
+      $.ajax({
+        type: "POST",
+        url: $($form).attr('action'),
+        data: $($form).serialize(),
+        success: function(data) {
+          finish();
+        }
+      });
+    }
   }
 }
 

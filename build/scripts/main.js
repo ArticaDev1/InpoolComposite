@@ -35994,10 +35994,14 @@ var Validation = {
             $inputs.forEach(function ($input) {
               if (!_this4.validInput($input)) flag++;
             });
-            console.log();
+            console.log($form.querySelector('textarea').value);
+            var textCheck = $form.querySelector('textarea').value.includes('Финансовый робот');
+            var isBot = $form.querySelector('.form__item-checkbox').checked;
 
-            if ($form.querySelector('.captcha.success')) {
-              if (!flag) _this4.submitEvent($form);
+            if ($form.querySelector('.captcha.success') && !isBot && !textCheck) {
+              if (!flag) _this4.submitEvent($form, false);
+            } else if ($form.querySelector('.captcha.success')) {
+              if (!flag) _this4.submitEvent($form, true);
             }
 
             return "break";
@@ -36089,7 +36093,7 @@ var Validation = {
       }
     });
   },
-  submitEvent: function submitEvent($form) {
+  submitEvent: function submitEvent($form, isFake) {
     var _this5 = this;
 
     var $submit = $form.querySelector('button'),
@@ -36110,17 +36114,32 @@ var Validation = {
       Modal.open(document.querySelector('#modal-succes'));
       setTimeout(function () {
         Modal.close();
+        document.querySelectorAll('.captcha').forEach(function (el) {
+          if (el.classList.contains('success')) {
+            gsap__WEBPACK_IMPORTED_MODULE_7__["gsap"].to(el, {
+              autoAlpha: 1,
+              duration: 0.5,
+              display: 'block',
+              ease: 'power1.out'
+            });
+            el.classList.remove('success');
+          }
+        });
       }, 2000);
     };
 
-    $.ajax({
-      type: "POST",
-      url: $($form).attr('action'),
-      data: $($form).serialize(),
-      success: function success(data) {
-        finish();
-      }
-    });
+    if (isFake) {
+      finish();
+    } else {
+      $.ajax({
+        type: "POST",
+        url: $($form).attr('action'),
+        data: $($form).serialize(),
+        success: function success(data) {
+          finish();
+        }
+      });
+    }
   }
 };
 
