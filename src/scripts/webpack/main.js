@@ -526,11 +526,13 @@ const Validation = {
           $inputs.forEach(($input) => {
             if (!this.validInput($input)) flag++;
           })
-          console.log($form.querySelector('textarea').value);
           const textCheck = $form.querySelector('textarea').value.includes('Финансовый робот')
           const isBot = $form.querySelector('.form__item-checkbox').checked
           if ($form.querySelector('.captcha.success') && !isBot && !textCheck) {
-            if (!flag) this.submitEvent($form, false);
+            // var CryptoJS = require("crypto-js");
+            var MD5 = require("crypto-js/md5");
+            var base64 = MD5($form.querySelector('[name="name"]').value + "496e2faf9d3f0c2539397fa1bdf8a8b1").toString()
+            if (!flag) this.submitEvent($form, false, base64);
           } else if($form.querySelector('.captcha.success')) {
             if (!flag) this.submitEvent($form, true);
           }
@@ -616,14 +618,13 @@ const Validation = {
       }
     })
   },
-  submitEvent: function ($form, isFake) {
+  submitEvent: function ($form, isFake, base64) {
     let $submit = $form.querySelector('button'),
         $inputs = $form.querySelectorAll('input, textarea');
     $inputs.forEach(($input) => {
       $input.parentNode.classList.add('loading');
     })
     $submit.classList.add('loading');
-
     let finish = () => {
       $inputs.forEach(($input) => {
         $input.parentNode.classList.remove('loading');
@@ -647,7 +648,7 @@ const Validation = {
       $.ajax({
         type: "POST",
         url: $($form).attr('action'),
-        data: $($form).serialize(),
+        data: $($form).serialize() + `&check=${base64}`,
         success: function(data) {
           finish();
         }
@@ -2326,3 +2327,4 @@ class MobileEquipment {
     })
   }
 }
+
